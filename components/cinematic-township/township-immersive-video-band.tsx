@@ -177,28 +177,29 @@ export function TownshipImmersiveVideoBand({
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-[#030807]/94 via-[#061511]/44 to-transparent sm:to-[#071e18]/65"
+        className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-[#030807]/94 via-[#061511]/44 to-transparent max-sm:from-[#030807]/55 max-sm:via-[#061511]/22 sm:to-[#071e18]/65"
       />
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[52%] bg-gradient-to-t from-black/88 via-black/38 to-transparent sm:h-[56%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[40%] bg-gradient-to-t from-black/55 via-black/18 to-transparent max-sm:h-[32%] sm:h-[56%] sm:from-black/88 sm:via-black/38"
       />
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-[3] w-[min(100%,520px)] bg-gradient-to-r from-black/72 via-black/28 to-transparent sm:w-[min(100%,620px)]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-[3] w-[58%] bg-gradient-to-r from-black/38 via-black/12 to-transparent max-sm:w-[45%] sm:w-[min(100%,620px)] sm:from-black/72 sm:via-black/28"
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[6] flex justify-end px-[clamp(1rem,4vw,2.75rem)] pt-[clamp(1rem,4vw,2rem)]">
-        <div className="pointer-events-auto flex flex-wrap items-center justify-end gap-2 rounded-full bg-black/38 px-2 py-2 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.55)] ring-1 ring-white/[0.12] backdrop-blur-xl">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[6] flex justify-end px-[clamp(1rem,4vw,2.75rem)] pt-[clamp(0.75rem,3vw,2rem)] sm:pt-[clamp(1rem,4vw,2rem)]">
+        <div className="pointer-events-auto flex flex-wrap items-center justify-end gap-1.5 rounded-full bg-black/32 px-1.5 py-1.5 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.55)] ring-1 ring-white/[0.12] backdrop-blur-xl sm:gap-2 sm:bg-black/38 sm:px-2 sm:py-2">
           {!reducedMotion && !failed ? (
             <SecondaryButton
               aria-pressed={!muted}
               type="button"
               className={cn(
-                "min-h-touch rounded-full border-white/28 bg-black/52 px-5 py-3 text-[0.58rem]",
+                "min-h-touch rounded-full border-white/28 bg-black/44 px-3 py-2.5 text-[0.55rem]",
                 "text-[#f4efe6] backdrop-blur-md hover:border-accent-champagne/55 hover:bg-black/72 hover:text-accent-champagne",
+                "sm:px-5 sm:py-3 sm:text-[0.58rem]",
               )}
               onClick={handleMuteToggle}
             >
@@ -219,8 +220,9 @@ export function TownshipImmersiveVideoBand({
           <SecondaryButton
             type="button"
             className={cn(
-              "min-h-touch rounded-full border-accent-gold/58 bg-black/54 px-5 py-3 text-[0.58rem]",
+              "min-h-touch rounded-full border-accent-gold/58 bg-black/46 px-3 py-2.5 text-[0.55rem]",
               "text-accent-champagne backdrop-blur-md hover:bg-black/78 hover:border-accent-champagne/78",
+              "sm:px-5 sm:py-3 sm:text-[0.58rem]",
             )}
             onClick={onRequestFullExperience}
           >
@@ -232,24 +234,24 @@ export function TownshipImmersiveVideoBand({
         </div>
       </div>
 
-      <div className="pointer-events-none relative z-[5] mx-auto flex min-h-[min(88svh,920px)] w-full max-w-[1240px] flex-col justify-end px-[clamp(1rem,4vw,2.75rem)] pb-[clamp(2rem,7vw,4.25rem)] pt-[clamp(5.25rem,18vw,11rem)]">
+      <div className="pointer-events-none relative z-[5] mx-auto flex min-h-[min(88svh,920px)] w-full max-w-[1240px] flex-col justify-end px-[clamp(1rem,4vw,2.75rem)] pb-[clamp(1.35rem,5vw,4.25rem)] pt-[clamp(3.75rem,12vw,11rem)] max-sm:pb-20 sm:pb-[clamp(2rem,7vw,4.25rem)] sm:pt-[clamp(5.25rem,18vw,11rem)]">
         <div
           className={cn(
-            "pointer-events-auto max-w-[min(38rem,calc(100vw-2rem))] space-y-[clamp(1.25rem,3.5vw,1.75rem)] rounded-[clamp(18px,_3.6vw,_28px)]",
-            "border border-white/[0.14] bg-black/54 px-[clamp(1.15rem,_4.2vw,_1.85rem)] py-[clamp(1.35rem,_4vw,_2rem)]",
+            "pointer-events-auto max-w-[min(38rem,calc(100vw-2rem))] space-y-3 sm:space-y-[clamp(1.25rem,3.5vw,1.75rem)]",
+            "rounded-[clamp(16px,_3.2vw,_28px)] border border-white/[0.14] bg-black/40 px-[clamp(1rem,_3.8vw,_1.85rem)] py-[clamp(1rem,_3.4vw,_2rem)]",
             "shadow-[0_28px_90px_-28px_rgba(0,0,0,0.72)] ring-1 ring-inset ring-white/[0.06]",
-            "backdrop-blur-xl backdrop-saturate-[1.15] supports-[backdrop-filter]:bg-black/42",
+            "backdrop-blur-lg backdrop-saturate-[1.12] supports-[backdrop-filter]:bg-black/32 sm:rounded-[clamp(18px,_3.6vw,_28px)] sm:bg-black/54 sm:px-[clamp(1.15rem,_4.2vw,_1.85rem)] sm:py-[clamp(1.35rem,_4vw,_2rem)] sm:backdrop-blur-xl sm:supports-[backdrop-filter]:bg-black/42",
           )}
         >
-          <p className="font-sans uppercase leading-snug tracking-[0.32em] text-accent-champagne [font-size:clamp(0.575rem,2.5vw,0.6525rem)] sm:tracking-[0.38em]">
+          <p className="font-sans uppercase leading-snug tracking-[0.28em] text-accent-champagne [font-size:clamp(0.52rem,2.2vw,0.6525rem)] sm:tracking-[0.38em]">
             {eyebrow}
           </p>
 
           <h2
             id="cinematic-township-heading"
             className={cn(
-              "font-display font-light tracking-[-0.026em] text-balance leading-[1.06] text-[#f7f3eb]",
-              "[font-size:clamp(1.95rem,min(8vw,4.35rem),4.35rem)]",
+              "font-display font-light tracking-[-0.026em] text-balance leading-[1.08] text-[#f7f3eb]",
+              "[font-size:clamp(1.55rem,min(6.8vw,4.35rem),4.35rem)] sm:leading-[1.06]",
               "[text-shadow:0_1px_0_rgba(4,14,11,0.35),0_12px_42px_rgba(2,10,8,0.45)]",
             )}
           >
@@ -266,12 +268,12 @@ export function TownshipImmersiveVideoBand({
             </p>
           )}
 
-          <div className="border-t border-white/[0.12] pt-[clamp(1rem,3vw,1.35rem)]">
-            <p className="font-sans text-[0.5975rem] uppercase leading-snug tracking-[0.3em] text-[#d8d4cb]/92">
+          <div className="border-t border-white/[0.1] pt-2.5 sm:border-white/[0.12] sm:pt-[clamp(1rem,3vw,1.35rem)]">
+            <p className="font-sans text-[0.5625rem] uppercase leading-snug tracking-[0.26em] text-[#d8d4cb]/88 sm:text-[0.5975rem] sm:tracking-[0.3em]">
               {posterCaption}
             </p>
-            <p className="mt-2 font-sans text-[0.5775rem] uppercase leading-relaxed tracking-[0.14em] text-[#c5c1b6]/85 sm:tracking-[0.18em]">
-              <span className="sm:hidden">Muted loop · tap sound or expand for audio.</span>
+            <p className="mt-1.5 font-sans text-[0.54rem] uppercase leading-relaxed tracking-[0.12em] text-[#c5c1b6]/78 sm:mt-2 sm:text-[0.5775rem] sm:tracking-[0.14em] md:tracking-[0.18em]">
+              <span className="sm:hidden">Sound / expand for full playback.</span>
               <span className="hidden sm:inline">
                 Muted ambient loop — enable sound above or expand for full playback + controls.
               </span>

@@ -43,9 +43,13 @@ export function enquiryTelHref(): string | null {
   const rawVoice = process.env.NEXT_PUBLIC_VOICE_PHONE;
 
   if (typeof rawVoice === "string" && rawVoice.trim().length > 0) {
-    const digits = digitsOnly(rawVoice);
-
-    return digits.length > 0 ? `tel:+${digits}` : null;
+    let digits = digitsOnly(rawVoice);
+    if (digits.length === 0) return null;
+    /** Same as WhatsApp: bare 10-digit Indian mobile → E.164 91… (else `tel:+732…` is parsed as Russia +7). */
+    if (digits.length === 10 && /^[6-9]\d{9}$/.test(digits)) {
+      digits = `91${digits}`;
+    }
+    return `tel:+${digits}`;
   }
 
   const wa = whatsappPhoneDigits();

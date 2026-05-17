@@ -11,6 +11,7 @@ import {
   whatsappScheduleVisitUrl,
 } from "@/constants/contact";
 import { SITE } from "@/constants/site";
+import { useChromeScrollReveal } from "@/hooks/use-chrome-scroll-reveal";
 import { cn } from "@/lib/cn";
 
 const CELL = cn(
@@ -36,6 +37,7 @@ function heroDominatesViewport(hero: HTMLElement): boolean {
 
 export function MobileStickyConversionBar() {
   const { open: openConcierge, openForWhatsAppHandoff } = useConciergeModal();
+  const { chromeVisible } = useChromeScrollReveal();
   const whatsappHref = enquiryWhatsAppUrl();
 
   const callHref = enquiryTelHref();
@@ -126,14 +128,16 @@ export function MobileStickyConversionBar() {
     };
   }, []);
 
+  const railHidden = suppressed || !chromeVisible;
+
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[55] pb-[env(safe-area-inset-bottom,0px)] md:hidden">
       <nav
         aria-label="Concierge"
         className={cn(
           "pointer-events-auto mx-auto max-w-[min(1180px,calc(100vw-2rem))] px-4 pb-3 pt-0 motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)]",
-          "transition-[opacity,transform] duration-[300ms]",
-          suppressed
+          "motion-safe:transition-[opacity,transform] motion-safe:duration-300",
+          railHidden
             ? "pointer-events-none translate-y-3 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-0"
             : "translate-y-0 opacity-100",
         )}

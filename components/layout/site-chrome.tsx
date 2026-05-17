@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { useChromeScrollReveal } from "@/hooks/use-chrome-scroll-reveal";
 import { cn } from "@/lib/cn";
 
 type Props = {
@@ -18,14 +19,26 @@ type Props = {
  * Raster logos stay in footer disclosure where compliance layouts expect them.
  */
 export function SiteChrome({ label, subtitle, href = "/", className }: Props) {
+  const { chromeVisible } = useChromeScrollReveal();
+
   return (
     <header
       className={cn(
         "pointer-events-none fixed inset-x-0 top-0 z-[45] flex justify-center px-4 pb-4 pt-5 sm:px-10 sm:pt-6",
+        "motion-safe:transition-[transform,opacity] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)]",
+        "motion-reduce:transition-none",
+        chromeVisible
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-[calc(100%+0.75rem)] opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100",
         className,
       )}
     >
-      <div className="pointer-events-auto w-full max-w-[min(32rem,calc(100vw-2rem))]">
+      <div
+        className={cn(
+          "w-full max-w-[min(32rem,calc(100vw-2rem))]",
+          chromeVisible ? "pointer-events-auto" : "pointer-events-none",
+        )}
+      >
         <Link
           href={href}
           className={cn(
