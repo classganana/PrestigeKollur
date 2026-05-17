@@ -1,0 +1,12 @@
+# On EC2: place this file in ~/prestige-kollur. The GitHub deploy job writes .env there
+# (DOCKERHUB_USER, ENQUIRY_SCRIPT_URL, HOST_PORT) before `docker compose pull`.
+# Host port (left) must be free on the instance; inside the container the app stays on 3000.
+
+services:
+  web:
+    image: ${DOCKERHUB_USER}/prestigekollur:latest
+    ports:
+      - "${HOST_PORT:-3001}:3000"
+    restart: unless-stopped
+    environment:
+      ENQUIRY_SCRIPT_URL: ${ENQUIRY_SCRIPT_URL:-}

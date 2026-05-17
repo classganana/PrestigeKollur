@@ -1,6 +1,6 @@
 /** Lead source saved with concierge / Sheet intake rows — keep stable for analytics. */
 
-export const LEAD_SOURCE_TAG = "prestige-golden-grove-channel-web";
+export const LEAD_SOURCE_TAG = "prestige-kollur-web";
 
 export const SITE = {
   /** Primary lockup — Prestige Kollur · Velimela / Tellapur–Kollur corridor. */

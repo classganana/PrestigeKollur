@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /** Copies a minimal `.next/standalone/` tree plus `server.js` for long-running `/ node` hosts (EC2). */
+  output: "standalone",
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [384, 640, 828, 1080, 1200],
