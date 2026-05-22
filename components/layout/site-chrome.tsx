@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useChromeScrollReveal } from "@/hooks/use-chrome-scroll-reveal";
 import { cn } from "@/lib/cn";
+import { themeClasses } from "@/lib/theme/theme-classes";
 
 type Props = {
   label: string;
@@ -46,20 +47,17 @@ export function SiteChrome({ label, subtitle, href = "/", className }: Props) {
             "group relative isolate flex flex-col items-center gap-2 overflow-hidden rounded-[22px]",
             "no-underline decoration-transparent",
             "border-0",
-            "bg-[hsla(150,26%,8%,0.92)]",
-            "shadow-[0_0_0_1px_rgba(201,174,120,0.26),0_28px_64px_-28px_rgba(0,0,0,0.75)]",
+            themeClasses.chromeShell,
             "px-8 py-[0.7rem] sm:px-10 sm:py-3",
-            "transition-[background-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            "hover:shadow-[0_0_0_1px_rgba(217,184,138,0.42),0_36px_70px_-30px_rgba(0,0,0,0.78)] hover:bg-[hsla(150,26%,10%,0.94)]",
             "motion-reduce:transition-none",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-champagne/[0.55] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050a09]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-champagne/[0.55] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--chrome-ring-offset)]",
           )}
           aria-label={`${label} — home`}
         >
           <span
             className={cn(
-              "relative z-[1] text-center font-display text-[clamp(0.8125rem,2.75vw,0.9625rem)] font-medium uppercase leading-snug tracking-[0.22em] text-[#faf8f5] sm:tracking-[0.26em]",
-              "transition-[color] duration-500 group-hover:text-[#fefdfb]",
+              "relative z-[1] text-center font-display text-[clamp(0.8125rem,2.75vw,0.9625rem)] font-medium uppercase leading-snug tracking-[0.22em] sm:tracking-[0.26em]",
+              themeClasses.chromeTextPrimary,
             )}
           >
             {label}
@@ -68,7 +66,8 @@ export function SiteChrome({ label, subtitle, href = "/", className }: Props) {
             <span
               className={cn(
                 "relative z-[1] text-center font-sans text-[clamp(0.625rem,2.2vw,0.725rem)] font-semibold uppercase leading-snug tracking-[0.3em]",
-                "text-[#ebe0c8] sm:tracking-[0.34em]",
+                themeClasses.chromeTextSecondary,
+                "sm:tracking-[0.34em]",
               )}
             >
               {subtitle}

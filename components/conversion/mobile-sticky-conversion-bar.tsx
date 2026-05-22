@@ -10,7 +10,8 @@ import {
   enquiryWhatsAppUrl,
   whatsappScheduleVisitUrl,
 } from "@/constants/contact";
-import { SITE } from "@/constants/site";
+import { useConversionTracking } from "@/lib/analytics/use-conversion-tracking";
+import { useSite } from "@/lib/project/project-context";
 import { useChromeScrollReveal } from "@/hooks/use-chrome-scroll-reveal";
 import { cn } from "@/lib/cn";
 
@@ -36,13 +37,15 @@ function heroDominatesViewport(hero: HTMLElement): boolean {
 /** Slim concierge rail (< md): hidden atop hero prelude + final CTA, soft reveal otherwise. */
 
 export function MobileStickyConversionBar() {
+  const site = useSite();
   const { open: openConcierge, openForWhatsAppHandoff } = useConciergeModal();
+  const { trackWhatsAppClick, trackCallClick } = useConversionTracking();
   const { chromeVisible } = useChromeScrollReveal();
   const whatsappHref = enquiryWhatsAppUrl();
 
   const callHref = enquiryTelHref();
 
-  const whatsTarget = whatsappScheduleVisitUrl() ?? whatsappHref ?? SITE.contactHref;
+  const whatsTarget = whatsappScheduleVisitUrl() ?? whatsappHref ?? site.contactHref;
 
   const whatsExternal =
     whatsTarget.startsWith("http") ||
@@ -180,7 +183,7 @@ export function MobileStickyConversionBar() {
           ) : whatsAppHandoffFromRail === true ? (
             <button
               type="button"
-              onClick={() => openForWhatsAppHandoff()}
+              onClick={() => openForWhatsAppHandoff("mobile_rail_wa")}
               className={CELL}
               aria-label="WhatsApp concierge"
             >
@@ -193,6 +196,7 @@ export function MobileStickyConversionBar() {
               aria-label="WhatsApp"
               href={whatsTarget}
               className={CELL}
+              onClick={() => trackWhatsAppClick("mobile_rail_wa_direct")}
               {...(whatsExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             >
               <WhatsAppGlyph className="size-[1rem] shrink-0 text-accent-olive/[0.9]" />
@@ -202,7 +206,12 @@ export function MobileStickyConversionBar() {
           )}
 
           {callHref != null ? (
-            <a aria-label="Call concierge" href={callHref} className={CELL}>
+            <a
+              aria-label="Call concierge"
+              href={callHref}
+              className={CELL}
+              onClick={() => trackCallClick("mobile_rail_call")}
+            >
               <Phone
                 aria-hidden
                 className="size-[1rem] shrink-0 text-accent-bronze/[0.8]"

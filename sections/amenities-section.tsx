@@ -23,16 +23,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { AMENITIES_RIBBON, OFFICIAL_SITE_MEDIA_ATTRIBUTION } from "@/constants/brochure-media";
-import {
-  AMENITIES_DETAIL_CATEGORIES,
-  AMENITIES_ICON_ATLAS,
-  AMENITIES_MOSAIC_FRAMES,
-  AMENITIES_PEER_COMPARISON,
-  AMENITIES_STATS_BAND,
-  type AmenityIconKey,
-} from "@/constants/golden-grove-project";
 import { Container, RevealAnimation } from "@/components/ui";
+import type { AmenitiesContent, AmenityIconKey } from "@/lib/content/types";
 import { cn } from "@/lib/cn";
 
 const AMENITY_ICON_MAP: Record<AmenityIconKey, LucideIcon> = {
@@ -57,7 +49,18 @@ const AMENITY_ICON_MAP: Record<AmenityIconKey, LucideIcon> = {
   users: Users,
 };
 
-export function AmenitiesSection() {
+export function AmenitiesSection({ content }: { content: AmenitiesContent }) {
+  const {
+    mediaAttribution,
+    ribbon,
+    heroBand,
+    iconAtlas,
+    statsBand,
+    detailCategories,
+    peerComparison,
+    mosaicFrames,
+    footerNote,
+  } = content;
   return (
     <section
       id="amenities"
@@ -92,7 +95,7 @@ export function AmenitiesSection() {
             <div className="relative z-[1] mx-auto flex max-w-[1060px] flex-col gap-[clamp(1.75rem,5vw,2.75rem)]">
               <header className="mx-auto max-w-3xl text-center">
                 <p className="font-sans text-micro uppercase tracking-[0.42em] text-accent-champagne/[0.92]">
-                  Society amenities
+                  {heroBand.eyebrow}
                 </p>
 
                 <div
@@ -104,15 +107,13 @@ export function AmenitiesSection() {
                   id="amenities-heading"
                   className="mt-7 font-display text-[clamp(1.85rem,min(5vw,2.85rem),2.85rem)] leading-[1.15] tracking-[-0.018em] text-[#faf6ee]"
                 >
-                  Resort-at-home amenity atlas — icon-led like the Prestige Golden Grove deck
+                  {heroBand.title}
                 </h2>
 
                 <p className="mx-auto mt-5 max-w-[52ch] font-sans text-[0.9275rem] leading-[1.78] tracking-[0.012em] text-fog-soft/[0.82]">
-                  Scan the staples buyers search first — pools, gym, theatre, courts, kids&apos; belts,
-                  security loops — then drill into narrative chapters below. Collateral cites 250+
-                  lifestyle touchpoints across ~28.7 acres.
+                  {heroBand.lead}
                   <span className="mt-3 block text-[0.8125rem] leading-relaxed text-fog-soft/62">
-                    {OFFICIAL_SITE_MEDIA_ATTRIBUTION}
+                    {mediaAttribution}
                   </span>
                 </p>
               </header>
@@ -123,7 +124,7 @@ export function AmenitiesSection() {
                   "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
                 )}
               >
-                {AMENITIES_ICON_ATLAS.map(({ title, icon }) => {
+                {iconAtlas.map(({ title, icon }) => {
                   const Icon = AMENITY_ICON_MAP[icon];
 
                   return (
@@ -163,7 +164,7 @@ export function AmenitiesSection() {
         </RevealAnimation>
 
         <RevealAnimation className="mb-gallery-gap grid gap-ribbon sm:grid-cols-2 lg:grid-cols-4">
-          {AMENITIES_STATS_BAND.map((stat) => (
+          {statsBand.map((stat) => (
             <article
               key={stat.label}
               className="rounded-[22px] border border-accent-bronze/16 bg-gradient-to-br from-prestige-mist/55 via-fog-soft/92 to-ivory p-loft shadow-soft"
@@ -186,7 +187,7 @@ export function AmenitiesSection() {
         <RevealAnimation className="mb-gallery-gap">
           <figure className="relative aspect-[21/11] overflow-hidden rounded-[28px] border border-accent-bronze/22 shadow-soft sm:aspect-[21/9] lg:aspect-[21/8]">
             <Image
-              alt={AMENITIES_RIBBON.alt}
+              alt={ribbon.alt}
               fill
               className="object-cover"
               decoding="async"
@@ -194,22 +195,22 @@ export function AmenitiesSection() {
               priority={false}
               quality={82}
               sizes="100vw"
-              src={AMENITIES_RIBBON.src}
+              src={ribbon.src}
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-strong/74 via-transparent to-transparent" />
             <figcaption className="absolute inset-x-loft inset-y-auto bottom-loft flex flex-col gap-2">
               <span className="font-sans text-micro uppercase tracking-[0.42em] text-accent-champagne">
-                {AMENITIES_RIBBON.ribbonCaption}
+                {ribbon.ribbonCaption}
               </span>
               <span className="max-w-xl font-display text-fluid-display text-fog-soft">
-                Aquatics-led spine &amp; grove lighting — campaign masters mirrored locally.
+                {ribbon.figureCaption}
               </span>
             </figcaption>
           </figure>
         </RevealAnimation>
 
         <RevealAnimation className="mb-gallery-gap grid gap-ribbon sm:grid-cols-3">
-          {AMENITIES_MOSAIC_FRAMES.map((frame) => (
+          {mosaicFrames.map((frame) => (
             <figure
               key={frame.src}
               className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-accent-bronze/15 shadow-soft sm:aspect-[3/4]"
@@ -235,7 +236,7 @@ export function AmenitiesSection() {
         </RevealAnimation>
 
         <div className="grid gap-gallery-gap lg:grid-cols-2">
-          {AMENITIES_DETAIL_CATEGORIES.map((category) => (
+          {detailCategories.map((category) => (
             <RevealAnimation key={category.title}>
               <article
                 className={cn(
@@ -272,11 +273,10 @@ export function AmenitiesSection() {
         <RevealAnimation className="mt-gallery-gap overflow-hidden rounded-[26px] border border-prestige-navy/12 bg-prestige-mist/35 shadow-soft">
           <div className="border-b border-prestige-navy/10 px-loft py-5 sm:px-orbit">
             <p className="font-display text-[clamp(1.05rem,2.4vw,1.28rem)] text-prestige-navy">
-              Collateral contrast — directional only
+              {peerComparison.heading}
             </p>
             <p className="mt-2 max-w-3xl font-sans text-[0.8625rem] leading-relaxed text-muted">
-              Prestige-published comparisons benchmark clubhouse scale, open-space ratios, and aquatics depth.
-              Validate independently before relying on positioning statements.
+              {peerComparison.lead}
             </p>
           </div>
           <div className="overflow-x-auto">
@@ -287,15 +287,15 @@ export function AmenitiesSection() {
                     Feature
                   </th>
                   <th scope="col" className="px-loft py-3 font-semibold uppercase tracking-[0.18em] text-prestige-navy sm:px-orbit">
-                    Prestige Golden Grove narrative
+                    {peerComparison.projectColumnLabel}
                   </th>
                   <th scope="col" className="px-loft py-3 font-semibold uppercase tracking-[0.18em] text-muted sm:px-orbit">
-                    Typical peer framing
+                    {peerComparison.peersColumnLabel}
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {AMENITIES_PEER_COMPARISON.map((row, index) => (
+                {peerComparison.rows.map((row, index) => (
                   <tr
                     key={row.feature}
                     className={cn(
@@ -309,7 +309,7 @@ export function AmenitiesSection() {
                     >
                       {row.feature}
                     </th>
-                    <td className="px-loft py-3.5 text-foreground/[0.82] sm:px-orbit">{row.goldenGrove}</td>
+                    <td className="px-loft py-3.5 text-foreground/[0.82] sm:px-orbit">{row.project}</td>
                     <td className="px-loft py-3.5 text-muted sm:px-orbit">{row.peers}</td>
                   </tr>
                 ))}
@@ -319,7 +319,7 @@ export function AmenitiesSection() {
         </RevealAnimation>
 
         <p className="mt-10 font-sans text-[0.72rem] leading-relaxed tracking-[0.06em] text-muted">
-          Detailed specs, sequencing, and amenity commissioning dates belong to Prestige handovers — book a desk review or site calendar before relying on amenities lists for decisions.
+          {footerNote}
         </p>
       </Container>
     </section>

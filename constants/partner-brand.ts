@@ -2,7 +2,7 @@
  * Authorized Sales Partner — disclosure lines only; role headline lives on `SITE.partnerChannelLabel`.
  */
 
-import { SITE } from "@/constants/site";
+import { resolveProject } from "@/lib/project/resolve-project";
 
 export const PARTNER_BRAND_COPY = {
   disclosure:
@@ -20,7 +20,7 @@ export const DEFAULT_PARTNER_PROJECT_LOGO_SRC = "/partners/prestige-golden-grove
 export const DEFAULT_PARTNER_CORP_MARK_SRC = "/partners/prestige-group-mark.webp";
 
 export function partnerRoleLine(): string {
-  return SITE.partnerChannelLabel;
+  return resolveProject().site.partnerChannelLabel;
 }
 
 /**

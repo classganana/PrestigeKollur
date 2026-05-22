@@ -9,28 +9,32 @@ import { OpenConciergeButton } from "@/components/conversion/open-concierge-butt
 import { OpenConciergeSecondaryButton } from "@/components/conversion/open-concierge-secondary";
 import { PrimaryButton } from "@/components/ui/primary-button";
 import { Container } from "@/components/ui/container";
-import { CONNECTIVITY_MAP_FRAME } from "@/constants/brochure-media";
-import {
-  CONNECTIVITY_ATLAS_NOTE,
-  CONNECTIVITY_CTA_SUPPORT,
-  CONNECTIVITY_ESSENTIAL_METRICS,
-  CONNECTIVITY_HEADLINE_LINES,
-  CONNECTIVITY_IMAGE_CAPTION,
-  CONNECTIVITY_LEAD,
-  CONNECTIVITY_METRICS_DISCLAIMER,
-  CONNECTIVITY_PRIMARY_METRICS,
-  CONNECTIVITY_SECTION_EYEBROW,
-} from "@/constants/connectivity";
 import { connectivityWhatsAppUrl } from "@/constants/contact";
-import { SITE } from "@/constants/site";
+import type { ConnectivityContent } from "@/lib/content/types";
+import { useSite } from "@/lib/project/project-context";
+import { themeClasses } from "@/lib/theme/theme-classes";
 import { cn } from "@/lib/cn";
 
 const whatsLocationChampagne = cn(
-  "w-full border-accent-gold/40 bg-gradient-to-b from-[#ebe3cf] via-[#dfcfaa] to-[#cdbd8e] text-forest-strong shadow-soft",
-  "hover:border-accent-gold/54 hover:from-[#f2ebd8] hover:via-[#e5d7b8] hover:to-[#dac89c] sm:w-auto sm:min-w-[min(100%,272px)]",
+  "w-full sm:w-auto sm:min-w-[min(100%,272px)]",
+  themeClasses.ctaChampagne,
+  "hover:-translate-y-px motion-reduce:hover:translate-y-0",
 );
 
-export function ConnectivitySection() {
+export function ConnectivitySection({ content }: { content: ConnectivityContent }) {
+  const site = useSite();
+  const {
+    eyebrow,
+    headlineLines,
+    lead,
+    metricsDisclaimer,
+    primaryMetrics,
+    essentialMetrics,
+    mapFrame,
+    imageCaption,
+    atlasNote,
+    ctaSupport,
+  } = content;
   const reduceMotion = useReducedMotion();
   const locationWaHref = connectivityWhatsAppUrl();
 
@@ -56,7 +60,7 @@ export function ConnectivitySection() {
                 "text-[clamp(0.575rem,2.7vw,0.6625rem)] sm:text-micro sm:tracking-[0.38em]",
               )}
             >
-              {CONNECTIVITY_SECTION_EYEBROW}
+              {eyebrow}
             </motion.p>
 
             <motion.div
@@ -70,14 +74,14 @@ export function ConnectivitySection() {
                   "text-[clamp(2.06rem,min(11vw,3.62rem),3.94rem)] leading-[1.04] sm:leading-[1.02]",
                 )}
               >
-                {CONNECTIVITY_HEADLINE_LINES.map((line) => (
+                {headlineLines.map((line) => (
                   <span className="block" key={line}>
                     {line}
                   </span>
                 ))}
               </h2>
               <p className="max-w-[46ch] hyphens-none break-words font-sans text-[1.02rem] leading-[1.78] tracking-[0.01em] text-muted sm:text-[1.065rem] sm:leading-[1.74]">
-                {CONNECTIVITY_LEAD}
+                {lead}
               </p>
             </motion.div>
 
@@ -96,7 +100,7 @@ export function ConnectivitySection() {
                   variants={reduceMotion ? undefined : staggerContainer}
                   className="divide-y divide-accent-bronze/[0.12]"
                 >
-                  {CONNECTIVITY_PRIMARY_METRICS.map((metric) => (
+                  {primaryMetrics.map((metric) => (
                     <motion.li
                       key={metric.headline}
                       variants={reduceMotion ? undefined : staggerChild}
@@ -138,7 +142,7 @@ export function ConnectivitySection() {
                     Nearby essentials
                   </p>
                   <ul className="space-y-[0.72rem]" role="list">
-                    {CONNECTIVITY_ESSENTIAL_METRICS.map((row) => (
+                    {essentialMetrics.map((row) => (
                       <li
                         key={row.cluster}
                         className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
@@ -167,7 +171,7 @@ export function ConnectivitySection() {
               </div>
 
               <p className="max-w-[48ch] font-sans text-[0.5975rem] uppercase leading-snug tracking-[0.32em] text-muted/92 sm:text-[0.61rem] sm:tracking-[0.34em]">
-                {CONNECTIVITY_METRICS_DISCLAIMER}
+                {metricsDisclaimer}
               </p>
             </motion.div>
 
@@ -175,7 +179,7 @@ export function ConnectivitySection() {
               variants={reduceMotion ? undefined : staggerChild}
               className="max-w-[40ch] font-sans text-[0.6175rem] uppercase leading-snug tracking-[0.34em] text-muted sm:text-micro sm:tracking-[0.38em]"
             >
-              {CONNECTIVITY_MAP_FRAME.atlasMicroline} · {CONNECTIVITY_ATLAS_NOTE}
+              {mapFrame.atlasMicroline} · {atlasNote}
             </motion.p>
           </motion.div>
 
@@ -188,14 +192,14 @@ export function ConnectivitySection() {
           >
             <figure className="relative isolate aspect-[21/17] overflow-hidden rounded-[clamp(26px,_3.4vw,_40px)] shadow-soft ring-1 ring-black/[0.04] sm:aspect-[21/15] xl:aspect-[21/13] xl:rounded-[clamp(28px,_3.2vw,_42px)]">
               <Image
-                alt={CONNECTIVITY_MAP_FRAME.alt}
+                alt={mapFrame.alt}
                 fill
                 className="object-cover object-[52%_50%]"
                 decoding="async"
                 loading="lazy"
                 sizes="(max-width: 1024px) 100vw, 56vw"
                 quality={82}
-                src={CONNECTIVITY_MAP_FRAME.src}
+                src={mapFrame.src}
               />
 
               <div
@@ -210,7 +214,7 @@ export function ConnectivitySection() {
               <figcaption className="pointer-events-none absolute bottom-loft left-pillar right-pillar max-w-none sm:left-loft">
                 <span className="inline-block rounded-full bg-black/52 px-[0.9rem] py-2 backdrop-blur-sm sm:bg-black/45">
                   <span className="font-sans text-[0.6rem] uppercase leading-snug tracking-[0.38em] text-fog-strong/94 sm:text-[0.63rem] sm:tracking-[0.41em]">
-                    {CONNECTIVITY_IMAGE_CAPTION}
+                    {imageCaption}
                   </span>
                 </span>
               </figcaption>
@@ -232,10 +236,10 @@ export function ConnectivitySection() {
 
           <div className="relative flex flex-col gap-10">
             <div className="max-w-[46ch] space-y-relax font-sans text-[1rem] leading-[1.76] tracking-[0.01em] text-muted sm:text-[1.045rem] sm:leading-[1.73]">
-              <p>{CONNECTIVITY_CTA_SUPPORT}</p>
+              <p>{ctaSupport}</p>
 
               <p className="text-[0.68rem] uppercase tracking-[0.36em] text-accent-olive/[0.88]">
-                {SITE.contactLabel} · concierge tone
+                {site.contactLabel} · concierge tone
               </p>
             </div>
 

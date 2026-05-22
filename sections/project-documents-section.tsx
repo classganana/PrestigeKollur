@@ -1,12 +1,11 @@
 import { Container, RevealAnimation, SectionHeading } from "@/components/ui";
 import { DocumentRequestTile } from "@/components/project/document-request-tile";
-import {
-  GOLDEN_GROVE_MASTER_PLAN_PAGE_PATH,
-  goldenGroveDocumentLinks,
-} from "@/constants/golden-grove-project";
+import type { DocumentsContent } from "@/lib/content/types";
+import { goldenGroveDocumentLinks } from "@/projects/prestige-kollur/project-facts";
 
-export function ProjectDocumentsSection() {
+export function ProjectDocumentsSection({ content }: { content: DocumentsContent }) {
   const docs = goldenGroveDocumentLinks();
+  const [brochureTile, costSheetTile, masterPlanTile] = content.tiles;
 
   return (
     <section
@@ -18,37 +17,37 @@ export function ProjectDocumentsSection() {
         <RevealAnimation className="mb-gallery-gap">
           <SectionHeading
             id="documents-heading"
-            eyebrow="Collateral vault"
-            title="Brochure · costing deck · master plan"
-            lead="One-tap PDF downloads appear automatically when NEXT_PUBLIC_DOC_* points at a .pdf (site path under /documents/… or HTTPS). Until then, taps open concierge so outreach stays controlled."
+            eyebrow={content.heading.eyebrow}
+            title={content.heading.title}
+            lead={content.heading.lead}
           />
         </RevealAnimation>
 
         <div className="grid gap-gallery-gap md:grid-cols-3">
           <RevealAnimation>
             <DocumentRequestTile
-              title="Project brochure"
-              description="Tower narratives, amenity scripture, indicative interiors."
+              title={brochureTile.title}
+              description={brochureTile.description}
               href={docs.brochure}
               isDirectPdf={docs.brochureIsDirectPdf}
             />
           </RevealAnimation>
           <RevealAnimation>
             <DocumentRequestTile
-              title="Cost sheet"
-              description="PLC ladders, parking bundles, milestone overlays."
+              title={costSheetTile.title}
+              description={costSheetTile.description}
               href={docs.costSheet}
               isDirectPdf={docs.costSheetIsDirectPdf}
             />
           </RevealAnimation>
           <RevealAnimation>
             <DocumentRequestTile
-              title="Master plan"
-              description="Forest spine sequencing · clubhouse bifurcation · retail edge."
+              title={masterPlanTile.title}
+              description={masterPlanTile.description}
               href={docs.masterPlan}
               isDirectPdf={docs.masterPlanIsDirectPdf}
-              browseHref={GOLDEN_GROVE_MASTER_PLAN_PAGE_PATH}
-              browseCta="View master plan"
+              browseHref={masterPlanTile.browseHref}
+              browseCta={masterPlanTile.browseCta}
             />
           </RevealAnimation>
         </div>

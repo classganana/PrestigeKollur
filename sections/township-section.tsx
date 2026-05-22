@@ -1,36 +1,19 @@
 import { GlassCard } from "@/components/ui/glass-card";
 import { Container, RevealAnimation, SectionHeading } from "@/components/ui";
+import type { TownshipContent } from "@/lib/content/types";
 
-const pillars = [
-  {
-    heading: "Hillside commons",
-    copy: "Meadows, orchard walks, and gathering clearings composed with agrarian choreography—informed by commons frames from the briefing.",
-    detail: "~12 acres exploratory buffer",
-  },
-  {
-    heading: "Sheltered arrival",
-    copy: "Lantern sequencing, berm layers, hedgerows—arrival choreography instead of transactional gates.",
-    detail: "Lighting + landscape studies TBD",
-  },
-  {
-    heading: "Residences in repose",
-    copy: "Sun paths, breezeways, and interstitial gardens narrated alongside residence vignettes.",
-    detail: "Unit mix undisclosed · Phase II",
-  },
-] as const;
+export function TownshipSection({ content }: { content: TownshipContent }) {
+  const { heading, pillars } = content;
 
-/** Master intent — text-led pillars; imagery lives in gallery / floor-plan bands to avoid duplicate voucher crops. */
-
-export function TownshipSection() {
   return (
     <section id="township" aria-labelledby="township-heading" className="scroll-mt-28">
       <Container>
         <RevealAnimation className="mb-gallery-gap lg:mb-orbit">
           <SectionHeading
             id="township-heading"
-            eyebrow="Master intent"
-            title="Townships should feel landscaped, never plotted."
-            lead="Three postures for how the precinct reads—kept typographic so we are not recycling brochure plates or floor excerpts you already browse in the dedicated bands above."
+            eyebrow={heading.eyebrow}
+            title={heading.title}
+            lead={heading.lead}
           />
         </RevealAnimation>
 
@@ -38,14 +21,12 @@ export function TownshipSection() {
           {pillars.map((pillar, i) => (
             <RevealAnimation key={pillar.heading}>
               <GlassCard className="flex h-full flex-col border-accent-bronze/25 shadow-soft">
-                <p className="font-sans text-micro uppercase tracking-[0.42em] text-accent-olive/80">
-                  {String(i + 1).padStart(2, "0")}
+                <p className="font-sans text-micro uppercase tracking-[0.38em] text-accent-olive">
+                  Pillar {i + 1}
                 </p>
-                <p className="mt-pillar font-display text-fluid-display leading-snug-soft text-foreground">
-                  {pillar.heading}
-                </p>
-                <p className="mt-4 font-sans text-body-relaxed text-muted">{pillar.copy}</p>
-                <p className="mt-auto pt-ribbon font-sans text-micro uppercase tracking-[0.35em] text-accent-olive/75">
+                <h3 className="mt-4 font-display text-[1.55rem] text-foreground">{pillar.heading}</h3>
+                <p className="mt-4 flex-1 font-sans text-body-relaxed text-muted">{pillar.copy}</p>
+                <p className="mt-6 font-sans text-[0.72rem] uppercase tracking-[0.28em] text-accent-gold/90">
                   {pillar.detail}
                 </p>
               </GlassCard>

@@ -1,13 +1,12 @@
 import { OpenConciergeButton } from "@/components/conversion/open-concierge-button";
 import { Container, RevealAnimation, SectionHeading } from "@/components/ui";
 import { TableShell } from "@/components/project/table-shell";
-import {
-  CONFIGURATION_ROWS,
-  PRICE_DISCLAIMER,
-  PRICING_ROWS,
-} from "@/constants/golden-grove-project";
+import type { PricingContent } from "@/lib/content/types";
 
-export function PricingPlansSection() {
+export function PricingPlansSection({ content }: { content: PricingContent }) {
+  const { heading, configurationIntro, rows, configurationRows, priceDisclaimer, conciergeCtaLabel } =
+    content;
+
   return (
     <section
       id="pricing"
@@ -18,9 +17,9 @@ export function PricingPlansSection() {
         <RevealAnimation className="mb-gallery-gap">
           <SectionHeading
             id="pricing-heading"
-            eyebrow="Inventory framing"
-            title="Pricing architecture & configurations"
-            lead="Collateral ladders juxtapose Velimela entry against saturated Kokapet benchmarks — reconcile every negotiation inside Prestige-approved worksheets."
+            eyebrow={heading.eyebrow}
+            title={heading.title}
+            lead={heading.lead}
           />
         </RevealAnimation>
 
@@ -34,7 +33,7 @@ export function PricingPlansSection() {
               </tr>
             </thead>
             <tbody className="divide-y divide-accent-bronze/12">
-              {PRICING_ROWS.map((row) => (
+              {rows.map((row) => (
                 <tr key={row.variant} className="bg-white/[0.35]">
                   <td className="px-5 py-4 font-semibold text-foreground">{row.variant}</td>
                   <td className="px-5 py-4 text-muted">{row.size}</td>
@@ -44,16 +43,13 @@ export function PricingPlansSection() {
             </tbody>
           </TableShell>
           <p className="mt-4 font-sans text-[0.65rem] uppercase tracking-[0.26em] text-muted">
-            {PRICE_DISCLAIMER}
+            {priceDisclaimer}
           </p>
         </RevealAnimation>
 
         <RevealAnimation className="mb-gallery-gap">
-          <h3 className="font-display text-fluid-section text-foreground">Floor-plan families</h3>
-          <p className="mt-3 max-w-3xl font-sans text-body-relaxed text-muted">
-            Variants mirror Prestige nomenclature — leverage concierge routing for CAD downloads once NDAs &
-            KYC checkpoints clear.
-          </p>
+          <h3 className="font-display text-fluid-section text-foreground">{configurationIntro.title}</h3>
+          <p className="mt-3 max-w-3xl font-sans text-body-relaxed text-muted">{configurationIntro.lead}</p>
           <div className="mt-loft">
             <TableShell>
               <thead className="bg-prestige-navy/[0.06] font-semibold uppercase tracking-[0.22em] text-[0.58rem] text-prestige-navy">
@@ -66,7 +62,7 @@ export function PricingPlansSection() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-accent-bronze/12">
-                {CONFIGURATION_ROWS.map((row) => (
+                {configurationRows.map((row) => (
                   <tr key={row.variant} className="bg-white/[0.35]">
                     <td className="px-5 py-4 font-semibold">{row.variant}</td>
                     <td className="px-5 py-4 text-muted">{row.beds}</td>
@@ -82,7 +78,7 @@ export function PricingPlansSection() {
 
         <RevealAnimation className="flex flex-wrap gap-relax">
           <OpenConciergeButton className="min-h-touch px-loft uppercase tracking-[0.26em]">
-            Request allotment counsellor
+            {conciergeCtaLabel}
           </OpenConciergeButton>
         </RevealAnimation>
       </Container>

@@ -27,14 +27,28 @@ import { Container, SectionHeading } from "@/components/ui";
 import { OpenConciergeButton } from "@/components/conversion/open-concierge-button";
 import { SecondaryButton } from "@/components/ui/secondary-button";
 
+import { StructuredData } from "@/components/seo/structured-data";
 import { goldenGroveDocumentLinks } from "@/constants/golden-grove-project";
-import { SITE } from "@/constants/site";
 import { cn } from "@/lib/cn";
+import { resolveProject, resolveSite } from "@/lib/project/resolve-project";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { buildMasterPlanStructuredData } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
+const project = resolveProject();
+const site = resolveSite();
+
+const masterPlanStructuredData = buildMasterPlanStructuredData(
+  project.seo,
+  MASTER_PLAN_METADATA.title,
+  MASTER_PLAN_METADATA.description,
+);
+
+export const metadata: Metadata = buildPageMetadata({
+  seo: project.seo,
   title: MASTER_PLAN_METADATA.title,
   description: MASTER_PLAN_METADATA.description,
-};
+  path: "/master-plan",
+});
 
 const comparisonTitle =
   "Prestige Golden Grove Masterplan vs. Hyderabad Top Projects (Technical Comparison 2026)";
@@ -52,7 +66,9 @@ export default function MasterPlanPage() {
     typeof masterPdf === "string";
 
   return (
-    <article className="border-t border-accent-bronze/10 bg-surface pb-section-y pt-[clamp(6.75rem,min(22vw,8.75rem),8.75rem)]">
+    <>
+      <StructuredData data={masterPlanStructuredData} />
+      <article className="border-t border-accent-bronze/10 bg-surface pb-section-y pt-[clamp(6.75rem,min(22vw,8.75rem),8.75rem)]">
       <Container>
         <div className="mb-gallery-gap flex flex-wrap items-center justify-between gap-4">
           <nav aria-label="Breadcrumb">
@@ -66,7 +82,7 @@ export default function MasterPlanPage() {
           </nav>
 
           <p className="font-sans text-micro uppercase tracking-[0.36em] text-muted">
-            {SITE.name}
+            {site.name}
           </p>
         </div>
 
@@ -371,5 +387,6 @@ export default function MasterPlanPage() {
         </footer>
       </Container>
     </article>
+    </>
   );
 }

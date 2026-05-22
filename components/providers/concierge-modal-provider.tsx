@@ -17,7 +17,9 @@ import { X } from "lucide-react";
 import { useLenis } from "lenis/react";
 
 import { ConciergeConversionPanel } from "@/components/conversion/concierge-conversion-panel";
-import { SITE } from "@/constants/site";
+import type { ConversionPlacement } from "@/lib/analytics/track-conversion";
+import { trackWhatsAppClick } from "@/lib/analytics/track-conversion";
+import { useProject, useSite } from "@/lib/project/project-context";
 import {
   conciergeWaHandoffConsume,
   conciergeWaHandoffPeek,
@@ -51,7 +53,7 @@ function listFocusables(root: HTMLElement): HTMLElement[] {
 type ConciergeModalContextValue = {
   open: () => void;
   /** Opens concierge; after the next successful enquiry POST, launch WhatsApp with the same payload text. */
-  openForWhatsAppHandoff: () => void;
+  openForWhatsAppHandoff: (placement?: ConversionPlacement) => void;
   close: () => void;
   isOpen: boolean;
   /** Read handoff intent without clearing it (used before async submit so we can open a placeholder tab synchronously). */
@@ -82,6 +84,7 @@ type ConciergeOverlayProps = {
  * non-passive wheel listener so the dimmed area cannot scroll the page underneath.
  */
 function ConciergeOverlay({ titleId, onDismiss }: ConciergeOverlayProps) {
+  const site = useSite();
   const lenis = useLenis();
 
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -219,7 +222,7 @@ function ConciergeOverlay({ titleId, onDismiss }: ConciergeOverlayProps) {
           }}
           className={cn(
             "pointer-events-auto mb-auto flex max-h-[min(92dvh,_900px)] w-[min(34rem,_calc(100vw-1.5rem))] min-h-0 min-w-0 shrink-0 flex-col overflow-hidden rounded-[clamp(22px,_3vw,_30px)] outline-none ring-0",
-            "border border-accent-champagne/35 bg-gradient-to-br from-forest via-forest-strong to-[#070c0b] p-0 text-inverse shadow-[0_52px_120px_-36px_rgba(0,0,0,0.65)]",
+            "theme-shell-deep border border-accent-champagne/35 p-0 shadow-modal",
             "overscroll-y-contain",
           )}
         >
@@ -229,7 +232,7 @@ function ConciergeOverlay({ titleId, onDismiss }: ConciergeOverlayProps) {
                 id={titleId}
                 className="font-display text-[clamp(1.38rem,_4vw,_1.75rem)] leading-snug tracking-[-0.015em]"
               >
-                {SITE.contactLabel}
+                {site.contactLabel}
               </p>
             </div>
             <button
@@ -268,6 +271,7 @@ function ConciergeOverlay({ titleId, onDismiss }: ConciergeOverlayProps) {
 /** Lightweight concierge shell — parity with `#cta`, without snapping scroll. */
 
 export function ConciergeModalProvider({ children }: { children: ReactNode }) {
+  const { leadSourceTag } = useProject();
   const [isOpen, setIsOpen] = useState(false);
 
   const titleId = useId();
@@ -277,10 +281,14 @@ export function ConciergeModalProvider({ children }: { children: ReactNode }) {
     setIsOpen(true);
   }, []);
 
-  const openForWhatsAppHandoff = useCallback(() => {
-    conciergeWaHandoffSet(true);
-    setIsOpen(true);
-  }, []);
+  const openForWhatsAppHandoff = useCallback(
+    (placement: ConversionPlacement = "concierge_handoff") => {
+      trackWhatsAppClick({ leadSource: leadSourceTag, placement });
+      conciergeWaHandoffSet(true);
+      setIsOpen(true);
+    },
+    [leadSourceTag],
+  );
 
   const close = useCallback(() => {
     conciergeWaHandoffSet(false);

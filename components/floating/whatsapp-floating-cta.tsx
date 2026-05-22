@@ -43,7 +43,7 @@ export function WhatsAppFloatingCta({ whatsappHref, fallbackHref }: Props) {
     return (
       <button
         type="button"
-        onClick={() => openForWhatsAppHandoff()}
+        onClick={() => openForWhatsAppHandoff("desktop_float_wa")}
         aria-label={label}
         className={chipClassName}
       >

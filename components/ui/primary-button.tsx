@@ -3,15 +3,23 @@ import Link from "next/link";
 import type { LinkProps as NextLinkProps } from "next/link";
 import { cn } from "@/lib/cn";
 
-const classes = cn(
-  "inline-flex min-h-touch cursor-pointer items-center justify-center rounded-full px-8 py-text-y",
-  "border border-accent-bronze/30 bg-forest text-body-sm font-sans uppercase tracking-[0.22em] text-fog",
-  "shadow-soft transition-[background-color,transform,color,box-shadow] duration-[480ms]",
-  "ease-luxury hover:-translate-y-px hover:border-accent-gold/45 hover:bg-forest-strong hover:shadow-elevated",
-  "motion-reduce:transform-none motion-reduce:transition-none",
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold/80",
-  "focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
-);
+import { themeClasses } from "@/lib/theme/theme-classes";
+
+export type PrimaryButtonVariant = "primary" | "hero-enquiry";
+
+function primaryButtonClasses(variant: PrimaryButtonVariant = "primary") {
+  return cn(
+    "inline-flex min-h-touch cursor-pointer items-center justify-center rounded-full px-8 py-text-y",
+    variant === "hero-enquiry" ? themeClasses.ctaHeroEnquiry : themeClasses.ctaPrimary,
+    "text-body-sm font-sans uppercase tracking-[0.22em]",
+    variant === "hero-enquiry" && "text-forest-strong",
+    "shadow-soft transition-[background-color,transform,color,box-shadow,border-color] duration-[480ms]",
+    "ease-luxury hover:-translate-y-px hover:shadow-elevated",
+    "motion-reduce:transform-none motion-reduce:transition-none",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold/80",
+    "focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+  );
+}
 
 type ButtonAttrs = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "href">;
 
@@ -27,7 +35,12 @@ type PropsAsLink = Omit<
     type?: never;
   };
 
-export type PrimaryButtonProps = PropsAsButton | PropsAsLink;
+type SharedPrimaryButtonProps = {
+  /** `hero-enquiry` — champagne gradient CTA (hero / WhatsApp); avoids conflicting primary shell styles. */
+  variant?: PrimaryButtonVariant;
+};
+
+export type PrimaryButtonProps = SharedPrimaryButtonProps & (PropsAsButton | PropsAsLink);
 
 /** Deep forest primary control with restrained champagne accent */
 export const PrimaryButton = forwardRef<
@@ -35,28 +48,28 @@ export const PrimaryButton = forwardRef<
   PrimaryButtonProps
 >(function PrimaryButton(props, ref) {
   if ("href" in props && props.href !== undefined && props.href !== null) {
-    const { href, className, children, ...anchorRest } = props as PropsAsLink;
+    const { href, className, children, variant = "primary", ...anchorRest } = props;
 
     return (
       <Link
         ref={ref as React.Ref<HTMLAnchorElement>}
         href={href}
         {...anchorRest}
-        className={cn(classes, className)}
+        className={cn(primaryButtonClasses(variant), className)}
       >
         {children}
       </Link>
     );
   }
 
-  const { className, children, type = "button", ...btn } = props as PropsAsButton;
+  const { className, children, type = "button", variant = "primary", ...btn } = props;
 
   return (
     <button
       ref={ref as React.Ref<HTMLButtonElement>}
       type={type}
       {...btn}
-      className={cn(classes, className)}
+      className={cn(primaryButtonClasses(variant), className)}
     >
       {children}
     </button>

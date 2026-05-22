@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { useConciergeModal } from "@/components/providers/concierge-modal-provider";
+import { useConversionTracking } from "@/lib/analytics/use-conversion-tracking";
 import { cn } from "@/lib/cn";
 
 const tileChrome = cn(
@@ -44,6 +45,7 @@ export function DocumentRequestTile({
   browseCta,
 }: Props) {
   const { open } = useConciergeModal();
+  const { trackBrochureDownload } = useConversionTracking();
 
   const canDownloadPdf = href !== null && isDirectPdf;
 
@@ -81,6 +83,7 @@ export function DocumentRequestTile({
         prefetch={false}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackBrochureDownload(title)}
         {...(preferAttachmentDownload === true ? { download: true } : {})}
         className={triggerClass}
       >

@@ -10,19 +10,8 @@ import { staggerChild, staggerContainer } from "@/animations";
 import { TownshipFullExperienceDialog } from "@/components/cinematic-township/township-full-experience-dialog";
 import { TownshipImmersiveVideoBand } from "@/components/cinematic-township/township-immersive-video-band";
 import { Container } from "@/components/ui/container";
-import {
-  CINEMATIC_TOWNSHIP_ATTRIBUTION_TAIL,
-  CINEMATIC_TOWNSHIP_DIALOG_TITLE,
-  CINEMATIC_TOWNSHIP_FULL_CTA_LABEL,
-  CINEMATIC_TOWNSHIP_HEADLINE_LINES,
-  CINEMATIC_TOWNSHIP_LEAD,
-  CINEMATIC_TOWNSHIP_POSTER,
-  CINEMATIC_TOWNSHIP_SECTION_ID,
-  CINEMATIC_TOWNSHIP_STILLS,
-  CINEMATIC_TOWNSHIP_EYEBROW,
-  CINEMATIC_TOWNSHIP_VIDEO_UNAVAILABLE,
-  resolveTownshipFlythroughSrc,
-} from "@/constants/cinematic-township";
+import { resolveTownshipFlythroughSrc } from "@/lib/content/township-video";
+import type { CinematicTownshipContent } from "@/lib/content/types";
 import { cn } from "@/lib/cn";
 
 /** Near-neutral vignette tint for masonry still thumbs */
@@ -38,7 +27,7 @@ const editorialReveal: Variants = {
   },
 };
 
-export function CinematicTownshipSection() {
+export function CinematicTownshipSection({ content }: { content: CinematicTownshipContent }) {
   const flythroughSrc = resolveTownshipFlythroughSrc();
 
   const reduceMotion = useReducedMotion();
@@ -47,7 +36,7 @@ export function CinematicTownshipSection() {
 
   return (
     <section
-      id={CINEMATIC_TOWNSHIP_SECTION_ID}
+      id={content.sectionId}
       aria-labelledby="cinematic-township-heading"
       className={cn(
         "scroll-mt-[5.625rem] border-t border-accent-bronze/10 bg-twilight-soft/45 sm:scroll-mt-28",
@@ -55,16 +44,16 @@ export function CinematicTownshipSection() {
       )}
     >
       <TownshipImmersiveVideoBand
-        eyebrow={CINEMATIC_TOWNSHIP_EYEBROW}
+        eyebrow={content.eyebrow}
         flythroughSrc={flythroughSrc}
-        posterAlt={CINEMATIC_TOWNSHIP_POSTER.alt}
-        posterCaption={CINEMATIC_TOWNSHIP_POSTER.caption}
-        posterSrc={CINEMATIC_TOWNSHIP_POSTER.src}
-        headlineLines={CINEMATIC_TOWNSHIP_HEADLINE_LINES}
+        posterAlt={content.poster.alt}
+        posterCaption={content.poster.caption}
+        posterSrc={content.poster.src}
+        headlineLines={content.headlineLines}
         reducedMotion={reduceMotion === true}
         immersiveOpen={cinemaOpen}
-        unavailableNote={CINEMATIC_TOWNSHIP_VIDEO_UNAVAILABLE}
-        fullExperienceLabel={CINEMATIC_TOWNSHIP_FULL_CTA_LABEL}
+        unavailableNote={content.videoUnavailable}
+        fullExperienceLabel={content.fullCtaLabel}
         onRequestFullExperience={() => setCinemaOpen(true)}
       />
 
@@ -77,7 +66,7 @@ export function CinematicTownshipSection() {
           className="mx-auto flex max-w-[min(880px,calc(100vw-2.5rem))] flex-col gap-gallery-gap pb-section-y pt-[clamp(2.75rem,7vw,4rem)]"
         >
           <p className="font-sans text-[1.025rem] leading-[1.78] tracking-[0.01em] text-muted sm:text-[1.06rem] sm:leading-[1.74]">
-            {CINEMATIC_TOWNSHIP_LEAD}
+            {content.lead}
           </p>
 
           <motion.ul
@@ -91,7 +80,7 @@ export function CinematicTownshipSection() {
               "motion-reduce:gap-6",
             )}
           >
-            {CINEMATIC_TOWNSHIP_STILLS.map((still) => (
+            {content.stills.map((still) => (
               <motion.li
                 key={still.key}
                 variants={reduceMotion ? undefined : staggerChild}
@@ -139,14 +128,14 @@ export function CinematicTownshipSection() {
               "text-muted sm:text-micro sm:tracking-[0.36em]",
             )}
           >
-            {CINEMATIC_TOWNSHIP_ATTRIBUTION_TAIL}
+            {content.attributionTail}
           </p>
         </motion.div>
       </Container>
 
       <TownshipFullExperienceDialog
-        posterSrc={CINEMATIC_TOWNSHIP_POSTER.src}
-        titleLabel={CINEMATIC_TOWNSHIP_DIALOG_TITLE}
+        posterSrc={content.poster.src}
+        titleLabel={content.dialogTitle}
         videoSrc={flythroughSrc}
         open={cinemaOpen}
         onClose={() => setCinemaOpen(false)}

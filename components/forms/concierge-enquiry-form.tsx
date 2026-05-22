@@ -11,6 +11,7 @@ import {
   CONCIERGE_LEAD_SOURCE,
   conciergeFallbackMailto,
 } from "@/constants/enquiry";
+import { trackLeadSubmission } from "@/lib/analytics/track-conversion";
 import { cn } from "@/lib/cn";
 
 const FIELD = cn(
@@ -167,6 +168,12 @@ export function ConciergeEnquiryForm({
         | null;
 
       if (response.ok) {
+        trackLeadSubmission({
+          leadSource: CONCIERGE_LEAD_SOURCE,
+          placement: "concierge_form",
+          interest: interestLabel,
+        });
+
         const routeToWhatsApp = consumeWhatsAppHandoff();
 
         const leadText = buildConciergeLeadBody({

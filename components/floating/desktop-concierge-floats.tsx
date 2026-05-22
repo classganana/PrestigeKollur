@@ -3,9 +3,10 @@
 import { CallFloatingCta } from "@/components/floating/call-floating-cta";
 import { WhatsAppFloatingCta } from "@/components/floating/whatsapp-floating-cta";
 import { enquiryTelHref, enquiryWhatsAppUrl } from "@/constants/contact";
-import { SITE } from "@/constants/site";
+import { useSite } from "@/lib/project/project-context";
 
 export function DesktopConciergeFloats() {
+  const site = useSite();
   const whatsappHref = enquiryWhatsAppUrl();
 
   const callHref = enquiryTelHref();
@@ -16,7 +17,7 @@ export function DesktopConciergeFloats() {
 
       <WhatsAppFloatingCta
         whatsappHref={whatsappHref}
-        fallbackHref={SITE.contactHref}
+        fallbackHref={site.contactHref}
       />
     </>
   );

@@ -1,0 +1,182 @@
+/**
+ * Prestige Kollur — warm editorial township luxury.
+ * Default palette when `data-theme` is omitted (back-compat).
+ */
+:root,
+[data-theme="prestige-kollur"] {
+  /* Surfaces & ink */
+  --color-surface: #f9f7f3;
+  --color-surface-rgb: 249 247 243;
+  --color-foreground: #1f2521;
+  --color-foreground-rgb: 31 37 33;
+  --color-muted: #4d554d;
+  --color-muted-rgb: 77 85 77;
+  --color-ivory: #f8f6f1;
+  --color-ivory-rgb: 248 246 241;
+  --color-soft-stone: #e6dfd2;
+  --color-soft-stone-rgb: 230 223 210;
+  --color-soft-stone-glow: #efe8dc;
+  --color-soft-stone-glow-rgb: 239 232 220;
+  --color-fog: #f4efe6;
+  --color-fog-rgb: 244 239 230;
+  --color-fog-soft: #fcf9f5;
+  --color-fog-soft-rgb: 252 249 245;
+  --color-fog-strong: rgba(250, 247, 240, 0.92);
+
+  /* Dark shell (footer, concierge, hero depth) */
+  --color-shell: #1d2a23;
+  --color-shell-rgb: 29 42 35;
+  --color-shell-strong: #131b17;
+  --color-shell-strong-rgb: 19 27 23;
+  --color-shell-deep-end: #070c0b;
+
+  /* Brand editorial (tables, cards, disclosures) */
+  --color-brand-primary: #152c48;
+  --color-brand-primary-rgb: 21 44 72;
+  --color-brand-muted: #e9eef6;
+  --color-brand-muted-rgb: 233 238 246;
+  --color-brand-lockup-end: #dce6f4;
+
+  /* Accents */
+  --color-accent-gold: #c9ae78;
+  --color-accent-gold-rgb: 201 174 120;
+  --color-accent-champagne: #ddcfad;
+  --color-accent-champagne-rgb: 221 207 173;
+  --color-accent-bronze: #8f7a53;
+  --color-accent-bronze-rgb: 143 122 83;
+  --color-accent-olive: #6c7562;
+  --color-accent-olive-rgb: 108 117 98;
+
+  /* Inverse copy on dark glass */
+  --color-inverse: #faf7ef;
+  --color-inverse-rgb: 250 247 239;
+  --color-inverse-muted: #ebe4d6;
+  --color-inverse-muted-rgb: 235 228 214;
+  --color-inverse-subtle: #c9bfb0;
+  --color-inverse-subtle-rgb: 201 191 176;
+
+  /* Chrome masthead */
+  --chrome-bg: hsla(150, 26%, 8%, 0.92);
+  --chrome-bg-hover: hsla(150, 26%, 10%, 0.94);
+  --chrome-text-primary: #faf8f5;
+  --chrome-text-primary-hover: #fefdfb;
+  --chrome-text-secondary: #ebe0c8;
+  --chrome-ring-offset: #050a09;
+  --chrome-shadow: 0 0 0 1px rgba(201, 174, 120, 0.26), 0 28px 64px -28px rgba(0, 0, 0, 0.75);
+  --chrome-shadow-hover: 0 0 0 1px rgba(217, 184, 138, 0.42), 0 36px 70px -30px rgba(0, 0, 0, 0.78);
+
+  /* Hero */
+  --color-hero-canvas: #090f0d;
+  --gradient-overlay-hero-bottom: linear-gradient(
+    to top,
+    rgba(3, 5, 4, 0.88) 0%,
+    rgba(3, 5, 4, 0.38) 50%,
+    transparent 100%
+  );
+  --gradient-overlay-hero-top: linear-gradient(
+    to bottom,
+    rgba(6, 13, 12, 0.38) 0%,
+    transparent 100%
+  );
+  --gradient-hero-title: linear-gradient(
+    to bottom,
+    #fdf9f6 0%,
+    #efe8dc 55%,
+    #ccc4b8 100%
+  );
+  --gradient-hero-glass-panel: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(9, 18, 16, 0.54) 45%,
+    rgba(3, 8, 7, 0.82) 100%
+  );
+  --gradient-hero-glass-panel-lite: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.26) 0%,
+    rgba(10, 21, 19, 0.74) 50%,
+    rgba(3, 8, 7, 0.92) 100%
+  );
+
+  /* CTAs */
+  --gradient-cta-champagne: linear-gradient(to bottom, #ebe3cf 0%, #dfcfaa 50%, #cdbd8e 100%);
+  --gradient-cta-champagne-hover: linear-gradient(to bottom, #f2ebd8 0%, #e5d7b8 50%, #dac89c 100%);
+  --cta-champagne-border: rgba(201, 174, 120, 0.4);
+  --cta-champagne-border-hover: rgba(201, 174, 120, 0.54);
+
+  --gradient-cta-hero-enquiry: linear-gradient(to bottom, #f0e6d4 0%, #e4d7b9 50%, #cfbf94 100%);
+  --gradient-cta-hero-enquiry-hover: linear-gradient(to bottom, #f6efd9 0%, #eadcbf 50%, #dcc99f 100%);
+  --cta-hero-enquiry-shadow: 0 10px 42px -4px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 254, 251, 0.42), inset 0 -1px 0 rgba(58, 52, 39, 0.12);
+  --cta-hero-enquiry-shadow-hover: 0 22px 64px -6px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 253, 0.48), inset 0 -1px 0 rgba(58, 52, 39, 0.1);
+
+  /* Deep shells (footer, modal) */
+  --gradient-shell-deep: linear-gradient(
+    135deg,
+    var(--color-shell) 0%,
+    var(--color-shell-strong) 55%,
+    var(--color-shell-deep-end) 100%
+  );
+
+  /* Glass / card surfaces */
+  --gradient-surface-glass-fog: linear-gradient(
+    135deg,
+    var(--color-fog-strong) 0%,
+    rgba(244, 239, 230, 0.65) 45%,
+    var(--color-soft-stone-glow) 100%
+  );
+  --gradient-surface-glass-ivory: linear-gradient(
+    135deg,
+    rgba(248, 246, 241, 0.96) 0%,
+    rgba(230, 223, 210, 0.88) 50%,
+    rgba(239, 232, 220, 0.94) 100%
+  );
+  --gradient-brand-lockup: linear-gradient(
+    to bottom,
+    var(--color-brand-muted) 0%,
+    color-mix(in srgb, var(--color-brand-muted) 92%, transparent) 55%,
+    var(--color-brand-lockup-end) 100%
+  );
+  --shadow-brand-lockup: 0 12px 40px -14px rgba(21, 44, 72, 0.35);
+
+  /* Page ambient */
+  --gradient-body-base: hsl(40, 38%, 97%);
+  --gradient-body-ambient-1: radial-gradient(
+    1200px ellipse at 85% -8%,
+    hsla(40, 32%, 88%, 0.55),
+    transparent
+  );
+  --gradient-body-ambient-2: radial-gradient(
+    900px circle at -10% 40%,
+    hsla(90, 10%, 86%, 0.45),
+    transparent
+  );
+  --gradient-body-ambient-3: radial-gradient(
+    700px circle at 50% 112%,
+    hsla(150, 12%, 18%, 0.12),
+    transparent
+  );
+
+  /* Section backgrounds */
+  --gradient-mist-radial: radial-gradient(
+    ellipse at 82% -10%,
+    rgba(239, 229, 207, 0.55),
+    transparent 62%
+  );
+  --gradient-twilight-soft: linear-gradient(
+    180deg,
+    rgba(250, 246, 238, 1) 0%,
+    rgba(234, 229, 217, 1) 100%
+  );
+
+  /* Shadows */
+  --shadow-soft: 0px 38px 90px rgba(42, 52, 43, 0.08);
+  --shadow-elevated: 0px 54px 120px rgba(32, 43, 37, 0.14);
+  --shadow-subtle-glow: 0px 52px 98px rgba(212, 184, 138, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --shadow-modal: 0 52px 120px -36px rgba(0, 0, 0, 0.65);
+
+  /* Form autofill (concierge) */
+  --color-autofill-ink: #131b17;
+  --color-autofill-fill: #faf7ef;
+}

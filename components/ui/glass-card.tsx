@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { themeClasses } from "@/lib/theme/theme-classes";
 
 type Tint = "fog" | "ivory";
 
@@ -15,9 +16,7 @@ export function GlassCard({ children, className, padded = true, tint = "fog" }: 
     <div
       className={cn(
         "rounded-[clamp(22px,_4vw,_32px)] border border-accent-bronze/18",
-        tint === "ivory"
-          ? "bg-gradient-to-br from-ivory/96 via-soft-stone/88 to-soft-stone-glow/94"
-          : "bg-gradient-to-br from-fog-strong/92 via-fog/65 to-soft-stone-glow/92",
+        tint === "ivory" ? themeClasses.surfaceGlassIvory : themeClasses.surfaceGlassFog,
         "shadow-soft backdrop-blur-[18px]",
         "transition-[border-color,box-shadow,transform] duration-[520ms] ease-luxury",
         "motion-reduce:transition-none",

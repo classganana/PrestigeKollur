@@ -1,31 +1,17 @@
 /**
- * Semantic colour tokens referenced from Tailwind and inline CSS fallbacks.
+ * Semantic design tokens — colour values live in per-project theme sheets.
  */
-:root {
-  --color-surface: #f9f7f3;
-  --color-foreground: #1f2521;
-  --color-muted: #4d554d;
-  --color-forest: #1d2a23;
-  --color-forest-strong: #131b17;
+@import "./themes/prestige-kollur.css";
+@import "./themes/godrej-kukatpally.css";
 
-  --color-ivory: #f8f6f1;
-  --color-soft-stone: #e6dfd2;
-  --color-soft-stone-glow: #efe8dc;
-  --color-fog: #f4efe6;
-  --color-fog-soft: #fcf9f5;
-  --color-fog-strong: rgba(250, 247, 240, 0.92);
-
-  --color-accent-gold: #c9ae78;
-  --color-accent-champagne: #ddcfad;
-  --color-accent-bronze: #8f7a53;
-  --color-accent-olive: #6c7562;
-
-  --color-inverse: #faf7ef;
-  --color-inverse-muted: #ebe4d6;
-  --color-inverse-subtle: #c9bfb0;
-
-  --shadow-soft-y: rgba(38, 45, 35, 0.08);
-  --shadow-strong-y: rgba(24, 32, 27, 0.18);
+/* Legacy aliases — map old “forest / prestige” names to semantic shell / brand tokens */
+:root,
+[data-theme="prestige-kollur"],
+[data-theme="godrej-kukatpally"] {
+  --color-forest: var(--color-shell);
+  --color-forest-strong: var(--color-shell-strong);
+  --color-prestige-navy: var(--color-brand-primary);
+  --color-prestige-mist: var(--color-brand-muted);
 
   font-synthesis-weight: none;
 }

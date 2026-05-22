@@ -2,18 +2,21 @@ import { SecondaryButton } from "@/components/ui/secondary-button";
 
 import { ConciergeConversionPanel } from "@/components/conversion/concierge-conversion-panel";
 import { PartnerChannelDisclosure } from "@/components/layout/partner-channel-disclosure";
-import { SITE } from "@/constants/site";
+import type { CtaFooterContent } from "@/lib/content/types";
+import { resolveSite } from "@/lib/project/resolve-project";
 
+const site = resolveSite();
 const year = new Date().getFullYear();
 
-export function CtaFooterSection() {
+export function CtaFooterSection({ content }: { content: CtaFooterContent }) {
+
   return (
     <footer
       aria-labelledby="cta-heading"
       id="cta"
       className="mt-section-y scroll-mt-28"
     >
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-forest via-forest-strong to-[#070c0b] pb-section-y pt-orbit text-inverse">
+      <section className="relative isolate overflow-hidden theme-shell-deep pb-section-y pt-orbit">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.72] mix-blend-screen"
@@ -24,7 +27,7 @@ export function CtaFooterSection() {
 
         <div className="relative mx-auto flex w-full max-w-[min(960px,_calc(100vw-2rem))] flex-col gap-loft px-6 text-center sm:gap-orbit sm:px-10">
           <p className="font-sans text-micro uppercase tracking-[0.46em] text-accent-champagne">
-            Confidential concierge · private walkthroughs
+            {content.eyebrow}
           </p>
           <div className="mx-auto h-px w-20 rounded-full bg-gradient-to-r from-transparent via-accent-gold to-transparent" />
 
@@ -32,13 +35,11 @@ export function CtaFooterSection() {
             id="cta-heading"
             className="font-display text-fluid-display leading-snug-soft text-balance"
           >
-            Orchestrate your first passage through the township.
+            {content.title}
           </h2>
 
           <p className="mx-auto max-w-2xl font-sans text-body-relaxed text-inverse-muted">
-            Three calm channels—call, WhatsApp, or the discreet form—each tuned to
-            hospitality cadence. No dashboards, no noise: only thoughtful
-            follow-through.
+            {content.lead}
           </p>
 
           <ConciergeConversionPanel />
@@ -48,7 +49,7 @@ export function CtaFooterSection() {
               href="#hero"
               className="border-inverse-muted/45 text-inverse hover:border-accent-champagne/55 hover:bg-transparent hover:text-accent-champagne"
             >
-              Return to prelude
+              {content.returnCtaLabel}
             </SecondaryButton>
           </div>
         </div>
@@ -58,9 +59,11 @@ export function CtaFooterSection() {
 
       <div className="border-t border-accent-olive/18 bg-soft-stone/70 py-gallery-gap backdrop-blur-sm">
         <div className="mx-auto flex max-w-[min(1180px,_calc(100vw-3rem))] flex-col gap-ribbon px-6 font-sans text-micro uppercase tracking-[0.38em] text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-center sm:text-left">{SITE.name}</p>
+          <p className="text-center sm:text-left">{site.name}</p>
 
-          <p className="text-center sm:text-right">© {year} · narrative forthcoming</p>
+          <p className="text-center sm:text-right">
+            © {year} · {content.copyrightSuffix}
+          </p>
         </div>
       </div>
     </footer>

@@ -1,4 +1,7 @@
-import { SITE } from "@/constants/site";
+import { resolveSite } from "@/lib/project/resolve-project";
+import { themeClasses } from "@/lib/theme/theme-classes";
+
+const site = resolveSite();
 import { cn } from "@/lib/cn";
 
 type Variant = "footer" | "inline";
@@ -17,17 +20,19 @@ export function AuthorizedPartnerLockup({
   return (
     <div
       role="note"
-      aria-label={`${SITE.partnerChannelLabel}`}
+      aria-label={`${site.partnerChannelLabel}`}
       className={cn(
-        "inline-flex flex-col items-center justify-center rounded-lg border-2 border-prestige-navy/85 bg-gradient-to-b from-prestige-mist via-prestige-mist/92 to-[#dce6f4]",
-        "px-[clamp(1rem,3vw,1.35rem)] shadow-[0_12px_40px_-14px_rgba(21,44,72,0.35)] ring-1 ring-prestige-navy/12",
+        "inline-flex flex-col items-center justify-center rounded-lg border-2 ring-1 ring-brand-primary/12",
+        themeClasses.brandLockup,
+        "px-[clamp(1rem,3vw,1.35rem)]",
         dense ? "gap-0.5 py-2" : "gap-1 py-2.5",
         className,
       )}
     >
       <span
         className={cn(
-          "text-center font-sans font-semibold uppercase tracking-[0.42em] text-prestige-navy",
+          "text-center font-sans font-semibold uppercase tracking-[0.42em]",
+          themeClasses.brandLockupTitle,
           dense ? "text-[0.5rem]" : "text-[0.54rem]",
         )}
       >
@@ -35,7 +40,8 @@ export function AuthorizedPartnerLockup({
       </span>
       <span
         className={cn(
-          "text-center font-display font-medium uppercase tracking-[0.26em] text-prestige-navy/[0.92]",
+          "text-center font-display font-medium uppercase tracking-[0.26em]",
+          themeClasses.brandLockupSubtitle,
           dense ? "text-[0.62rem]" : "text-[0.6825rem]",
         )}
       >

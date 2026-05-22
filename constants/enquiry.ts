@@ -18,9 +18,9 @@
  * ```
  */
 
-import { LEAD_SOURCE_TAG } from "@/constants/site";
+import { resolveProject } from "@/lib/project/resolve-project";
 
-export const CONCIERGE_LEAD_SOURCE = LEAD_SOURCE_TAG;
+export const CONCIERGE_LEAD_SOURCE = resolveProject().leadSourceTag;
 
 export type ConciergeLeadBodyFields = {
   name: string;

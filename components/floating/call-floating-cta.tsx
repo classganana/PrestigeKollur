@@ -1,5 +1,8 @@
+"use client";
+
 import { Phone } from "lucide-react";
 
+import { useConversionTracking } from "@/lib/analytics/use-conversion-tracking";
 import { cn } from "@/lib/cn";
 
 type Props = {
@@ -9,10 +12,13 @@ type Props = {
 /** Forest / champagne symmetry with WhatsApp orb — ambient halo, left rail desktop only. */
 
 export function CallFloatingCta({ telHref }: Props) {
+  const { trackCallClick } = useConversionTracking();
+
   return (
     <a
       href={telHref}
       aria-label="Call concierge"
+      onClick={() => trackCallClick("desktop_float_call")}
       className={cn(
         "fixed bottom-[max(1.35rem,env(safe-area-inset-bottom,0px))]",
         "left-[max(1rem,env(safe-area-inset-left,0px))] z-[60]",

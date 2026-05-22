@@ -1,4 +1,5 @@
 @import "./tokens.css";
+@import "./theme-utilities.css";
 
 @tailwind base;
 @tailwind components;
@@ -14,16 +15,19 @@
   }
 
   body {
-    @apply min-h-dvh overflow-x-hidden bg-surface text-foreground antialiased selection:bg-accent-gold/25 selection:text-forest;
+    @apply min-h-dvh overflow-x-hidden bg-surface text-foreground antialiased;
     font-feature-settings:
       "kern" 1,
       "liga" 1;
-    background-image:
-      radial-gradient(1200px ellipse at 85% -8%, hsla(40, 32%, 88%, 0.55), transparent),
-      radial-gradient(900px circle at -10% 40%, hsla(90, 10%, 86%, 0.45), transparent),
-      radial-gradient(700px circle at 50% 112%, hsla(150, 12%, 18%, 0.12), transparent);
-    background-color: hsl(40, 38%, 97%);
+    background-color: var(--gradient-body-base);
+    background-image: var(--gradient-body-ambient-1), var(--gradient-body-ambient-2),
+      var(--gradient-body-ambient-3);
     background-attachment: fixed;
+  }
+
+  body ::selection {
+    background-color: color-mix(in srgb, var(--color-accent-gold) 25%, transparent);
+    color: var(--color-shell);
   }
 
   ::-webkit-scrollbar {
@@ -31,24 +35,25 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-ivory/80;
+    background-color: rgb(var(--color-ivory-rgb) / 0.8);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-accent-olive/40;
+    @apply rounded-full;
+    background-color: color-mix(in srgb, var(--color-accent-olive) 40%, transparent);
     border: 2px solid transparent;
     background-clip: content-box;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-accent-gold/55;
+    background-color: color-mix(in srgb, var(--color-accent-gold) 55%, transparent);
   }
 }
 
 @layer components {
   /**
    * Safari / Chrome autofill paints its own background; without this, inherited light text can become
-   * unreadable on white. Forces cream fill + forest ink inside concierge intake only.
+   * unreadable on white. Forces cream fill + shell ink inside concierge intake only.
    */
   .concierge-form-surface input:-webkit-autofill,
   .concierge-form-surface input:-webkit-autofill:hover,
@@ -59,10 +64,10 @@
   .concierge-form-surface select:-webkit-autofill,
   .concierge-form-surface select:-webkit-autofill:hover,
   .concierge-form-surface select:-webkit-autofill:focus {
-    -webkit-text-fill-color: #131b17 !important;
-    caret-color: #131b17;
-    -webkit-box-shadow: 0 0 0 1000px #faf7ef inset !important;
-    box-shadow: 0 0 0 1000px #faf7ef inset !important;
+    -webkit-text-fill-color: var(--color-autofill-ink) !important;
+    caret-color: var(--color-autofill-ink);
+    -webkit-box-shadow: 0 0 0 1000px var(--color-autofill-fill) inset !important;
+    box-shadow: 0 0 0 1000px var(--color-autofill-fill) inset !important;
     transition: background-color 99999s ease-out;
   }
 
@@ -74,7 +79,8 @@
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scrollbar-width: thin;
-    scrollbar-color: rgba(201, 174, 120, 0.42) rgba(7, 12, 11, 0.55);
+    scrollbar-color: color-mix(in srgb, var(--color-accent-gold) 42%, transparent)
+      color-mix(in srgb, var(--color-shell-deep-end) 55%, transparent);
   }
 
   .concierge-modal-scroll::-webkit-scrollbar {
@@ -95,11 +101,11 @@
     border-radius: 999px;
     border: 2px solid transparent;
     background-clip: padding-box;
-    background-color: rgba(221, 207, 173, 0.35);
+    background-color: color-mix(in srgb, var(--color-accent-champagne) 35%, transparent);
   }
 
   .concierge-modal-scroll::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(201, 174, 120, 0.52);
+    background-color: color-mix(in srgb, var(--color-accent-gold) 52%, transparent);
   }
 }
 

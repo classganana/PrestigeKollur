@@ -1,7 +1,9 @@
 import { Container, RevealAnimation, SectionHeading } from "@/components/ui";
-import { SPEC_SNIPPETS } from "@/constants/golden-grove-project";
+import type { SpecificationsContent } from "@/lib/content/types";
 
-export function SpecificationsSection() {
+export function SpecificationsSection({ content }: { content: SpecificationsContent }) {
+  const { heading, snippets } = content;
+
   return (
     <section
       id="specifications"
@@ -12,14 +14,14 @@ export function SpecificationsSection() {
         <RevealAnimation className="mb-gallery-gap">
           <SectionHeading
             id="specifications-heading"
-            eyebrow="Specifications"
-            title="Structural rigour · interior palettes · services spine"
-            lead="Digest distilled from Prestige specification manuals — defer MEP nuances & acoustic datasheets to specialist desk sessions."
+            eyebrow={heading.eyebrow}
+            title={heading.title}
+            lead={heading.lead}
           />
         </RevealAnimation>
 
         <div className="grid gap-loft lg:grid-cols-3">
-          {SPEC_SNIPPETS.map((cluster) => (
+          {snippets.map((cluster) => (
             <RevealAnimation key={cluster.heading}>
               <article className="flex h-full flex-col gap-4 rounded-[26px] border border-accent-bronze/16 bg-fog-soft/90 p-loft shadow-soft backdrop-blur-sm">
                 <h3 className="font-display text-[1.42rem] text-foreground">{cluster.heading}</h3>

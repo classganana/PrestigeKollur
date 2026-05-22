@@ -10,6 +10,7 @@ import {
   whatsappFloorPlansUrl,
   whatsappScheduleVisitUrl,
 } from "@/constants/contact";
+import { useConversionTracking } from "@/lib/analytics/use-conversion-tracking";
 import { cn } from "@/lib/cn";
 
 /** Footer / hero-adjacent concierge band — roomy pills */
@@ -45,6 +46,7 @@ type Props = {
 };
 
 export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
+  const { trackWhatsAppClick, trackCallClick } = useConversionTracking();
   const telHref = enquiryTelHref();
 
   const scheduleWa = whatsappScheduleVisitUrl();
@@ -152,6 +154,7 @@ export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
               aria-label={label}
               className={INTENT_PILL}
               href={href}
+              onClick={() => trackWhatsAppClick("concierge_modal_wa")}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -160,7 +163,12 @@ export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
           ))}
 
           {telHref != null ? (
-            <a aria-label="Call concierge desk" className={INTENT_PILL} href={telHref}>
+            <a
+              aria-label="Call concierge desk"
+              className={INTENT_PILL}
+              href={telHref}
+              onClick={() => trackCallClick("concierge_modal_call")}
+            >
               Call desk
             </a>
           ) : null}
@@ -189,6 +197,7 @@ export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
                 title={ariaLabel}
                 className={cn(INTENT_SEGMENT, "snap-start")}
                 href={href}
+                onClick={() => trackWhatsAppClick("concierge_modal_wa")}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -206,6 +215,7 @@ export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
                   modalWaIntents.length === 0 ? "flex-1" : undefined,
                 )}
                 href={telHref}
+                onClick={() => trackCallClick("concierge_modal_call")}
               >
                 Call
               </a>

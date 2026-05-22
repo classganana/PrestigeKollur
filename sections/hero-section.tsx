@@ -6,8 +6,6 @@ import Image from "next/image";
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
-import heroCampaign from "@/public/media/official/banner-exterior.webp";
-
 import {
   heroLineReveal,
   heroLineRevealLite,
@@ -22,11 +20,15 @@ import {
 } from "@/components/conversion/open-concierge-button";
 import { SecondaryButton } from "@/components/ui/secondary-button";
 import { enquiryWhatsAppUrl } from "@/constants/contact";
-import { SITE } from "@/constants/site";
+import type { HeroContent } from "@/lib/content/types";
 import { usePreferLiteMotion } from "@/hooks/use-prefer-lite-motion";
+import { useSite } from "@/lib/project/project-context";
+import { themeClasses } from "@/lib/theme/theme-classes";
 import { cn } from "@/lib/cn";
 
-export function HeroSection() {
+export function HeroSection({ content }: { content: HeroContent }) {
+  const site = useSite();
+  const heroCampaign = content.campaignImage;
   const reduceMotion = useReducedMotion();
   const lite = usePreferLiteMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -58,26 +60,22 @@ export function HeroSection() {
 
   const heroEnquiryClasses = cn(
     "w-full font-medium uppercase tracking-[0.2em] sm:min-w-[232px]",
-    "border-accent-gold/42 bg-gradient-to-b from-[#f0e6d4] via-[#e4d7b9] to-[#cfbf94]",
-    "text-forest-strong",
-    "shadow-[0_10px_42px_-4px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,254,251,0.42),inset_0_-1px_0_rgba(58,52,39,0.12)]",
-    "hover:-translate-y-px hover:border-accent-gold/58 hover:from-[#f6efd9] hover:via-[#eadcbf] hover:to-[#dcc99f]",
-    "hover:shadow-[0_22px_64px_-6px_rgba(0,0,0,0.36),inset_0_1px_0_rgba(255,255,253,0.48),inset_0_-1px_0_rgba(58,52,39,0.1)] motion-reduce:hover:translate-y-0 active:translate-y-0 active:brightness-[0.99]",
+    "hover:-translate-y-px motion-reduce:hover:translate-y-0 active:translate-y-0 active:brightness-[0.99]",
   );
 
   return (
     <section
       ref={sectionRef}
       id="hero"
-      aria-label={`Hero — ${SITE.name}`}
-      className="relative isolate min-h-[100svh] overflow-hidden bg-[#090f0d]"
+      aria-label={`Hero — ${site.name}`}
+      className={cn("relative isolate min-h-[100svh] overflow-hidden", themeClasses.heroCanvas)}
     >
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         {disableScrollFx ? (
           <div aria-hidden className="absolute inset-[-2%]">
             <Image
               src={heroCampaign}
-              alt="Prestige Kollur façade elevation — official campaign visualization."
+              alt={content.campaignImageAlt}
               fill
               priority
               placeholder="blur"
@@ -100,7 +98,7 @@ export function HeroSection() {
           >
             <Image
               src={heroCampaign}
-              alt="Prestige Kollur façade elevation — official campaign visualization."
+              alt={content.campaignImageAlt}
               fill
               priority
               placeholder="blur"
@@ -128,9 +126,19 @@ export function HeroSection() {
         <div className="absolute inset-y-0 left-0 block w-full sm:hidden bg-[radial-gradient(ellipse_140%_88%_at_42%_36%,rgba(5,17,13,0.78)_0%,rgba(14,54,46,0.35)_54%,transparent_76%)]" />
 
         {/* Reserve depth for headline + footer stack without dimming skylight */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[min(58vh,640px)] bg-gradient-to-t from-[#030504]/[0.88] via-[#030504]/38 to-transparent" />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-x-0 bottom-0 h-[min(58vh,640px)]",
+            themeClasses.overlayHeroBottom,
+          )}
+        />
 
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[min(24vh,200px)] bg-gradient-to-b from-[#060d0c]/38 to-transparent" />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-x-0 top-0 h-[min(24vh,200px)]",
+            themeClasses.overlayHeroTop,
+          )}
+        />
 
         {/* Skylift + tonal glaze for separation */}
         <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(32,52,43,0.14),transparent_46%,rgba(217,203,173,0.085)]" />
@@ -188,14 +196,14 @@ export function HeroSection() {
               variants={reduceMotion ? undefined : lineV}
               className="font-sans text-micro uppercase tracking-[0.46em] text-accent-champagne/[0.93] sm:tracking-[0.48em] [text-shadow:0_1px_16px_rgba(4,12,10,0.55)]"
             >
-              {SITE.heroEyebrow}
+              {site.heroEyebrow}
             </motion.p>
 
             <motion.p
               variants={reduceMotion ? undefined : lineV}
               className="font-sans text-[0.58rem] font-semibold uppercase tracking-[0.38em] text-accent-champagne/[0.94] [text-shadow:0_2px_16px_rgba(2,10,8,0.65)] sm:text-[0.62rem] sm:tracking-[0.4em]"
             >
-              {SITE.jvLine}
+              {site.jvLine}
             </motion.p>
 
             <motion.h1
@@ -203,21 +211,21 @@ export function HeroSection() {
               className={cn(
                 "relative text-balance font-display font-light tracking-[-0.018em]",
                 "text-[clamp(2.7rem,9.35vw,5.85rem)] leading-[1.01]",
-                "text-transparent bg-clip-text bg-gradient-to-b from-[#fdf9f6] via-[#efe8dc] to-[#ccc4b8]",
+                themeClasses.heroTitleGradient,
                 lite
                   ? "[filter:none] [text-shadow:0_2px_28px_rgba(3,12,10,0.42)]"
                   : "[filter:drop-shadow(0_1px_0_rgba(255,251,246,0.07))drop-shadow(0_12px_36px_rgba(3,12,10,0.48))]",
               )}
             >
-              <span className="block pb-[0.06em]">{SITE.heroTitleLine1}</span>
-              <span className="mt-[0.3em] block sm:mt-[0.28em]">{SITE.heroTitleLine2}</span>
+              <span className="block pb-[0.06em]">{site.heroTitleLine1}</span>
+              <span className="mt-[0.3em] block sm:mt-[0.28em]">{site.heroTitleLine2}</span>
             </motion.h1>
 
             <motion.p
               variants={reduceMotion ? undefined : lineV}
               className="max-w-[min(37ch,calc(100vw-3rem))] font-sans text-[1.02rem] leading-[1.74] tracking-[0.01em] text-fog-soft/[0.87] antialiased sm:max-w-[42ch] sm:text-[1.09rem] [text-shadow:0_1px_18px_rgba(3,10,8,0.58)]"
             >
-              {SITE.heroSupporting}
+              {site.heroSupporting}
             </motion.p>
           </motion.div>
         </div>
@@ -230,9 +238,8 @@ export function HeroSection() {
               "px-[clamp(1.5rem,4.2vw,2.625rem)] py-9",
               "shadow-[0_44px_110px_-12px_rgba(0,0,0,0.48),inset_0_1px_0_rgba(255,255,255,0.13),inset_0_-1px_0_rgba(0,0,0,0.32)]",
               "ring-1 ring-inset ring-white/[0.08]",
-              lite
-                ? "bg-gradient-to-br from-white/[0.26] via-[#0a1513]/74 to-[#030807]/[0.92]"
-                : "bg-gradient-to-br from-white/[0.18] via-[#091210]/54 to-[#030807]/82 backdrop-blur-[26px] backdrop-saturate-[1.15]",
+              lite ? themeClasses.heroGlassPanelLite : themeClasses.heroGlassPanel,
+              !lite && "backdrop-blur-[26px] backdrop-saturate-[1.15]",
               "sm:py-11",
             )}
             initial={
@@ -246,16 +253,16 @@ export function HeroSection() {
             }}
           >
             <p className="mb-[1.875rem] max-w-2xl font-sans text-[0.97rem] font-normal leading-[1.76] text-fog-soft/[0.84] sm:text-[1.035rem] sm:leading-[1.74]">
-              {SITE.heroComposerNoteTemplate.replace("{project}", SITE.name)}
+              {site.heroComposerNoteTemplate.replace("{project}", site.name)}
             </p>
 
             <div className="flex flex-col gap-[1.125rem] sm:flex-row sm:items-stretch sm:gap-5">
               {whatsappHref ? (
-                <OpenWhatsAppConciergeButton className={heroEnquiryClasses}>
+                <OpenWhatsAppConciergeButton className={heroEnquiryClasses} placement="hero_wa">
                   WhatsApp enquiry
                 </OpenWhatsAppConciergeButton>
               ) : (
-                <OpenConciergeButton className={heroEnquiryClasses}>
+                <OpenConciergeButton variant="hero-enquiry" className={heroEnquiryClasses}>
                   Private concierge
                 </OpenConciergeButton>
               )}

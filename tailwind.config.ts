@@ -1,5 +1,10 @@
 import type { Config } from "tailwindcss";
 
+/** Tailwind opacity modifiers require space-separated RGB channels. */
+function rgbVar(name: string) {
+  return `rgb(var(--color-${name}-rgb) / <alpha-value>)`;
+}
+
 const config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -20,41 +25,39 @@ const config = {
     },
     extend: {
       colors: {
-        surface: "#f9f7f3",
-        foreground: "#1f2521",
-        /** Solid neutral for paragraphs — avoids illegibly translucent rgba on textured cream backgrounds. */
-        muted: "#4d554d",
+        surface: rgbVar("surface"),
+        foreground: rgbVar("foreground"),
+        muted: rgbVar("muted"),
         forest: {
-          DEFAULT: "#1d2a23",
-          strong: "#131b17",
+          DEFAULT: rgbVar("shell"),
+          strong: rgbVar("shell-strong"),
         },
-        ivory: "#f8f6f1",
-        "soft-stone": "#e6dfd2",
-        "soft-stone-glow": "#efe8dc",
+        ivory: rgbVar("ivory"),
+        "soft-stone": rgbVar("soft-stone"),
+        "soft-stone-glow": rgbVar("soft-stone-glow"),
         fog: {
-          DEFAULT: "#f4efe6",
-          soft: "#fcf9f5",
-          strong: "rgba(250,247,240,0.92)",
+          DEFAULT: rgbVar("fog"),
+          soft: rgbVar("fog-soft"),
+          strong: "var(--color-fog-strong)",
         },
         accent: {
-          gold: "#c9ae78",
-          champagne: "#ddcfad",
-          bronze: "#8f7a53",
-          olive: "#6c7562",
+          gold: rgbVar("accent-gold"),
+          champagne: rgbVar("accent-champagne"),
+          bronze: rgbVar("accent-bronze"),
+          olive: rgbVar("accent-olive"),
         },
-        /** Deep navy aligned with Prestige-adjacent luxury collateral; pairs with existing champagne / gold accents. */
+        brand: {
+          primary: rgbVar("brand-primary"),
+          muted: rgbVar("brand-muted"),
+        },
         prestige: {
-          navy: "#152c48",
-          mist: "#e9eef6",
+          navy: rgbVar("brand-primary"),
+          mist: rgbVar("brand-muted"),
         },
-        /**
-         * Copy on forest / charcoal glass (footer, concierge shells).
-         * Keeps WCAG-minded contrast vs forest-strong without stacking fragile opacity utilities.
-         */
         inverse: {
-          DEFAULT: "#faf7ef",
-          muted: "#ebe4d6",
-          subtle: "#c9bfb0",
+          DEFAULT: rgbVar("inverse"),
+          muted: rgbVar("inverse-muted"),
+          subtle: rgbVar("inverse-subtle"),
         },
       },
       fontFamily: {
@@ -91,16 +94,14 @@ const config = {
         measure: "38rem",
       },
       boxShadow: {
-        soft: "0px 38px 90px rgba(42,52,43,0.08)",
-        elevated: "0px 54px 120px rgba(32,43,37,0.14)",
-        subtleGlow:
-          "0px 52px 98px rgba(212,184,138,0.15), inset 0 1px 0 rgba(255,255,255,0.12)",
+        soft: "var(--shadow-soft)",
+        elevated: "var(--shadow-elevated)",
+        subtleGlow: "var(--shadow-subtle-glow)",
+        modal: "var(--shadow-modal)",
       },
       backgroundImage: {
-        "mist-radial":
-          "radial-gradient(ellipse at 82% -10%, rgba(239,229,207,0.55), transparent 62%)",
-        "twilight-soft":
-          "linear-gradient(180deg, rgba(250,246,238,1) 0%, rgba(234,229,217,1) 100%)",
+        "mist-radial": "var(--gradient-mist-radial)",
+        "twilight-soft": "var(--gradient-twilight-soft)",
       },
       backdropBlur: {
         editorial: "18px",

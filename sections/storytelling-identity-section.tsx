@@ -16,31 +16,30 @@ import {
 import { EditorialParallaxFrame } from "@/components/storytelling/editorial-parallax-frame";
 
 import { Container } from "@/components/ui/container";
-import {
-  OFFICIAL_SITE_MEDIA_ATTRIBUTION,
-  STORY_FRAME,
-  STORY_IMMERSIVE_FRAME,
-} from "@/constants/brochure-media";
-import {
-  STORY_EDITORIAL_STATS,
-  STORY_IMMERSED_LINE,
-  STORY_OPENING_LINES,
-  STORY_RIVER_LINES,
-  STORY_BRIDGE_QUOTE,
-  STORY_SHOULDER_LINE,
-  STORYTELLING_PRIMARY_HEADLINE,
-  STORYTELLING_SECTION_EYEBROW,
-  STORYTELLING_SECTION_EYEBROW_MOBILE,
-} from "@/constants/storytelling";
+import type { StorytellingContent } from "@/lib/content/types";
 import { usePreferLiteMotion } from "@/hooks/use-prefer-lite-motion";
 
 import { cn } from "@/lib/cn";
 
 /** Post-hero narrative — editorial hospitality pacing with campaign-grade photography where it earns space. */
 
-export function StorytellingIdentitySection() {
+export function StorytellingIdentitySection({ content }: { content: StorytellingContent }) {
   const reduceMotion = useReducedMotion();
   const lite = usePreferLiteMotion();
+  const {
+    mediaAttribution,
+    eyebrow,
+    eyebrowMobile,
+    primaryHeadline,
+    openingLines,
+    bridgeQuote,
+    riverLines,
+    immersedLine,
+    shoulderLine,
+    editorialStats,
+    storyFrame,
+    immersiveFrame,
+  } = content;
 
   const sceneV = lite ? storytellingSceneLite : storytellingScene;
   const chapterV = lite ? storytellingChapterLite : storytellingChapter;
@@ -106,9 +105,9 @@ export function StorytellingIdentitySection() {
               )}
             >
               <span className="inline sm:hidden">
-                {STORYTELLING_SECTION_EYEBROW_MOBILE}
+                {eyebrowMobile}
               </span>
-              <span className="hidden sm:inline">{STORYTELLING_SECTION_EYEBROW}</span>
+              <span className="hidden sm:inline">{eyebrow}</span>
             </motion.p>
 
             <div className="flex min-w-0 gap-ribbon">
@@ -125,7 +124,7 @@ export function StorytellingIdentitySection() {
                     "text-[clamp(2.05rem,min(11.2vw,3.95rem),4.75rem)] leading-[1] sm:text-[clamp(2.25rem,5.6vw,4.05rem)] sm:leading-[0.988] xl:text-[clamp(2.65rem,5.9vw,4.9rem)]",
                   )}
                 >
-                  {STORYTELLING_PRIMARY_HEADLINE.lines.map((line) => (
+                  {primaryHeadline.lines.map((line) => (
                     <span className="block" key={line}>
                       {line}
                     </span>
@@ -135,13 +134,13 @@ export function StorytellingIdentitySection() {
                   variants={reduceMotion ? undefined : whisperV}
                   className="hidden max-w-[40ch] font-sans text-[0.6575rem] uppercase leading-snug tracking-[0.38em] text-muted sm:inline sm:text-[0.68rem] sm:tracking-[0.42em]"
                 >
-                  {OFFICIAL_SITE_MEDIA_ATTRIBUTION}
+                  {mediaAttribution}
                 </motion.p>
               </div>
             </div>
 
             <div className="min-w-0 space-y-5 sm:space-y-relax">
-              {STORY_OPENING_LINES.map((line) => (
+              {openingLines.map((line) => (
                 <motion.p
                   key={line}
                   variants={reduceMotion ? undefined : whisperV}
@@ -159,10 +158,10 @@ export function StorytellingIdentitySection() {
           >
             <div className="relative min-w-0 lg:-mr-[max(0px,calc((100vw-min(1180px,100vw))/2+2rem))]">
               <EditorialParallaxFrame
-                alt={STORY_FRAME.alt}
+                alt={storyFrame.alt}
                 className="aspect-[3/4] w-full min-h-[min(72vh,640px)] lg:min-h-[min(82vh,780px)]"
                 sizes="(max-width: 1024px) 100vw, 54vw"
-                src={STORY_FRAME.src}
+                src={storyFrame.src}
                 tone="grove-vertical"
               />
             </div>
@@ -188,7 +187,7 @@ export function StorytellingIdentitySection() {
             variants={reduceMotion ? undefined : chapterV}
           >
             <p className="hyphens-none break-words font-display text-[clamp(1.58rem,min(9.65vw,1.95rem),2.92rem)] leading-[1.1] tracking-[-0.015em] text-foreground/93 sm:text-[clamp(1.84rem,3.65vw,3.05rem)] sm:tracking-normal">
-              {STORY_BRIDGE_QUOTE}
+              {bridgeQuote}
             </p>
           </motion.blockquote>
 
@@ -196,7 +195,7 @@ export function StorytellingIdentitySection() {
             className="min-w-0 space-y-5 sm:space-y-relax lg:col-span-5 lg:col-start-7"
             variants={reduceMotion ? undefined : chapterV}
           >
-            {STORY_RIVER_LINES.map((line) => (
+            {riverLines.map((line) => (
               <p
                 key={line}
                 className="hyphens-none break-words text-pretty font-sans text-[1.015rem] leading-[1.75] tracking-[0.01em] text-muted sm:max-w-[46ch] sm:text-[1.06rem] sm:leading-[1.8]"
@@ -223,7 +222,7 @@ export function StorytellingIdentitySection() {
           />
 
           <div className="relative grid divide-accent-bronze/16 divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-            {STORY_EDITORIAL_STATS.map((stat) => (
+            {editorialStats.map((stat) => (
               <motion.div
                 key={stat.figure + stat.heading}
                 variants={reduceMotion ? undefined : whisperV}
@@ -254,15 +253,15 @@ export function StorytellingIdentitySection() {
           className="min-w-0"
         >
           <EditorialParallaxFrame
-            alt={STORY_IMMERSIVE_FRAME.alt}
+            alt={immersiveFrame.alt}
             className="aspect-[21/13] w-full sm:aspect-[21/11] lg:aspect-[21/9]"
             sizes="100vw"
-            src={STORY_IMMERSIVE_FRAME.src}
+            src={immersiveFrame.src}
             tone="twilight-horizontal"
           />
 
           <p className="mx-auto mt-9 max-w-full hyphens-none break-words px-1 text-pretty text-center font-sans text-[0.985rem] leading-[1.76] tracking-[0.01em] text-muted sm:mt-11 sm:max-w-[44ch] sm:text-[1.02rem] sm:leading-[1.8]">
-            {STORY_IMMERSED_LINE}
+            {immersedLine}
           </p>
         </motion.div>
 
@@ -273,7 +272,7 @@ export function StorytellingIdentitySection() {
           variants={reduceMotion ? undefined : whisperV}
           className="mx-auto mt-16 max-w-full hyphens-none break-words px-2 text-center font-sans text-[0.61rem] uppercase leading-snug tracking-[0.28em] text-accent-olive/72 sm:mt-[4.75rem] sm:max-w-[38ch] sm:text-micro sm:tracking-[0.4em]"
         >
-          {STORY_SHOULDER_LINE}
+          {shoulderLine}
         </motion.p>
       </Container>
     </section>
