@@ -12,7 +12,7 @@ export function FloorPlanTeaserSection({ content }: { content: FloorPlansContent
     <section
       id={sectionId}
       aria-labelledby="floor-plans-heading"
-      className="scroll-mt-28 border-t border-accent-bronze/10 bg-gradient-to-b from-ivory/[0.92] via-soft-stone/55 to-twilight-soft/40 pb-section-y pt-section-y"
+      className="scroll-mt-[5.625rem] border-t border-accent-bronze/10 bg-gradient-to-b from-ivory/[0.92] via-soft-stone/55 to-twilight-soft/40 pb-section-y pt-section-y sm:scroll-mt-28"
     >
       <Container>
         <RevealAnimation className="mb-loft lg:mb-gallery-gap">
@@ -31,15 +31,17 @@ export function FloorPlanTeaserSection({ content }: { content: FloorPlansContent
           </p>
         </RevealAnimation>
 
-        <div className="grid gap-gallery-gap sm:grid-cols-2">
-          {tiles.map((tile) => (
-            <RevealAnimation key={tile.src}>
-              <FloorPlanBlurredHitTile tile={tile} />
-            </RevealAnimation>
-          ))}
-        </div>
+        {tiles.length > 0 ? (
+          <div className="grid gap-gallery-gap sm:grid-cols-2">
+            {tiles.map((tile) => (
+              <RevealAnimation key={tile.src}>
+                <FloorPlanBlurredHitTile tile={tile} />
+              </RevealAnimation>
+            ))}
+          </div>
+        ) : null}
 
-        <RevealAnimation className="mt-gallery-gap lg:mt-orbit">
+        <RevealAnimation className={tiles.length > 0 ? "mt-gallery-gap lg:mt-orbit" : undefined}>
           <div className="relative overflow-hidden rounded-[clamp(26px,_3.4vw,_36px)] border border-accent-bronze/[0.2] bg-gradient-to-br from-prestige-navy/[0.06] via-white/75 to-soft-stone/80 px-loft py-loft shadow-soft sm:px-orbit sm:py-orbit">
             <div
               aria-hidden

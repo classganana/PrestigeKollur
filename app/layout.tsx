@@ -48,7 +48,11 @@ export default function RootLayout({
           <SmoothScroll>
             <ConciergeModalProvider>
               <GrainOverlay />
-              <SiteChrome label={site.name} subtitle={site.chromeSubtitle} />
+              <SiteChrome
+                label={site.name}
+                subtitle={site.chromeSubtitle}
+                subtitleShort={site.chromeSubtitleShort}
+              />
 
               <main className="relative z-10 min-w-0 overflow-x-clip pb-[calc(5.25rem+env(safe-area-inset-bottom,0px))] md:pb-0">
                 {children}

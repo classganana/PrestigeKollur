@@ -5,6 +5,7 @@ export type SectionId =
   | "hero"
   | "overview"
   | "storytelling"
+  | "highlights"
   | "amenities"
   | "pricing"
   | "floor-plans"
@@ -16,6 +17,7 @@ export type SectionId =
   | "specifications"
   | "gallery"
   | "location"
+  | "trust"
   | "cta-footer";
 
 /** Maps manifest `id` → `ProjectContentPack` key. */
@@ -23,6 +25,7 @@ export type SectionContentKey = {
   hero: "hero";
   overview: "overview";
   storytelling: "storytelling";
+  highlights: "highlights";
   amenities: "amenities";
   pricing: "pricing";
   "floor-plans": "floorPlans";
@@ -34,6 +37,7 @@ export type SectionContentKey = {
   specifications: "specifications";
   gallery: "gallery";
   location: "location";
+  trust: "trust";
   "cta-footer": "ctaFooter";
 };
 

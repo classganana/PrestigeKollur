@@ -2,7 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AuthorizedPartnerLockup } from "@/components/branding/authorized-partner-lockup";
-import { PARTNER_BRAND_COPY, partnerLogoSrc, partnerReferenceHref, partnerRoleLine } from "@/constants/partner-brand";
+import {
+  partnerDisclosureCopy,
+  partnerLogoSrc,
+  partnerMarksLine,
+  partnerReferenceHref,
+  partnerRoleLine,
+} from "@/constants/partner-brand";
+import { resolveBranding } from "@/lib/project/resolve-project";
 import { cn } from "@/lib/cn";
 
 function PartnerLogo({ alt, src }: { alt: string; src: string }) {
@@ -23,6 +30,7 @@ function PartnerLogo({ alt, src }: { alt: string; src: string }) {
 
 export function PartnerChannelDisclosure({ className }: { className?: string }) {
   const logo = partnerLogoSrc();
+  const branding = resolveBranding();
 
   const reference = partnerReferenceHref();
 
@@ -37,10 +45,7 @@ export function PartnerChannelDisclosure({ className }: { className?: string }) 
         <AuthorizedPartnerLockup />
 
         {logo !== null ? (
-          <PartnerLogo
-            src={logo}
-            alt="Prestige Kollur — Authorized Sales Partner project lockup"
-          />
+          <PartnerLogo src={logo} alt={branding.partnerLogoAlt} />
         ) : null}
 
         <div className="space-y-3 text-center font-sans text-[0.6875rem] leading-relaxed tracking-[0.04em] text-muted">
@@ -50,9 +55,9 @@ export function PartnerChannelDisclosure({ className }: { className?: string }) 
             </span>
           </p>
 
-          <p className="max-w-2xl text-balance">{PARTNER_BRAND_COPY.disclosure}</p>
+          <p className="max-w-2xl text-balance">{partnerDisclosureCopy()}</p>
 
-          <p className="max-w-2xl text-balance text-muted">{PARTNER_BRAND_COPY.marksLine}</p>
+          <p className="max-w-2xl text-balance text-muted">{partnerMarksLine()}</p>
 
           {reference !== null ? (
             <p>

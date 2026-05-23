@@ -5,6 +5,7 @@ export const SECTION_DEFINITIONS: Record<SectionId, SectionDefinition> = {
   hero: { id: "hero", contentKey: "hero", load: "static" },
   overview: { id: "overview", contentKey: "overview", load: "static" },
   storytelling: { id: "storytelling", contentKey: "storytelling", load: "dynamic" },
+  highlights: { id: "highlights", contentKey: "highlights", load: "static" },
   amenities: { id: "amenities", contentKey: "amenities", load: "static" },
   pricing: { id: "pricing", contentKey: "pricing", load: "static" },
   "floor-plans": { id: "floor-plans", contentKey: "floorPlans", load: "static" },
@@ -20,6 +21,7 @@ export const SECTION_DEFINITIONS: Record<SectionId, SectionDefinition> = {
   specifications: { id: "specifications", contentKey: "specifications", load: "static" },
   gallery: { id: "gallery", contentKey: "gallery", load: "dynamic" },
   location: { id: "location", contentKey: "location", load: "static" },
+  trust: { id: "trust", contentKey: "trust", load: "static" },
   "cta-footer": { id: "cta-footer", contentKey: "ctaFooter", load: "static" },
 };
 

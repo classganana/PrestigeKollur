@@ -1,0 +1,25 @@
+# Install on EC2 host nginx (NOT Docker nginx):
+#   sudo cp docker/nginx/host-snippets/godrej-kukatpally.conf.example /etc/nginx/conf.d/godrej-kukatpally.conf
+#   sudo nginx -t && sudo systemctl reload nginx
+#
+# Requires Godrej container on host port 3002 (docker-compose.host-nginx.yml).
+
+server {
+    listen 80;
+    server_name godrej-kukatpally-new-launch.site www.godrej-kukatpally-new-launch.site;
+
+    location / {
+        proxy_pass http://127.0.0.1:3002;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 60s;
+    }
+}
+
+# After DNS works on HTTP, add HTTPS with certbot:
+#   sudo certbot --nginx -d godrej-kukatpally-new-launch.site -d www.godrej-kukatpally-new-launch.site

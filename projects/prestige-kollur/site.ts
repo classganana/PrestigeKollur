@@ -11,6 +11,26 @@ export const prestigeKollurSite = {
   partnerChannelLabel: "Authorized Sales Partner — Prestige Group",
   /** Fixed header subtitle — reinforces partner status next to the project name. */
   chromeSubtitle: "Authorized Sales Partner · Prestige Group",
+  chromeSubtitleShort: "Sales Partner · Prestige",
+  whatsappMessages: {
+    default:
+      "Hello — I'd love to enquire about Prestige Kollur (Velimela / Tellapur–Kollur, Hyderabad). Please share the next thoughtful step.",
+    connectivity:
+      "Hello — Could you share location & connectivity context for Prestige Kollur (ORR Exit 2 reach, Financial District / HITEC cadence, airport, schools & hospitals)? Thank you.",
+    scheduleVisit:
+      "Hello — I'd like to schedule a private site visit for Prestige Kollur when you have availability. Kindly propose a few considerate windows.",
+    floorPlans:
+      "Hello — Could you please share floor plans / typology context for Prestige Kollur when convenient?",
+    availability:
+      "Hello — I'm exploring availability / inventory guidance for Prestige Kollur and would appreciate discreet next steps.",
+  },
+  conciergeLeadCard: {
+    eyebrow: "Signature cadence",
+    title: "Schedule a site walk with unhurried choreography.",
+    body: "Terrain before spreadsheets—muted vehicles, deliberate pauses—anchored to Prestige-published collateral. Scroll to the discreet form or open a templated WhatsApp thread.",
+  },
+  /** Developer name surfaced in partner lockups and compliance chrome. */
+  developerBrandName: "Prestige Group",
   tagline:
     "Forest-themed Prestige township · Velimela 100 ft Road · Kollur · ~28.7 acres · 5,120 Sky-Villaments · twin clubhouses · ORR Exit 2 glide.",
   description:

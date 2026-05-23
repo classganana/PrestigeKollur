@@ -16,8 +16,8 @@ import { useChromeScrollReveal } from "@/hooks/use-chrome-scroll-reveal";
 import { cn } from "@/lib/cn";
 
 const CELL = cn(
-  "relative flex min-h-touch min-w-0 flex-1 basis-0 flex-col items-center justify-center gap-1 px-2 py-[0.55rem]",
-  "font-sans text-[clamp(0.534rem,min(3.2vw,0.5975rem),0.5975rem)] font-medium uppercase leading-snug tracking-[0.24em]",
+  "relative flex min-h-touch min-w-0 flex-1 basis-0 flex-col items-center justify-center gap-1.5 px-2 py-2.5",
+  "font-sans text-[clamp(0.5625rem,min(3.4vw,0.625rem),0.625rem)] font-medium uppercase leading-snug tracking-[0.2em]",
   "text-forest-strong/[0.93]",
   "outline-none motion-safe:transition-[color,background-color] motion-safe:duration-200 motion-reduce:transition-none",
   "supports-[pointer:fine]:motion-safe:hover:bg-black/[0.036] motion-safe:active:bg-black/[0.05]",

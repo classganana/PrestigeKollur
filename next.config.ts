@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /** Per-project dev caches — set via `NEXT_DIST_DIR` in `npm run dev:prestige` / `dev:godrej`. */
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   /** Copies a minimal `.next/standalone/` tree plus `server.js` for long-running `/ node` hosts (EC2). */
   output: "standalone",
   images: {

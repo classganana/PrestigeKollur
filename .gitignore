@@ -15,7 +15,13 @@
 
 # next.js
 /.next/
+/.next-prestige/
+/.next-godrej/
 /out/
+/apps/
+
+# docker build-time project env (CI-generated; see docker/projects/*.build.env.example)
+docker/projects/*.build.env
 
 # production
 /build

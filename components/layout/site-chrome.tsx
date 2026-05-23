@@ -9,6 +9,8 @@ import { themeClasses } from "@/lib/theme/theme-classes";
 type Props = {
   label: string;
   subtitle?: string;
+  /** Shorter partner line on narrow viewports — falls back to `subtitle`. */
+  subtitleShort?: string;
   /** Unused — retained for call-site compatibility. */
   heroSectionId?: string;
   href?: string;
@@ -19,7 +21,7 @@ type Props = {
  * Masthead aligned to the hero glass stack — dark translucency, champagne type, no pasted “sales card”.
  * Raster logos stay in footer disclosure where compliance layouts expect them.
  */
-export function SiteChrome({ label, subtitle, href = "/", className }: Props) {
+export function SiteChrome({ label, subtitle, subtitleShort, href = "/", className }: Props) {
   const { chromeVisible } = useChromeScrollReveal();
 
   return (
@@ -70,7 +72,8 @@ export function SiteChrome({ label, subtitle, href = "/", className }: Props) {
                 "sm:tracking-[0.34em]",
               )}
             >
-              {subtitle}
+              <span className="xs:hidden">{subtitleShort ?? subtitle}</span>
+              <span className="hidden xs:inline">{subtitle}</span>
             </span>
           ) : null}
         </Link>

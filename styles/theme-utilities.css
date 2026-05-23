@@ -5,9 +5,9 @@
   .theme-cta-champagne {
     border-color: var(--cta-champagne-border);
     background-image: var(--gradient-cta-champagne);
-    color: var(--color-shell-strong);
+    color: var(--cta-champagne-ink, var(--color-shell-strong));
     box-shadow: var(--shadow-soft);
-    transition-property: border-color, background-image, transform, box-shadow;
+    transition-property: border-color, background-image, transform, box-shadow, color;
     transition-duration: 480ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -15,6 +15,24 @@
   .theme-cta-champagne:hover {
     border-color: var(--cta-champagne-border-hover);
     background-image: var(--gradient-cta-champagne-hover);
+    color: var(--cta-champagne-ink, var(--color-shell-strong));
+  }
+
+  /**
+   * Champagne on `PrimaryButton` — overrides forest shell + fog text from `.theme-cta-primary`.
+   */
+  .theme-cta-primary.theme-cta-champagne {
+    border-color: var(--cta-champagne-border);
+    background-color: transparent;
+    background-image: var(--gradient-cta-champagne);
+    color: var(--cta-champagne-ink, var(--color-shell-strong));
+  }
+
+  .theme-cta-primary.theme-cta-champagne:hover {
+    border-color: var(--cta-champagne-border-hover);
+    background-color: transparent;
+    background-image: var(--gradient-cta-champagne-hover);
+    color: var(--cta-champagne-ink, var(--color-shell-strong));
   }
 
   .theme-cta-primary {
@@ -133,4 +151,90 @@
 
   .theme-brand-lockup-subtitle {
     color: color-mix(in srgb, var(--color-brand-primary) 92%, transparent);
+  }
+
+  .theme-hero-urban-vignette {
+    background: var(--hero-urban-vignette);
+  }
+
+  .theme-hero-campaign-scrim-top {
+    background: var(--hero-campaign-scrim-top);
+  }
+
+  .theme-hero-campaign-scrim-center {
+    background: var(--hero-campaign-scrim-center);
+  }
+
+  .theme-hero-campaign-scrim-bottom {
+    background: var(--hero-campaign-scrim-bottom);
+  }
+
+  .theme-hero-campaign-vignette {
+    background: var(--hero-campaign-vignette);
+  }
+
+  .theme-hero-campaign-accent {
+    background: var(--hero-campaign-accent);
+  }
+
+  .theme-hero-campaign-secondary-cta {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--hero-campaign-secondary-border);
+    background-color: var(--hero-campaign-secondary-bg);
+    background-image: var(--hero-campaign-secondary-bg-gradient);
+    color: var(--hero-campaign-secondary-text);
+    box-shadow: var(--hero-campaign-secondary-shadow);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition-property: border-color, background-color, background-image, color, box-shadow,
+      transform;
+    transition-duration: 460ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .theme-hero-campaign-secondary-cta:hover {
+    border-color: var(--hero-campaign-secondary-border-hover);
+    background-color: var(--hero-campaign-secondary-bg-hover);
+    color: var(--hero-campaign-secondary-text-hover, var(--hero-campaign-secondary-text));
+    box-shadow: var(--hero-campaign-secondary-shadow-hover);
+  }
+
+  .theme-connectivity-atlas-frame {
+    background-image: var(--connectivity-atlas-frame-bg);
+    box-shadow:
+      0 0 0 1px var(--connectivity-atlas-frame-ring),
+      0 28px 64px -28px rgba(0, 0, 0, 0.55);
+  }
+
+  .theme-connectivity-atlas-image {
+    filter: var(--connectivity-atlas-filter);
+  }
+
+  .theme-connectivity-atlas-wash {
+    background: var(--connectivity-atlas-wash);
+  }
+
+  .theme-connectivity-atlas-vignette {
+    background: var(--connectivity-atlas-vignette);
+  }
+
+  .theme-connectivity-atlas-accent {
+    background: var(--connectivity-atlas-accent);
+  }
+
+  .theme-connectivity-atlas-scrim-bottom {
+    background: var(--connectivity-atlas-scrim-bottom);
+  }
+
+  .theme-ink-body {
+    color: var(--color-ink-body, var(--color-muted));
+  }
+
+  .theme-ink-label {
+    color: var(--color-ink-label, var(--color-accent-bronze));
+  }
+
+  .theme-ink-caption {
+    color: var(--color-ink-caption, var(--color-muted));
   }

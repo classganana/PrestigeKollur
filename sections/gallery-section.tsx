@@ -8,7 +8,6 @@ import { imageReveal } from "@/animations";
 
 import { Container, RevealAnimation, SectionHeading } from "@/components/ui";
 import type { GalleryContent } from "@/lib/content/types";
-import { resolveGalleryLifestyleFrames } from "@/projects/prestige-kollur/content/gallery";
 
 import { cn } from "@/lib/cn";
 
@@ -18,10 +17,10 @@ const tileChrome = cn(
 
 export default function GallerySection({ content }: { content: GalleryContent }) {
   const reduceMotion = useReducedMotion();
-  const lifestyleFrames = resolveGalleryLifestyleFrames();
+  const lifestyleFrames = content.lifestyleFrames;
 
   return (
-    <section id="gallery" aria-labelledby="gallery-heading" className="scroll-mt-28">
+    <section id="gallery" aria-labelledby="gallery-heading" className="scroll-mt-[5.625rem] sm:scroll-mt-28">
       <Container>
         <RevealAnimation className="mb-gallery-gap lg:mb-orbit">
           <SectionHeading

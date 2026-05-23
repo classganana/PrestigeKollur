@@ -11,7 +11,7 @@ export function PricingPlansSection({ content }: { content: PricingContent }) {
     <section
       id="pricing"
       aria-labelledby="pricing-heading"
-      className="scroll-mt-28 border-t border-accent-bronze/10 bg-twilight-soft/55 pb-section-y pt-section-y"
+      className="scroll-mt-[5.625rem] border-t border-accent-bronze/10 bg-twilight-soft/55 pb-section-y pt-section-y sm:scroll-mt-28"
     >
       <Container>
         <RevealAnimation className="mb-gallery-gap">
@@ -47,34 +47,36 @@ export function PricingPlansSection({ content }: { content: PricingContent }) {
           </p>
         </RevealAnimation>
 
-        <RevealAnimation className="mb-gallery-gap">
-          <h3 className="font-display text-fluid-section text-foreground">{configurationIntro.title}</h3>
-          <p className="mt-3 max-w-3xl font-sans text-body-relaxed text-muted">{configurationIntro.lead}</p>
-          <div className="mt-loft">
-            <TableShell>
-              <thead className="bg-prestige-navy/[0.06] font-semibold uppercase tracking-[0.22em] text-[0.58rem] text-prestige-navy">
-                <tr>
-                  <th className="px-5 py-4">Series</th>
-                  <th className="px-5 py-4">Core layout</th>
-                  <th className="px-5 py-4">Sq. ft.</th>
-                  <th className="px-5 py-4">Best suited</th>
-                  <th className="px-5 py-4">Highlight</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-accent-bronze/12">
-                {configurationRows.map((row) => (
-                  <tr key={row.variant} className="bg-white/[0.35]">
-                    <td className="px-5 py-4 font-semibold">{row.variant}</td>
-                    <td className="px-5 py-4 text-muted">{row.beds}</td>
-                    <td className="px-5 py-4 tabular-nums text-muted">{row.sizes}</td>
-                    <td className="px-5 py-4 text-muted">{row.suited}</td>
-                    <td className="px-5 py-4 text-muted">{row.highlight}</td>
+        {configurationRows.length > 0 ? (
+          <RevealAnimation className="mb-gallery-gap">
+            <h3 className="font-display text-fluid-section text-foreground">{configurationIntro.title}</h3>
+            <p className="mt-3 max-w-3xl font-sans text-body-relaxed text-muted">{configurationIntro.lead}</p>
+            <div className="mt-loft">
+              <TableShell>
+                <thead className="bg-prestige-navy/[0.06] font-semibold uppercase tracking-[0.22em] text-[0.58rem] text-prestige-navy">
+                  <tr>
+                    <th className="px-5 py-4">Series</th>
+                    <th className="px-5 py-4">Core layout</th>
+                    <th className="px-5 py-4">Sq. ft.</th>
+                    <th className="px-5 py-4">Best suited</th>
+                    <th className="px-5 py-4">Highlight</th>
                   </tr>
-                ))}
-              </tbody>
-            </TableShell>
-          </div>
-        </RevealAnimation>
+                </thead>
+                <tbody className="divide-y divide-accent-bronze/12">
+                  {configurationRows.map((row) => (
+                    <tr key={row.variant} className="bg-white/[0.35]">
+                      <td className="px-5 py-4 font-semibold">{row.variant}</td>
+                      <td className="px-5 py-4 text-muted">{row.beds}</td>
+                      <td className="px-5 py-4 tabular-nums text-muted">{row.sizes}</td>
+                      <td className="px-5 py-4 text-muted">{row.suited}</td>
+                      <td className="px-5 py-4 text-muted">{row.highlight}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </TableShell>
+            </div>
+          </RevealAnimation>
+        ) : null}
 
         <RevealAnimation className="flex flex-wrap gap-relax">
           <OpenConciergeButton className="min-h-touch px-loft uppercase tracking-[0.26em]">

@@ -102,6 +102,7 @@
   --gradient-cta-champagne-hover: linear-gradient(to bottom, #f2ebd8 0%, #e5d7b8 50%, #dac89c 100%);
   --cta-champagne-border: rgba(201, 174, 120, 0.4);
   --cta-champagne-border-hover: rgba(201, 174, 120, 0.54);
+  --cta-champagne-ink: var(--color-shell-strong);
 
   --gradient-cta-hero-enquiry: linear-gradient(to bottom, #f0e6d4 0%, #e4d7b9 50%, #cfbf94 100%);
   --gradient-cta-hero-enquiry-hover: linear-gradient(to bottom, #f6efd9 0%, #eadcbf 50%, #dcc99f 100%);
@@ -179,4 +180,78 @@
   /* Form autofill (concierge) */
   --color-autofill-ink: #131b17;
   --color-autofill-fill: #faf7ef;
+
+  /* Urban hero overlays — inert on editorial; urban variant reads these */
+  --hero-urban-skyline-glow: radial-gradient(
+    ellipse 90% 70% at 62% 8%,
+    rgba(244, 239, 229, 0.12),
+    transparent 62%
+  );
+  --hero-urban-horizon: linear-gradient(
+    180deg,
+    rgba(9, 15, 13, 0.38) 0%,
+    transparent 32%,
+    transparent 58%,
+    rgba(5, 10, 9, 0.72) 100%
+  );
+  --hero-urban-vignette: radial-gradient(
+    ellipse 95% 88% at 50% 42%,
+    transparent 48%,
+    rgba(2, 11, 10, 0.38) 100%
+  );
+
+  --hero-campaign-scrim-top: linear-gradient(to bottom, transparent, transparent);
+  --hero-campaign-scrim-center: radial-gradient(circle, transparent, transparent);
+  --hero-campaign-scrim-bottom: linear-gradient(to top, transparent, transparent);
+  --hero-campaign-vignette: radial-gradient(circle, transparent, transparent);
+  --hero-campaign-accent: radial-gradient(circle, transparent, transparent);
+
+  --hero-campaign-secondary-border: rgba(201, 174, 120, 0.45);
+  --hero-campaign-secondary-border-hover: rgba(223, 207, 170, 0.58);
+  --hero-campaign-secondary-bg: rgba(9, 15, 13, 0.52);
+  --hero-campaign-secondary-bg-hover: rgba(12, 20, 17, 0.66);
+  --hero-campaign-secondary-bg-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(9, 15, 13, 0.58) 100%
+  );
+  --hero-campaign-secondary-text: #f4efe5;
+  --hero-campaign-secondary-text-hover: #faf7ef;
+  --hero-campaign-secondary-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --hero-campaign-secondary-shadow-hover: 0 10px 32px -6px rgba(0, 0, 0, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  --connectivity-atlas-filter: grayscale(0.75) saturate(0.35) contrast(1.06) brightness(0.88);
+  --connectivity-atlas-wash: linear-gradient(
+    145deg,
+    rgba(9, 15, 13, 0.42) 0%,
+    transparent 50%,
+    rgba(9, 15, 13, 0.38) 100%
+  );
+  --connectivity-atlas-vignette: radial-gradient(
+    ellipse 90% 85% at 50% 50%,
+    transparent 40%,
+    rgba(5, 10, 9, 0.55) 100%
+  );
+  --connectivity-atlas-accent: radial-gradient(
+    ellipse 40% 35% at 50% 50%,
+    rgba(201, 174, 120, 0.14),
+    transparent 70%
+  );
+  --connectivity-atlas-frame-ring: rgba(201, 174, 120, 0.28);
+  --connectivity-atlas-frame-bg: linear-gradient(145deg, #131b17 0%, #090f0d 100%);
+  --connectivity-atlas-scrim-bottom: linear-gradient(
+    to top,
+    rgba(5, 10, 9, 0.55) 0%,
+    rgba(5, 10, 9, 0.12) 42%,
+    transparent 100%
+  );
+
+  --color-ink-body: var(--color-muted);
+  --color-ink-body-rgb: var(--color-muted-rgb);
+  --color-ink-label: var(--color-accent-bronze);
+  --color-ink-label-rgb: var(--color-accent-bronze-rgb);
+  --color-ink-caption: var(--color-muted);
+  --color-ink-caption-rgb: var(--color-muted-rgb);
 }

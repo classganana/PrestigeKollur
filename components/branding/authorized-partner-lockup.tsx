@@ -45,7 +45,7 @@ export function AuthorizedPartnerLockup({
           dense ? "text-[0.62rem]" : "text-[0.6825rem]",
         )}
       >
-        Prestige Group
+        {site.developerBrandName}
       </span>
     </div>
   );

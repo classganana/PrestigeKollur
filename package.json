@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:prestige": "node scripts/dev-project.mjs prestige",
+    "dev:godrej": "node scripts/dev-project.mjs godrej",
     "build": "next build",
+    "build:prestige": "NEXT_PUBLIC_PROJECT_SLUG=prestige-kollur next build",
+    "build:godrej": "NEXT_PUBLIC_PROJECT_SLUG=godrej-kukatpally next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ."

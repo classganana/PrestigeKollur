@@ -1,55 +1,12 @@
 import Image from "next/image";
 
-import {
-  Baby,
-  BriefcaseBusiness,
-  Camera,
-  Clapperboard,
-  Dumbbell,
-  Flower2,
-  Footprints,
-  Gamepad2,
-  Landmark,
-  Leaf,
-  Music4,
-  ShoppingBag,
-  Sparkles,
-  Trees,
-  Users,
-  Video,
-  Volleyball,
-  Waves,
-  Wifi,
-  type LucideIcon,
-} from "lucide-react";
-
 import { Container, RevealAnimation } from "@/components/ui";
-import type { AmenitiesContent, AmenityIconKey } from "@/lib/content/types";
+import type { AmenitiesContent } from "@/lib/content/types";
+import { AMENITY_ICON_MAP } from "@/sections/amenities/amenity-icon-map";
+import { AmenitiesUrbanSection } from "@/sections/amenities/amenities-urban-section";
 import { cn } from "@/lib/cn";
 
-const AMENITY_ICON_MAP: Record<AmenityIconKey, LucideIcon> = {
-  landmark: Landmark,
-  waves: Waves,
-  dumbbell: Dumbbell,
-  flower2: Flower2,
-  baby: Baby,
-  clapperboard: Clapperboard,
-  gamepad2: Gamepad2,
-  volleyball: Volleyball,
-  footprints: Footprints,
-  camera: Camera,
-  video: Video,
-  music4: Music4,
-  shoppingBag: ShoppingBag,
-  trees: Trees,
-  sparkles: Sparkles,
-  briefcaseBusiness: BriefcaseBusiness,
-  wifi: Wifi,
-  leaf: Leaf,
-  users: Users,
-};
-
-export function AmenitiesSection({ content }: { content: AmenitiesContent }) {
+export function AmenitiesEditorialSection({ content }: { content: AmenitiesContent }) {
   const {
     mediaAttribution,
     ribbon,
@@ -324,4 +281,20 @@ export function AmenitiesSection({ content }: { content: AmenitiesContent }) {
       </Container>
     </section>
   );
+}
+
+export type AmenitiesSectionVariant = "editorial" | "urban";
+
+type AmenitiesSectionProps = {
+  content: AmenitiesContent;
+  variant?: AmenitiesSectionVariant;
+};
+
+/** Amenities router — editorial forest shell vs metropolitan surface grid. */
+export function AmenitiesSection({ content, variant = "editorial" }: AmenitiesSectionProps) {
+  if (variant === "urban") {
+    return <AmenitiesUrbanSection content={content} />;
+  }
+
+  return <AmenitiesEditorialSection content={content} />;
 }

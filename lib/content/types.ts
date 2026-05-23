@@ -106,6 +106,15 @@ export type AmenityPeerComparisonRow = {
 
 export type AmenityHighlight = { title: string; description: string };
 
+/** Metropolitan amenities — lifestyle pillar (urban variant). */
+export type AmenityLifestylePillar = {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  highlights: readonly string[];
+  icon: AmenityIconKey;
+};
+
 export type FloorPlanTeaserTile = {
   src: string;
   series: string;
@@ -142,9 +151,25 @@ export type EditorialStatistic = { figure: string; heading: string; note: string
 
 export type CinematicTownshipStill = { key: string; src: string; caption: string };
 
+export type HeroHighlightPill = {
+  value: string;
+  label: string;
+};
+
 export type HeroContent = {
   campaignImage: StaticImageData;
   campaignImageAlt: string;
+  /** Urban variant — concise stat row beneath the title. */
+  highlights?: readonly HeroHighlightPill[];
+  /** When set, replaces `site.heroComposerNoteTemplate` in the hero glass panel. */
+  composerNote?: string;
+  exploreCta?: { label: string; href: string };
+  skipAheadLink?: { label: string; href: string; note: string };
+  footnote?: string;
+  /** CSS `object-position` for campaign plate — e.g. tower skyline focal point. */
+  imageFocus?: string;
+  /** Campaign hero — single-line spec strip below CTAs (no floating pills). */
+  campaignSpecLine?: string;
 };
 
 export type OverviewContent = {
@@ -186,6 +211,9 @@ export type AmenitiesContent = {
   peerComparison: AmenitiesPeerComparisonContent;
   mosaicFrames: MediaFrame[];
   footerNote: string;
+  /** Urban variant — editorial lifestyle pillars replace dense icon grids. */
+  lifestylePillars?: readonly AmenityLifestylePillar[];
+  experienceQuote?: string;
 };
 
 export type PricingContent = {
@@ -211,6 +239,32 @@ export type DocumentsContent = {
   masterPlanPagePath: string;
 };
 
+export type ConnectivityCorridorDestination = {
+  name: string;
+  detail?: string;
+};
+
+/** Tiered distance band — used by `connectivity` section `corridor` variant. */
+export type ConnectivityCorridorTier = {
+  tierBand: string;
+  tierLabel: string;
+  destinations: readonly ConnectivityCorridorDestination[];
+};
+
+/** Curated corridor map node — percentage positions within the atlas plate. */
+export type ConnectivityMapNode = {
+  label: string;
+  x: string;
+  y: string;
+  role?: "anchor" | "node";
+};
+
+export type ConnectivityMapFrame = MediaFrame & {
+  atlasMicroline: string;
+  /** CSS object-position for source map imagery */
+  imageFocus?: string;
+};
+
 export type ConnectivityContent = {
   eyebrow: string;
   headlineLines: readonly string[];
@@ -218,10 +272,16 @@ export type ConnectivityContent = {
   metricsDisclaimer: string;
   primaryMetrics: ConnectivityPrimaryMetric[];
   essentialMetrics: ConnectivityEssentialMetric[];
-  mapFrame: MediaFrame & { atlasMicroline: string };
+  mapFrame: ConnectivityMapFrame;
   imageCaption: string;
   atlasNote: string;
   ctaSupport: string;
+  /** Corridor variant — editorial distance tiers (IT corridor, metro, ORR). */
+  corridorTiers?: readonly ConnectivityCorridorTier[];
+  essentialClusterLabel?: string;
+  mapEyebrow?: string;
+  /** Highlighted infrastructure nodes overlaid on curated map plate */
+  mapNodes?: readonly ConnectivityMapNode[];
 };
 
 export type FloorPlansContent = {
@@ -300,6 +360,45 @@ export type StorytellingContent = {
   editorialStats: EditorialStatistic[];
   storyFrame: MediaFrame;
   immersiveFrame: MediaFrame;
+  /** Urban variant — aspirational lifestyle chapters below the narrative bridge. */
+  lifestyleChapters?: readonly { label: string; headline: string; copy: string }[];
+};
+
+export type ProjectHighlightMetric = {
+  figure: string;
+  suffix?: string;
+  label: string;
+  note: string;
+};
+
+export type ProjectHighlightPillar = {
+  title: string;
+  copy: string;
+};
+
+export type HighlightsContent = {
+  eyebrow: string;
+  headlineLines: readonly string[];
+  lead: string;
+  metrics: readonly ProjectHighlightMetric[];
+  pillars: readonly ProjectHighlightPillar[];
+  positioningLine?: string;
+  mediaAttribution?: string;
+};
+
+export type TrustCredential = {
+  figure: string;
+  label: string;
+};
+
+export type TrustContent = {
+  eyebrow: string;
+  headline: string;
+  lead: string;
+  reraStatus: ReraStatusContent;
+  developerNote: string;
+  credentials: readonly TrustCredential[];
+  disclaimer: string;
 };
 
 /** Optional sections for future home ordering — omit from page until wired. */
@@ -319,4 +418,6 @@ export type ProjectContentPack = {
   location: LocationContent;
   ctaFooter: CtaFooterContent;
   storytelling?: StorytellingContent;
+  highlights?: HighlightsContent;
+  trust?: TrustContent;
 };

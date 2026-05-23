@@ -1,10 +1,9 @@
-"use client";
-
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
 import { Container } from "@/components/ui/container";
 import type { ProjectContentPack } from "@/lib/content/types";
+import type { HighlightsContent, StorytellingContent, TrustContent } from "@/lib/content/types";
 import { getSectionDefinition } from "@/lib/project/section-registry";
 import type { SectionId, SectionManifestEntry } from "@/lib/project/section-types";
 
@@ -13,6 +12,7 @@ import { ConnectivitySection } from "@/sections/connectivity-section";
 import { CtaFooterSection } from "@/sections/cta-footer-section";
 import { FloorPlanTeaserSection } from "@/sections/floor-plan-teaser-section";
 import { HeroSection } from "@/sections/hero-section";
+import { HighlightsSection } from "@/sections/highlights-section";
 import { LocationMapSection } from "@/sections/location-map-section";
 import { PaymentEoiSection } from "@/sections/payment-eoi-section";
 import { PricingPlansSection } from "@/sections/pricing-plans-section";
@@ -20,6 +20,7 @@ import { ProjectDocumentsSection } from "@/sections/project-documents-section";
 import { ProjectOverviewSection } from "@/sections/project-overview-section";
 import { SpecificationsSection } from "@/sections/specifications-section";
 import { TownshipSection } from "@/sections/township-section";
+import { TrustSection } from "@/sections/trust-section";
 
 const CinematicTownshipSection = dynamic(
   () =>
@@ -85,6 +86,7 @@ const STATIC_SECTION_RENDERERS: Record<
   hero: HeroSection as ComponentType<SectionComponentProps>,
   overview: ProjectOverviewSection as ComponentType<SectionComponentProps>,
   storytelling: null,
+  highlights: HighlightsSection as ComponentType<SectionComponentProps>,
   amenities: AmenitiesSection as ComponentType<SectionComponentProps>,
   pricing: PricingPlansSection as ComponentType<SectionComponentProps>,
   "floor-plans": FloorPlanTeaserSection as ComponentType<SectionComponentProps>,
@@ -96,6 +98,7 @@ const STATIC_SECTION_RENDERERS: Record<
   specifications: SpecificationsSection as ComponentType<SectionComponentProps>,
   gallery: null,
   location: LocationMapSection as ComponentType<SectionComponentProps>,
+  trust: TrustSection as ComponentType<SectionComponentProps>,
   "cta-footer": CtaFooterSection as ComponentType<SectionComponentProps>,
 };
 
@@ -126,7 +129,7 @@ function resolveSectionContent(
 function SectionRenderer({ entry, content }: SectionRendererProps) {
   const definition = getSectionDefinition(entry.id);
   const sectionContent = resolveSectionContent(entry.id, content);
-  const sharedProps = { content: sectionContent };
+  const variant = entry.variant;
 
   if (definition.load === "dynamic") {
     const DynamicSection = DYNAMIC_SECTION_RENDERERS[entry.id];
@@ -135,7 +138,16 @@ function SectionRenderer({ entry, content }: SectionRendererProps) {
       throw new Error(`No dynamic renderer registered for section "${entry.id}".`);
     }
 
-    return <DynamicSection {...sharedProps} />;
+    if (entry.id === "storytelling") {
+      return (
+        <StorytellingIdentitySection
+          content={sectionContent as StorytellingContent}
+          variant={variant === "urban" ? "urban" : "editorial"}
+        />
+      );
+    }
+
+    return <DynamicSection content={sectionContent} />;
   }
 
   const StaticSection = STATIC_SECTION_RENDERERS[entry.id];
@@ -144,7 +156,61 @@ function SectionRenderer({ entry, content }: SectionRendererProps) {
     throw new Error(`No static renderer registered for section "${entry.id}".`);
   }
 
-  return <StaticSection {...sharedProps} />;
+  if (entry.id === "overview") {
+    return (
+      <ProjectOverviewSection
+        content={sectionContent as ProjectContentPack["overview"]}
+        variant={variant === "urban" ? "urban" : "editorial"}
+      />
+    );
+  }
+
+  if (entry.id === "hero") {
+    return (
+      <HeroSection
+        content={sectionContent as ProjectContentPack["hero"]}
+        variant={variant === "urban" ? "urban" : "editorial"}
+      />
+    );
+  }
+
+  if (entry.id === "connectivity") {
+    return (
+      <ConnectivitySection
+        content={sectionContent as ProjectContentPack["connectivity"]}
+        variant={variant === "corridor" ? "corridor" : "editorial"}
+      />
+    );
+  }
+
+  if (entry.id === "amenities") {
+    return (
+      <AmenitiesSection
+        content={sectionContent as ProjectContentPack["amenities"]}
+        variant={variant === "urban" ? "urban" : "editorial"}
+      />
+    );
+  }
+
+  if (entry.id === "highlights") {
+    return (
+      <HighlightsSection
+        content={sectionContent as HighlightsContent}
+        variant="urban"
+      />
+    );
+  }
+
+  if (entry.id === "trust") {
+    return (
+      <TrustSection
+        content={sectionContent as TrustContent}
+        variant="urban"
+      />
+    );
+  }
+
+  return <StaticSection content={sectionContent} />;
 }
 
 export type RenderPageSectionsProps = {

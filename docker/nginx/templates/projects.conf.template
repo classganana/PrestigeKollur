@@ -1,0 +1,68 @@
+# Rendered at container start via envsubst (PRESTIGE_DOMAIN, GODREJ_DOMAIN).
+# SSL: add listen 443 ssl http2, certificate paths, and redirect :80 → :443.
+
+map $http_upgrade $connection_upgrade {
+  default upgrade;
+  '' close;
+}
+
+upstream prestige_upstream {
+  server prestige:3000;
+  keepalive 16;
+}
+
+upstream godrej_upstream {
+  server godrej:3000;
+  keepalive 16;
+}
+
+# ─── Prestige Kollur ───────────────────────────────────────────────────────────
+server {
+  listen 80;
+  server_name ${PRESTIGE_DOMAIN};
+
+  # Uncomment for TLS (mount certs at /etc/nginx/certs/):
+  # listen 443 ssl http2;
+  # ssl_certificate     /etc/nginx/certs/prestige/fullchain.pem;
+  # ssl_certificate_key /etc/nginx/certs/prestige/privkey.pem;
+
+  client_max_body_size 4m;
+
+  location / {
+    proxy_pass http://prestige_upstream;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+    proxy_read_timeout 60s;
+    proxy_send_timeout 60s;
+  }
+}
+
+# ─── Godrej Kukatpally ─────────────────────────────────────────────────────────
+server {
+  listen 80;
+  server_name ${GODREJ_DOMAIN};
+
+  # listen 443 ssl http2;
+  # ssl_certificate     /etc/nginx/certs/godrej/fullchain.pem;
+  # ssl_certificate_key /etc/nginx/certs/godrej/privkey.pem;
+
+  client_max_body_size 4m;
+
+  location / {
+    proxy_pass http://godrej_upstream;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+    proxy_read_timeout 60s;
+    proxy_send_timeout 60s;
+  }
+}

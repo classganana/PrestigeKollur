@@ -1,106 +1,118 @@
 /**
- * Godrej Kukatpally — modern urban premium (cool neutrals, teal brand, crisp CTAs).
- * Activate via `data-theme="godrej-kukatpally"` when the project is registered.
+ * Godrej Kukatpally — metropolitan urban luxury.
+ * Charcoal · graphite · cool champagne · premium glass · deeper contrast.
+ * Activate via `data-theme="godrej-kukatpally"`.
  */
 [data-theme="godrej-kukatpally"] {
-  --color-surface: #f4f6f8;
-  --color-surface-rgb: 244 246 248;
-  --color-foreground: #141c22;
-  --color-foreground-rgb: 20 28 34;
-  --color-muted: #4a5560;
-  --color-muted-rgb: 74 85 96;
-  --color-ivory: #f0f3f6;
-  --color-ivory-rgb: 240 243 246;
-  --color-soft-stone: #dde3ea;
-  --color-soft-stone-rgb: 221 227 234;
-  --color-soft-stone-glow: #e8edf2;
-  --color-soft-stone-glow-rgb: 232 237 242;
-  --color-fog: #eef2f6;
-  --color-fog-rgb: 238 242 246;
-  --color-fog-soft: #f8fafc;
-  --color-fog-soft-rgb: 248 250 252;
-  --color-fog-strong: rgba(248, 250, 252, 0.94);
+  /* Surfaces & ink — cool metropolitan neutrals */
+  --color-surface: #eef0f3;
+  --color-surface-rgb: 238 240 243;
+  --color-foreground: #0f1115;
+  --color-foreground-rgb: 15 17 21;
+  /* Body & secondary ink — readable graphite, not ghosted */
+  --color-muted: #3a424c;
+  --color-muted-rgb: 58 66 76;
+  --color-ivory: #e8ebf0;
+  --color-ivory-rgb: 232 235 240;
+  --color-soft-stone: #cdd2da;
+  --color-soft-stone-rgb: 205 210 218;
+  --color-soft-stone-glow: #d8dde4;
+  --color-soft-stone-glow-rgb: 216 221 228;
+  --color-fog: #e2e6ec;
+  --color-fog-rgb: 226 230 236;
+  --color-fog-soft: #f4f5f8;
+  --color-fog-soft-rgb: 244 245 248;
+  --color-fog-strong: rgba(244, 245, 248, 0.94);
 
-  --color-shell: #162029;
-  --color-shell-rgb: 22 32 41;
-  --color-shell-strong: #0c1218;
-  --color-shell-strong-rgb: 12 18 24;
-  --color-shell-deep-end: #060a0f;
+  /* Dark shell — charcoal graphite (footer, concierge, hero depth) */
+  --color-shell: #181b22;
+  --color-shell-rgb: 24 27 34;
+  --color-shell-strong: #0d0f14;
+  --color-shell-strong-rgb: 13 15 20;
+  --color-shell-deep-end: #050608;
 
-  --color-brand-primary: #0c4a5c;
-  --color-brand-primary-rgb: 12 74 92;
-  --color-brand-muted: #e3edf2;
-  --color-brand-muted-rgb: 227 237 242;
-  --color-brand-lockup-end: #c8dce6;
+  /* Brand editorial — graphite navy cards, not teal */
+  --color-brand-primary: #232936;
+  --color-brand-primary-rgb: 35 41 54;
+  --color-brand-muted: #e4e7ed;
+  --color-brand-muted-rgb: 228 231 237;
+  --color-brand-lockup-end: #c8ced8;
 
-  --color-accent-gold: #b8875a;
-  --color-accent-gold-rgb: 184 135 90;
-  --color-accent-champagne: #d4c4a8;
-  --color-accent-champagne-rgb: 212 196 168;
-  --color-accent-bronze: #6f7d86;
-  --color-accent-bronze-rgb: 111 125 134;
-  --color-accent-olive: #5a6b62;
-  --color-accent-olive-rgb: 90 107 98;
+  /* Accents — cool champagne & urban metallics */
+  --color-accent-gold: #b8a480;
+  --color-accent-gold-rgb: 184 164 128;
+  --color-accent-champagne: #e2d6be;
+  --color-accent-champagne-rgb: 226 214 190;
+  --color-accent-bronze: #4d5560;
+  --color-accent-bronze-rgb: 77 85 96;
+  --color-accent-olive: #454c56;
+  --color-accent-olive-rgb: 69 76 86;
 
-  --color-inverse: #f5f8fa;
-  --color-inverse-rgb: 245 248 250;
-  --color-inverse-muted: #d8e2ea;
-  --color-inverse-muted-rgb: 216 226 234;
-  --color-inverse-subtle: #a8b6c2;
-  --color-inverse-subtle-rgb: 168 182 194;
+  /* Inverse copy on dark glass — clear hierarchy, not ghosted */
+  --color-inverse: #f8fafc;
+  --color-inverse-rgb: 248 250 252;
+  --color-inverse-muted: #e6ebf2;
+  --color-inverse-muted-rgb: 230 235 242;
+  --color-inverse-subtle: #b0b9c4;
+  --color-inverse-subtle-rgb: 176 185 196;
 
-  --chrome-bg: hsla(210, 28%, 10%, 0.92);
-  --chrome-bg-hover: hsla(210, 28%, 12%, 0.94);
-  --chrome-text-primary: #f6fafc;
+  /* Chrome masthead — charcoal shell, champagne ring */
+  --chrome-bg: hsla(225, 18%, 8%, 0.94);
+  --chrome-bg-hover: hsla(225, 18%, 10%, 0.96);
+  --chrome-text-primary: #f4f6f9;
   --chrome-text-primary-hover: #ffffff;
-  --chrome-text-secondary: #c5d4e0;
-  --chrome-ring-offset: #060a0f;
-  --chrome-shadow: 0 0 0 1px rgba(140, 176, 198, 0.28), 0 28px 64px -28px rgba(0, 0, 0, 0.72);
-  --chrome-shadow-hover: 0 0 0 1px rgba(168, 200, 220, 0.42), 0 36px 70px -30px rgba(0, 0, 0, 0.76);
+  --chrome-text-secondary: #c4cad4;
+  --chrome-ring-offset: #050608;
+  --chrome-shadow: 0 0 0 1px rgba(184, 164, 128, 0.28), 0 28px 64px -28px rgba(0, 0, 0, 0.78);
+  --chrome-shadow-hover: 0 0 0 1px rgba(212, 200, 176, 0.42), 0 36px 70px -30px rgba(0, 0, 0, 0.82);
 
-  --color-hero-canvas: #080d12;
+  /* Hero — deep urban night canvas */
+  --color-hero-canvas: #050608;
   --gradient-overlay-hero-bottom: linear-gradient(
     to top,
-    rgba(6, 10, 15, 0.9) 0%,
-    rgba(8, 14, 20, 0.4) 50%,
+    rgba(4, 5, 8, 0.92) 0%,
+    rgba(8, 10, 14, 0.48) 48%,
     transparent 100%
   );
   --gradient-overlay-hero-top: linear-gradient(
     to bottom,
-    rgba(10, 16, 22, 0.42) 0%,
+    rgba(10, 12, 18, 0.52) 0%,
     transparent 100%
   );
   --gradient-hero-title: linear-gradient(
     to bottom,
-    #fafcfe 0%,
-    #e2eaf0 55%,
-    #b8c5d0 100%
+    #fafbfc 0%,
+    #e4e8ee 52%,
+    #b8c0ca 100%
   );
   --gradient-hero-glass-panel: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.16) 0%,
-    rgba(12, 28, 38, 0.58) 45%,
-    rgba(6, 12, 18, 0.86) 100%
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(24, 28, 36, 0.62) 42%,
+    rgba(5, 6, 8, 0.88) 100%
   );
   --gradient-hero-glass-panel-lite: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.22) 0%,
-    rgba(14, 32, 44, 0.76) 50%,
-    rgba(6, 12, 18, 0.94) 100%
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(28, 32, 42, 0.78) 48%,
+    rgba(5, 6, 8, 0.95) 100%
   );
 
-  --gradient-cta-champagne: linear-gradient(to bottom, #e4ecf2 0%, #c5d6e2 50%, #9eb4c4 100%);
-  --gradient-cta-champagne-hover: linear-gradient(to bottom, #eef4f8 0%, #d2e0ea 50%, #aec4d4 100%);
-  --cta-champagne-border: rgba(12, 74, 92, 0.35);
-  --cta-champagne-border-hover: rgba(12, 74, 92, 0.5);
+  /* CTAs — cool champagne (metropolitan, not blue-gray) */
+  --gradient-cta-champagne: linear-gradient(to bottom, #ebe4d6 0%, #d4c8b0 48%, #b8a890 100%);
+  --gradient-cta-champagne-hover: linear-gradient(to bottom, #f2ece0 0%, #ddd0b8 48%, #c4b49a 100%);
+  --cta-champagne-border: rgba(184, 164, 128, 0.42);
+  --cta-champagne-border-hover: rgba(184, 164, 128, 0.58);
+  --cta-champagne-ink: #0d0f14;
 
-  --gradient-cta-hero-enquiry: linear-gradient(to bottom, #e8f0f5 0%, #c8dae6 50%, #9eb8ca 100%);
-  --gradient-cta-hero-enquiry-hover: linear-gradient(to bottom, #f2f7fa 0%, #d6e6f0 50%, #aec8d8 100%);
-  --cta-hero-enquiry-shadow: 0 10px 42px -4px rgba(0, 0, 0, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(20, 40, 52, 0.12);
-  --cta-hero-enquiry-shadow-hover: 0 22px 64px -6px rgba(0, 0, 0, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(20, 40, 52, 0.1);
+  --gradient-cta-hero-enquiry: linear-gradient(to bottom, #f0e8da 0%, #ddd0b8 48%, #c4b49a 100%);
+  --gradient-cta-hero-enquiry-hover: linear-gradient(to bottom, #f6f0e4 0%, #e6dac4 48%, #d0c0a8 100%);
+  --cta-hero-enquiry-shadow: 0 10px 42px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 254, 251, 0.44), inset 0 -1px 0 rgba(35, 32, 28, 0.14);
+  --cta-hero-enquiry-shadow-hover: 0 22px 64px -6px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 253, 0.5), inset 0 -1px 0 rgba(35, 32, 28, 0.1);
 
+  /* Deep shells (footer, modal) */
   --gradient-shell-deep: linear-gradient(
     135deg,
     var(--color-shell) 0%,
@@ -108,17 +120,18 @@
     var(--color-shell-deep-end) 100%
   );
 
+  /* Glass / card surfaces — premium urban glass tones */
   --gradient-surface-glass-fog: linear-gradient(
     135deg,
     var(--color-fog-strong) 0%,
-    rgba(228, 236, 242, 0.72) 45%,
+    rgba(226, 230, 236, 0.68) 42%,
     var(--color-soft-stone-glow) 100%
   );
   --gradient-surface-glass-ivory: linear-gradient(
     135deg,
-    rgba(240, 243, 246, 0.96) 0%,
-    rgba(221, 228, 234, 0.9) 50%,
-    rgba(232, 237, 242, 0.94) 100%
+    rgba(232, 235, 240, 0.96) 0%,
+    rgba(205, 210, 218, 0.88) 48%,
+    rgba(216, 221, 228, 0.94) 100%
   );
   --gradient-brand-lockup: linear-gradient(
     to bottom,
@@ -126,42 +139,129 @@
     color-mix(in srgb, var(--color-brand-muted) 92%, transparent) 55%,
     var(--color-brand-lockup-end) 100%
   );
-  --shadow-brand-lockup: 0 12px 40px -14px rgba(12, 74, 92, 0.32);
+  --shadow-brand-lockup: 0 12px 40px -14px rgba(35, 41, 54, 0.38);
 
-  --gradient-body-base: hsl(210, 24%, 97%);
+  /* Page ambient — cool metropolitan atmosphere */
+  --gradient-body-base: hsl(220, 14%, 97%);
   --gradient-body-ambient-1: radial-gradient(
-    1200px ellipse at 82% -8%,
-    hsla(205, 28%, 90%, 0.5),
+    1200px ellipse at 84% -6%,
+    hsla(220, 18%, 88%, 0.48),
     transparent
   );
   --gradient-body-ambient-2: radial-gradient(
-    900px circle at -8% 38%,
-    hsla(195, 18%, 88%, 0.42),
+    900px circle at -6% 36%,
+    hsla(215, 12%, 86%, 0.38),
     transparent
   );
   --gradient-body-ambient-3: radial-gradient(
-    700px circle at 50% 112%,
-    hsla(210, 22%, 18%, 0.1),
+    720px circle at 50% 114%,
+    hsla(225, 20%, 12%, 0.14),
     transparent
   );
 
+  /* Section backgrounds */
   --gradient-mist-radial: radial-gradient(
-    ellipse at 78% -10%,
-    rgba(210, 224, 234, 0.55),
+    ellipse at 80% -8%,
+    rgba(212, 200, 176, 0.32),
     transparent 62%
   );
   --gradient-twilight-soft: linear-gradient(
     180deg,
-    rgba(248, 250, 252, 1) 0%,
-    rgba(226, 234, 240, 1) 100%
+    rgba(244, 245, 248, 1) 0%,
+    rgba(226, 230, 236, 1) 100%
   );
 
-  --shadow-soft: 0px 38px 90px rgba(20, 32, 42, 0.08);
-  --shadow-elevated: 0px 54px 120px rgba(14, 24, 34, 0.14);
-  --shadow-subtle-glow: 0px 52px 98px rgba(140, 176, 198, 0.14),
+  /* Shadows — deeper contrast */
+  --shadow-soft: 0px 38px 90px rgba(15, 17, 21, 0.1);
+  --shadow-elevated: 0px 54px 120px rgba(10, 12, 16, 0.16);
+  --shadow-subtle-glow: 0px 52px 98px rgba(184, 164, 128, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  --shadow-modal: 0 52px 120px -36px rgba(0, 0, 0, 0.62);
+  --shadow-modal: 0 52px 120px -36px rgba(0, 0, 0, 0.68);
 
-  --color-autofill-ink: #0c1218;
-  --color-autofill-fill: #f5f8fa;
+  /* Form autofill (concierge) */
+  --color-autofill-ink: #0d0f14;
+  --color-autofill-fill: #f2f4f7;
+
+  /* Campaign hero — architecture-forward; read zone in lower third only */
+  --hero-campaign-scrim-top: linear-gradient(
+    to bottom,
+    rgba(5, 6, 8, 0.35) 0%,
+    rgba(5, 6, 8, 0.08) 28%,
+    transparent 52%
+  );
+  --hero-campaign-scrim-center: radial-gradient(
+    ellipse 110% 55% at 50% 92%,
+    rgba(5, 6, 8, 0.88) 0%,
+    rgba(5, 6, 8, 0.44) 48%,
+    transparent 72%
+  );
+  --hero-campaign-scrim-bottom: linear-gradient(
+    to top,
+    rgba(5, 6, 8, 0.96) 0%,
+    rgba(5, 6, 8, 0.72) 32%,
+    transparent 68%
+  );
+  --hero-campaign-vignette: radial-gradient(
+    ellipse 105% 90% at 50% 28%,
+    transparent 42%,
+    rgba(5, 6, 8, 0.28) 100%
+  );
+  --hero-campaign-accent: radial-gradient(
+    ellipse 80% 40% at 50% 100%,
+    rgba(184, 164, 128, 0.1),
+    transparent 70%
+  );
+
+  /* Campaign hero secondary CTA — glass outline, readable without hover */
+  --hero-campaign-secondary-border: rgba(212, 200, 176, 0.52);
+  --hero-campaign-secondary-border-hover: rgba(235, 228, 210, 0.68);
+  --hero-campaign-secondary-bg: rgba(12, 14, 20, 0.58);
+  --hero-campaign-secondary-bg-hover: rgba(16, 19, 26, 0.72);
+  --hero-campaign-secondary-bg-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(12, 14, 20, 0.62) 100%
+  );
+  --hero-campaign-secondary-text: #f0ebe3;
+  --hero-campaign-secondary-text-hover: #faf7f2;
+  --hero-campaign-secondary-shadow: 0 4px 28px -6px rgba(0, 0, 0, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --hero-campaign-secondary-shadow-hover: 0 10px 36px -6px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+
+  /* Connectivity atlas — restrained but readable corridor plate */
+  --connectivity-atlas-filter: grayscale(0.55) saturate(0.28) contrast(1.06) brightness(0.86)
+    sepia(0.04);
+  --connectivity-atlas-wash: linear-gradient(
+    145deg,
+    rgba(13, 15, 20, 0.28) 0%,
+    rgba(24, 27, 34, 0.08) 46%,
+    rgba(13, 15, 20, 0.22) 100%
+  );
+  --connectivity-atlas-vignette: radial-gradient(
+    ellipse 88% 82% at 50% 46%,
+    transparent 48%,
+    rgba(5, 6, 8, 0.48) 100%
+  );
+  --connectivity-atlas-accent: radial-gradient(
+    ellipse 36% 32% at 52% 46%,
+    rgba(184, 164, 128, 0.16),
+    transparent 72%
+  );
+  --connectivity-atlas-frame-ring: rgba(184, 164, 128, 0.42);
+  --connectivity-atlas-frame-bg: linear-gradient(145deg, #1a1e28 0%, #12151c 100%);
+  --connectivity-atlas-scrim-bottom: linear-gradient(
+    to top,
+    rgba(5, 6, 8, 0.62) 0%,
+    rgba(5, 6, 8, 0.14) 42%,
+    transparent 100%
+  );
+
+  /* Typography hierarchy — light surfaces (Apple-style graphite calibration) */
+  --color-ink-body: #3a424c;
+  --color-ink-body-rgb: 58 66 76;
+  --color-ink-label: #4d5560;
+  --color-ink-label-rgb: 77 85 96;
+  --color-ink-caption: #5c6470;
+  --color-ink-caption-rgb: 92 100 112;
 }

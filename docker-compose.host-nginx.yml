@@ -1,0 +1,52 @@
+# EC2 profile — host nginx on :80/:443 already routes domains.
+# Use with: docker compose -f docker-compose.host-nginx.yml up -d
+#
+# Port map (matches typical shared EC2 layout):
+#   3000 → galactica (not managed here)
+#   3001 → prestige
+#   3002 → godrej
+
+name: estates-platform
+
+services:
+  prestige:
+    image: ${DOCKERHUB_USER}/${IMAGE_NAME:-real-estate-platform}:latest
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_PROJECT_SLUG: prestige-kollur
+      ENQUIRY_SCRIPT_URL: ${PRESTIGE_ENQUIRY_SCRIPT_URL:-${ENQUIRY_SCRIPT_URL:-}}
+    ports:
+      - "${PRESTIGE_HOST_PORT:-3001}:3000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  godrej:
+    image: ${DOCKERHUB_USER}/${IMAGE_NAME:-real-estate-platform}:latest
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_PROJECT_SLUG: godrej-kukatpally
+      ENQUIRY_SCRIPT_URL: ${GODREJ_ENQUIRY_SCRIPT_URL:-${ENQUIRY_SCRIPT_URL:-}}
+    ports:
+      - "${GODREJ_HOST_PORT:-3002}:3000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

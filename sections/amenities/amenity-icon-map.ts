@@ -1,0 +1,46 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Baby,
+  BriefcaseBusiness,
+  Camera,
+  Clapperboard,
+  Dumbbell,
+  Flower2,
+  Footprints,
+  Gamepad2,
+  Landmark,
+  Leaf,
+  Music4,
+  ShoppingBag,
+  Sparkles,
+  Trees,
+  Users,
+  Video,
+  Volleyball,
+  Waves,
+  Wifi,
+} from "lucide-react";
+
+import type { AmenityIconKey } from "@/lib/content/types";
+
+export const AMENITY_ICON_MAP: Record<AmenityIconKey, LucideIcon> = {
+  landmark: Landmark,
+  waves: Waves,
+  dumbbell: Dumbbell,
+  flower2: Flower2,
+  baby: Baby,
+  clapperboard: Clapperboard,
+  gamepad2: Gamepad2,
+  volleyball: Volleyball,
+  footprints: Footprints,
+  camera: Camera,
+  video: Video,
+  music4: Music4,
+  shoppingBag: ShoppingBag,
+  trees: Trees,
+  sparkles: Sparkles,
+  briefcaseBusiness: BriefcaseBusiness,
+  wifi: Wifi,
+  leaf: Leaf,
+  users: Users,
+};

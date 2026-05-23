@@ -1,4 +1,4 @@
-import { Cormorant_Garamond, DM_Sans, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Plus_Jakarta_Sans, Syne } from "next/font/google";
 
 import type { ThemeId } from "@/lib/theme/types";
 
@@ -16,16 +16,16 @@ const prestigeSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const godrejDisplay = Fraunces({
+const godrejDisplay = Syne({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
 const godrejSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });

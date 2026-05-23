@@ -18,7 +18,7 @@ const FIELD = cn(
   "w-full rounded-2xl border border-foreground/18 bg-inverse px-[1rem] py-[0.74rem]",
   "font-sans text-[1.0225rem] leading-[1.5] text-forest-strong shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] placeholder:text-foreground/50",
   "transition-[border-color,box-shadow] duration-[260ms] ease-out",
-  "focus:border-accent-gold/70 focus:outline-none focus:ring-2 focus:ring-accent-gold/45 focus:ring-offset-2 focus:ring-offset-[#131b17]",
+  "focus:border-accent-gold/70 focus:outline-none focus:ring-2 focus:ring-accent-gold/45 focus:ring-offset-2 focus:ring-offset-[var(--color-shell-strong)]",
 );
 
 const LABEL =

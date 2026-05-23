@@ -1,21 +1,10 @@
 /** Build enquiry deeplinks; WhatsApp-first when NEXT_PUBLIC_WHATSAPP_PHONE is set. */
 
-const DEFAULT_NOTE =
-  "Hello — I'd love to enquire about Prestige Kollur (Velimela / Tellapur–Kollur, Hyderabad). Please share the next thoughtful step.";
+import { resolveProject } from "@/lib/project/resolve-project";
 
-const CONNECTIVITY_NOTE =
-  "Hello — Could you share location & connectivity context for Prestige Kollur (ORR Exit 2 reach, Financial District / HITEC cadence, airport, schools & hospitals)? Thank you.";
-
-/** Intent-specific concierge templates — parity with cinematic tone, shortened for WhatsApp. */
-
-export const SCHEDULE_VISIT_NOTE =
-  "Hello — I'd like to schedule a private site visit for Prestige Kollur when you have availability. Kindly propose a few considerate windows.";
-
-export const FLOOR_PLANS_NOTE =
-  "Hello — Could you please share floor plans / typology context for Prestige Kollur when convenient?";
-
-export const AVAILABILITY_NOTE =
-  "Hello — I'm exploring availability / inventory guidance for Prestige Kollur and would appreciate discreet next steps.";
+function whatsappMessages() {
+  return resolveProject().site.whatsappMessages;
+}
 
 function digitsOnly(value: string) {
   return value.replace(/\D/g, "");
@@ -70,7 +59,7 @@ export function enquiryWhatsAppUrl(): string | null {
     process.env.NEXT_PUBLIC_WHATSAPP_PREFILL_MESSAGE != null &&
     process.env.NEXT_PUBLIC_WHATSAPP_PREFILL_MESSAGE.length > 0
       ? process.env.NEXT_PUBLIC_WHATSAPP_PREFILL_MESSAGE
-      : DEFAULT_NOTE;
+      : whatsappMessages().default;
 
   return buildWhatsAppUrl(message);
 }
@@ -78,17 +67,17 @@ export function enquiryWhatsAppUrl(): string | null {
 /** Location-and-connectivity focussed pre-fill for editorial “Get details” CTA paths. */
 
 export function connectivityWhatsAppUrl(): string | null {
-  return buildWhatsAppUrl(CONNECTIVITY_NOTE);
+  return buildWhatsAppUrl(whatsappMessages().connectivity);
 }
 
 export function whatsappScheduleVisitUrl(): string | null {
-  return buildWhatsAppUrl(SCHEDULE_VISIT_NOTE);
+  return buildWhatsAppUrl(whatsappMessages().scheduleVisit);
 }
 
 export function whatsappFloorPlansUrl(): string | null {
-  return buildWhatsAppUrl(FLOOR_PLANS_NOTE);
+  return buildWhatsAppUrl(whatsappMessages().floorPlans);
 }
 
 export function whatsappAvailabilityUrl(): string | null {
-  return buildWhatsAppUrl(AVAILABILITY_NOTE);
+  return buildWhatsAppUrl(whatsappMessages().availability);
 }

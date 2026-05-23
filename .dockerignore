@@ -1,10 +1,15 @@
 node_modules
 .next
+.next-prestige
+.next-godrej
+apps
 .git
 .github
 *.md
+!docs/DEPLOYMENT.md
 .env
 .env.*
 !.env.example
+docker/projects/*.build.env
 npm-debug.log*
 .DS_Store

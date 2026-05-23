@@ -5,13 +5,22 @@ import { cn } from "@/lib/cn";
 
 import { themeClasses } from "@/lib/theme/theme-classes";
 
-export type PrimaryButtonVariant = "primary" | "hero-enquiry";
+export type PrimaryButtonVariant = "primary" | "hero-enquiry" | "champagne";
 
 function primaryButtonClasses(variant: PrimaryButtonVariant = "primary") {
+  const variantClass =
+    variant === "hero-enquiry"
+      ? themeClasses.ctaHeroEnquiry
+      : variant === "champagne"
+        ? themeClasses.ctaChampagne
+        : themeClasses.ctaPrimary;
+
   return cn(
     "inline-flex min-h-touch cursor-pointer items-center justify-center rounded-full px-8 py-text-y",
-    variant === "hero-enquiry" ? themeClasses.ctaHeroEnquiry : themeClasses.ctaPrimary,
-    "text-body-sm font-sans uppercase tracking-[0.22em]",
+    variantClass,
+    "text-body-sm font-sans uppercase",
+    variant === "primary" && "tracking-[0.22em]",
+    (variant === "hero-enquiry" || variant === "champagne") && "font-semibold tracking-[0.2em]",
     variant === "hero-enquiry" && "text-forest-strong",
     "shadow-soft transition-[background-color,transform,color,box-shadow,border-color] duration-[480ms]",
     "ease-luxury hover:-translate-y-px hover:shadow-elevated",
@@ -36,7 +45,7 @@ type PropsAsLink = Omit<
   };
 
 type SharedPrimaryButtonProps = {
-  /** `hero-enquiry` — champagne gradient CTA (hero / WhatsApp); avoids conflicting primary shell styles. */
+  /** `hero-enquiry` — champagne gradient CTA (hero); `champagne` — readable ink on champagne fill. */
   variant?: PrimaryButtonVariant;
 };
 

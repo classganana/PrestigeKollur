@@ -1,10 +1,12 @@
 import type { ProjectConfig, ProjectSlug } from "@/lib/project/types";
+import { godrejKukatpallyConfig } from "@/projects/godrej-kukatpally/config";
 import { prestigeKollurConfig } from "@/projects/prestige-kollur/config";
 
 export const DEFAULT_PROJECT_SLUG: ProjectSlug = "prestige-kollur";
 
 const PROJECT_REGISTRY: Record<ProjectSlug, ProjectConfig> = {
   "prestige-kollur": prestigeKollurConfig,
+  "godrej-kukatpally": godrejKukatpallyConfig,
 };
 
 const KNOWN_SLUGS = Object.keys(PROJECT_REGISTRY) as ProjectSlug[];
@@ -38,4 +40,9 @@ export function resolveProject(): ProjectConfig {
 /** Site identity for the active project — convenience for server components / metadata. */
 export function resolveSite() {
   return resolveProject().site;
+}
+
+/** Partner branding for the active project — disclosure, marks, default lockups. */
+export function resolveBranding() {
+  return resolveProject().branding;
 }

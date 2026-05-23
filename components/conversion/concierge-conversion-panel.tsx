@@ -11,6 +11,7 @@ import {
   whatsappScheduleVisitUrl,
 } from "@/constants/contact";
 import { useConversionTracking } from "@/lib/analytics/use-conversion-tracking";
+import { useSite } from "@/lib/project/project-context";
 import { cn } from "@/lib/cn";
 
 /** Footer / hero-adjacent concierge band — roomy pills */
@@ -46,6 +47,7 @@ type Props = {
 };
 
 export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
+  const site = useSite();
   const { trackWhatsAppClick, trackCallClick } = useConversionTracking();
   const telHref = enquiryTelHref();
 
@@ -120,16 +122,15 @@ export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
           <div className="relative flex flex-col gap-relax sm:flex-row sm:items-center sm:justify-between sm:gap-gallery-gap">
             <div className="flex max-w-xl flex-col gap-3">
               <p className="font-sans text-[0.5975rem] uppercase leading-snug tracking-[0.44em] text-accent-champagne">
-                Signature cadence
+                {site.conciergeLeadCard.eyebrow}
               </p>
 
               <p className="font-display text-[clamp(1.26rem,min(5.2vw,1.68rem),1.68rem)] leading-[1.28] tracking-[-0.02em] text-inverse">
-                Schedule a site walk with unhurried choreography.
+                {site.conciergeLeadCard.title}
               </p>
 
               <p className="max-w-[52ch] font-sans text-[0.8425rem] leading-[1.75] tracking-[0.012em] text-inverse-muted">
-                Terrain before spreadsheets—muted vehicles, deliberate pauses—anchored to Prestige-published
-                collateral. Scroll to the discreet form or open a templated WhatsApp thread.
+                {site.conciergeLeadCard.body}
               </p>
             </div>
 

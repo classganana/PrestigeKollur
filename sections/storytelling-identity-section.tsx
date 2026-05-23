@@ -20,10 +20,11 @@ import type { StorytellingContent } from "@/lib/content/types";
 import { usePreferLiteMotion } from "@/hooks/use-prefer-lite-motion";
 
 import { cn } from "@/lib/cn";
+import { StorytellingUrbanSection } from "@/sections/storytelling/storytelling-urban-section";
 
 /** Post-hero narrative — editorial hospitality pacing with campaign-grade photography where it earns space. */
 
-export function StorytellingIdentitySection({ content }: { content: StorytellingContent }) {
+function StorytellingEditorialSection({ content }: { content: StorytellingContent }) {
   const reduceMotion = useReducedMotion();
   const lite = usePreferLiteMotion();
   const {
@@ -277,4 +278,20 @@ export function StorytellingIdentitySection({ content }: { content: Storytelling
       </Container>
     </section>
   );
+}
+
+export type StorytellingSectionVariant = "editorial" | "urban";
+
+type StorytellingSectionProps = {
+  content: StorytellingContent;
+  variant?: StorytellingSectionVariant;
+};
+
+/** Storytelling router — editorial township vs metropolitan urban narrative. */
+export function StorytellingIdentitySection({ content, variant = "editorial" }: StorytellingSectionProps) {
+  if (variant === "urban") {
+    return <StorytellingUrbanSection content={content} />;
+  }
+
+  return <StorytellingEditorialSection content={content} />;
 }

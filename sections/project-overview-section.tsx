@@ -2,9 +2,11 @@ import Link from "next/link";
 
 import { Container, RevealAnimation, SectionHeading } from "@/components/ui";
 import type { OverviewContent } from "@/lib/content/types";
+import { OverviewUrbanSection } from "@/sections/overview/overview-urban-section";
 import { cn } from "@/lib/cn";
 
-export function ProjectOverviewSection({ content }: { content: OverviewContent }) {
+/** Editorial overview — Prestige Kollur default (warm township intelligence shell). */
+function ProjectOverviewEditorialSection({ content }: { content: OverviewContent }) {
   const { heading, jvLine, positioning, highlightStats, reraStatus, signatureThesisLabel, keyUsps } =
     content;
 
@@ -98,4 +100,23 @@ export function ProjectOverviewSection({ content }: { content: OverviewContent }
       </Container>
     </section>
   );
+}
+
+export type OverviewSectionVariant = "editorial" | "urban";
+
+type ProjectOverviewSectionProps = {
+  content: OverviewContent;
+  variant?: OverviewSectionVariant;
+};
+
+/** Overview router — editorial (Prestige) vs metropolitan urban intelligence. */
+export function ProjectOverviewSection({
+  content,
+  variant = "editorial",
+}: ProjectOverviewSectionProps) {
+  if (variant === "urban") {
+    return <OverviewUrbanSection content={content} />;
+  }
+
+  return <ProjectOverviewEditorialSection content={content} />;
 }
