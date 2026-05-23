@@ -25,12 +25,16 @@ for slug in $PROJECTS; do
   fi
 
   export NEXT_PUBLIC_PROJECT_SLUG="$slug"
-  export NEXT_DIST_DIR=".next-${slug}"
 
-  rm -rf "$NEXT_DIST_DIR"
+  # Use the default distDir (`.next`) in Docker — builds are sequential and isolated.
+  # Custom NEXT_DIST_DIR (used for local dual-project dev) bakes into server.js; static
+  # must then live at `.next-${slug}/static`, not `.next/static`, or all /_next/static 404s.
+  unset NEXT_DIST_DIR
+  dist_dir=".next"
+
+  rm -rf "$dist_dir"
   npm run build
 
-  dist_dir="${NEXT_DIST_DIR:-.next}"
   dest="apps/${slug}"
   rm -rf "$dest"
   mkdir -p "$dest/.next"
