@@ -22,8 +22,8 @@ export const godrejKukatpallySeo: ProjectSeoConfig = {
   defaultCanonicalPath: "/",
   openGraph: {
     type: "website",
-    imagePath: godrejKukatpallyMediaManifest.paths.bannerExterior,
-    imageAlt: "Godrej Kukatpally — twin tower elevation rendering.",
+    imagePath: godrejKukatpallyMediaManifest.paths.heroLanding,
+    imageAlt: "Godrej Kukatpally — twin tower elevation, metropolitan skyline render.",
     imageWidth: 1920,
     imageHeight: 1080,
   },

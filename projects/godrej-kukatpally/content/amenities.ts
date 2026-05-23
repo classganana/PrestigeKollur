@@ -7,8 +7,8 @@ const { paths } = godrejKukatpallyMediaManifest;
 export const godrejKukatpallyAmenitiesContent: AmenitiesContent = {
   mediaAttribution: "Amenity inventory indicative — subject to final developer collateral and approvals.",
   ribbon: {
-    src: paths.bannerTower,
-    alt: "Godrej Kukatpally — lifestyle clubhouse and tower amenity rendering.",
+    src: paths.clubhouseAmenity,
+    alt: "Godrej Kukatpally — lifestyle clubhouse and metropolitan amenity rendering.",
     ribbonCaption: "72,000 sq. ft. lifestyle hub",
     figureCaption: "Metropolitan amenity ecosystem · wellness, sport, and skyline social spaces.",
   },

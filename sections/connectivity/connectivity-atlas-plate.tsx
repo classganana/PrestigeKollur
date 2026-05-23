@@ -21,7 +21,8 @@ export function ConnectivityAtlasPlate({
   className,
 }: Props) {
   const imageFocus = mapFrame.imageFocus ?? "50% 50%";
-  const hasNodes = nodes != null && nodes.length > 0;
+  const isRender = mapFrame.atlasVariant === "render";
+  const hasNodes = !isRender && nodes != null && nodes.length > 0;
 
   return (
     <figure className={cn("min-w-0", className)}>
@@ -39,14 +40,21 @@ export function ConnectivityAtlasPlate({
       <div
         className={cn(
           "relative isolate overflow-hidden rounded-[clamp(20px,2.6vw,26px)] p-[3px]",
-          themeClasses.connectivityAtlasFrame,
+          isRender ? "bg-fog-soft/90 shadow-soft ring-1 ring-accent-bronze/16" : themeClasses.connectivityAtlasFrame,
         )}
       >
-        <div className="relative aspect-[5/4] overflow-hidden rounded-[clamp(17px,2.2vw,22px)] sm:aspect-[4/3]">
+        <div
+          className={cn(
+            "relative overflow-hidden rounded-[clamp(17px,2.2vw,22px)]",
+            isRender ? "aspect-[16/10] bg-ivory/95" : "aspect-[5/4] sm:aspect-[4/3]",
+          )}
+        >
           <Image
             alt={mapFrame.alt}
             fill
-            className={cn("object-cover", themeClasses.connectivityAtlasImage)}
+            className={cn(
+              isRender ? "object-contain p-1" : cn("object-cover", themeClasses.connectivityAtlasImage),
+            )}
             decoding="async"
             loading="lazy"
             sizes="(max-width: 1024px) 100vw, 40vw"
@@ -55,25 +63,34 @@ export function ConnectivityAtlasPlate({
             style={{ objectPosition: imageFocus }}
           />
 
-          <div
-            aria-hidden
-            className={cn("pointer-events-none absolute inset-0", themeClasses.connectivityAtlasWash)}
-          />
-          <div
-            aria-hidden
-            className={cn("pointer-events-none absolute inset-0", themeClasses.connectivityAtlasVignette)}
-          />
-          <div
-            aria-hidden
-            className={cn("pointer-events-none absolute inset-0", themeClasses.connectivityAtlasAccent)}
-          />
-          <div
-            aria-hidden
-            className={cn(
-              "pointer-events-none absolute inset-0",
-              themeClasses.connectivityAtlasScrimBottom,
-            )}
-          />
+          {!isRender ? (
+            <>
+              <div
+                aria-hidden
+                className={cn("pointer-events-none absolute inset-0", themeClasses.connectivityAtlasWash)}
+              />
+              <div
+                aria-hidden
+                className={cn("pointer-events-none absolute inset-0", themeClasses.connectivityAtlasVignette)}
+              />
+              <div
+                aria-hidden
+                className={cn("pointer-events-none absolute inset-0", themeClasses.connectivityAtlasAccent)}
+              />
+              <div
+                aria-hidden
+                className={cn(
+                  "pointer-events-none absolute inset-0",
+                  themeClasses.connectivityAtlasScrimBottom,
+                )}
+              />
+            </>
+          ) : (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-strong/[0.08] via-transparent to-transparent"
+            />
+          )}
 
           {hasNodes ? (
             <div aria-hidden className="pointer-events-none absolute inset-0 hidden sm:block">

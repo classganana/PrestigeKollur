@@ -2,6 +2,8 @@ import type { StorytellingContent } from "@/lib/content/types";
 
 import { godrejKukatpallyMediaManifest } from "@/projects/godrej-kukatpally/media-manifest";
 
+const { paths } = godrejKukatpallyMediaManifest;
+
 const MEDIA_ATTRIBUTION = "Visuals indicative · subject to final approvals";
 
 export const godrejKukatpallyStorytellingContent: StorytellingContent = {
@@ -65,13 +67,13 @@ export const godrejKukatpallyStorytellingContent: StorytellingContent = {
     },
   ],
   storyFrame: {
-    src: godrejKukatpallyMediaManifest.paths.bannerTower,
+    src: paths.towersElevation,
     alt: "Godrej Kukatpally — twin tower architectural rendering.",
-    caption: godrejKukatpallyMediaManifest.paths.bannerTower,
+    caption: "Twin towers · Brooklyn-inspired elevation",
   },
   immersiveFrame: {
-    src: godrejKukatpallyMediaManifest.paths.bannerExterior,
+    src: paths.gallery.lifestyle5,
     alt: "Godrej Kukatpally — elevated exterior perspective at dusk.",
-    caption: godrejKukatpallyMediaManifest.paths.bannerExterior,
+    caption: "Metropolitan dusk · skyline presence",
   },
 };

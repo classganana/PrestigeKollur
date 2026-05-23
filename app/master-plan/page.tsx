@@ -30,23 +30,28 @@ import { SecondaryButton } from "@/components/ui/secondary-button";
 import { StructuredData } from "@/components/seo/structured-data";
 import { goldenGroveDocumentLinks } from "@/constants/golden-grove-project";
 import { cn } from "@/lib/cn";
-import { resolveProject, resolveSite } from "@/lib/project/resolve-project";
+import { getActiveProjectSlug, resolveProject, resolveSite } from "@/lib/project/resolve-project";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { buildMasterPlanStructuredData } from "@/lib/seo/structured-data";
+import { GodrejMasterPlanArticle } from "@/app/master-plan/godrej-master-plan-article";
+import { godrejKukatpallyMasterPlanPage } from "@/projects/godrej-kukatpally/content/master-plan-page";
 
 const project = resolveProject();
 const site = resolveSite();
+const isGodrej = getActiveProjectSlug() === "godrej-kukatpally";
 
 const masterPlanStructuredData = buildMasterPlanStructuredData(
   project.seo,
-  MASTER_PLAN_METADATA.title,
-  MASTER_PLAN_METADATA.description,
+  isGodrej ? godrejKukatpallyMasterPlanPage.metadata.title : MASTER_PLAN_METADATA.title,
+  isGodrej ? godrejKukatpallyMasterPlanPage.metadata.description : MASTER_PLAN_METADATA.description,
 );
 
 export const metadata: Metadata = buildPageMetadata({
   seo: project.seo,
-  title: MASTER_PLAN_METADATA.title,
-  description: MASTER_PLAN_METADATA.description,
+  title: isGodrej ? godrejKukatpallyMasterPlanPage.metadata.title : MASTER_PLAN_METADATA.title,
+  description: isGodrej
+    ? godrejKukatpallyMasterPlanPage.metadata.description
+    : MASTER_PLAN_METADATA.description,
   path: "/master-plan",
 });
 
@@ -56,6 +61,15 @@ const comparisonTitle =
 const proseMuted = "font-sans text-body-relaxed text-muted";
 
 export default function MasterPlanPage() {
+  if (isGodrej) {
+    return (
+      <>
+        <StructuredData data={masterPlanStructuredData} />
+        <GodrejMasterPlanArticle />
+      </>
+    );
+  }
+
   const docs = goldenGroveDocumentLinks();
 
   const masterPdf = docs.masterPlan;

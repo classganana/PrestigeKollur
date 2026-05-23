@@ -5,9 +5,9 @@ import { godrejKukatpallyMediaManifest } from "@/projects/godrej-kukatpally/medi
 export const godrejKukatpallyHeroContent: HeroContent = {
   campaignImage: godrejKukatpallyMediaManifest.hero.campaign,
   campaignImageAlt:
-    "Godrej Kukatpally — twin tower skyline, low-angle metropolitan elevation.",
-  /** Low-angle tower emphasis — swap when dusk/night render ships */
-  imageFocus: "50% 28%",
+    "Godrej Kukatpally — twin tower elevation, metropolitan skyline render.",
+  /** Tower cluster centered — daylight elevation from campaign collateral */
+  imageFocus: "50% 42%",
   campaignSpecLine: "45 STOREYS · 3 & 4 BHK · FROM ₹2.11 CR* · KPHB IT CORRIDOR",
   exploreCta: { label: "View connectivity", href: "#connectivity" },
   footnote: "Campaign rendering · indicative only",

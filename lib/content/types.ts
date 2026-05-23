@@ -263,6 +263,11 @@ export type ConnectivityMapFrame = MediaFrame & {
   atlasMicroline: string;
   /** CSS object-position for source map imagery */
   imageFocus?: string;
+  /**
+   * `map` — desaturated location plate with overlay nodes (Prestige-style collateral).
+   * `render` — architectural / corridor context; no map pins or heavy scrims.
+   */
+  atlasVariant?: "map" | "render";
 };
 
 export type ConnectivityContent = {

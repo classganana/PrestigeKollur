@@ -46,7 +46,30 @@ for slug in $PROJECTS; do
 
   cp -R "${dist_dir}/standalone/." "$dest/"
   cp -R "${dist_dir}/static" "$dest/.next/static"
-  cp -R public "$dest/public"
+
+  # Project-scoped public assets — avoid duplicating the full ~37MB tree in every bundle.
+  rm -rf "$dest/public"
+  mkdir -p "$dest/public"
+
+  case "$slug" in
+    prestige-kollur)
+      mkdir -p "$dest/public/partners" "$dest/public/media" "$dest/public/documents"
+      cp public/partners/prestige-*.webp "$dest/public/partners/" 2>/dev/null || true
+      cp -R public/media/official "$dest/public/media/official"
+      cp -R public/media/master-plan "$dest/public/media/master-plan"
+      if [ -d public/documents ]; then
+        cp -R public/documents/. "$dest/public/documents/"
+      fi
+      ;;
+    godrej-kukatpally)
+      mkdir -p "$dest/public/partners" "$dest/public/media"
+      cp -R public/media/godrej-kukatpally "$dest/public/media/godrej-kukatpally"
+      cp public/partners/godrej-*.webp "$dest/public/partners/" 2>/dev/null || true
+      ;;
+    *)
+      cp -R public/. "$dest/public/"
+      ;;
+  esac
 
   echo "  ✓ ${dest}/server.js"
 done

@@ -16,7 +16,7 @@ export const MASTER_PLAN_METADATA = {
 export const MASTER_PLAN_FIGURES = [
   {
     key: "integrated",
-    src: "/media/master-plan/prestige-golden-grove-master-plan.webp",
+    src: "/media/official/plan-master.webp",
     alt: "Prestige Golden Grove master plan illustration.",
     caption: "Integrated master plan",
   },

@@ -10,12 +10,13 @@ import { godrejKukatpallyMediaManifest } from "@/projects/godrej-kukatpally/medi
 import { godrejKukatpallySite } from "@/projects/godrej-kukatpally/site";
 
 const PLACEHOLDER_FRAME = {
-  src: godrejKukatpallyMediaManifest.paths.bannerExterior,
-  caption: "Rendering — subject to final approvals.",
-  alt: "Godrej Kukatpally — architectural rendering.",
+  src: godrejKukatpallyMediaManifest.paths.gallery.lifestyle4,
+  caption: "Metropolitan lifestyle — indicative rendering.",
+  alt: "Godrej Kukatpally — urban lifestyle and amenity rendering.",
 } as const;
 
 const { paths } = godrejKukatpallyMediaManifest;
+const gallery = paths.gallery;
 
 export const godrejKukatpallyContent: ProjectContentPack = {
   hero: godrejKukatpallyHeroContent,
@@ -142,7 +143,20 @@ export const godrejKukatpallyContent: ProjectContentPack = {
       title: "Floor plans",
     },
     mediaAttribution: "Plans indicative — refer to official collateral.",
-    tiles: [],
+    tiles: [
+      {
+        src: paths.floorPlan3bhk,
+        series: "3 BHK Premium",
+        sqft: "1600–1900 sq.ft.",
+        alt: "Blurred preview of Godrej Kukatpally 3 BHK floor plate.",
+      },
+      {
+        src: paths.floorPlan4bhk,
+        series: "4 BHK Luxe",
+        sqft: "3100–3200 sq.ft.",
+        alt: "Blurred preview of Godrej Kukatpally 4 BHK floor plate.",
+      },
+    ],
     closingBand: {
       title: "Unit layouts",
       lead: "Premium 3 & 4 BHK configurations with refined spatial planning.",
@@ -160,42 +174,72 @@ export const godrejKukatpallyContent: ProjectContentPack = {
     platesLead: "Brooklyn-inspired skyline identity and corridor context.",
     lifestyleFrames: [
       {
-        src: paths.bannerTower,
+        src: paths.towersElevation,
         caption: "Twin towers · skyline presence",
         alt: "Godrej Kukatpally twin towers — campaign elevation render.",
       },
       {
-        src: paths.bannerExterior,
-        caption: "Façade · metropolitan elevation",
-        alt: "Godrej Kukatpally exterior elevation — campaign render.",
+        src: gallery.lifestyle1,
+        caption: "Brooklyn-inspired architecture",
+        alt: "Godrej Kukatpally tower façade — metropolitan elevation.",
       },
       {
-        src: paths.planAbout,
+        src: gallery.lifestyle2,
+        caption: "Elevated urban living",
+        alt: "Godrej Kukatpally high-rise lifestyle rendering.",
+      },
+      {
+        src: gallery.lifestyle3,
         caption: "Estate composition",
         alt: "Godrej Kukatpally estate overview — campaign illustration.",
       },
       {
-        src: paths.planLocation,
+        src: gallery.lifestyle5,
         caption: "KPHB · corridor context",
-        alt: "Godrej Kukatpally location and corridor map graphic.",
+        alt: "Godrej Kukatpally metropolitan corridor and tower context.",
+      },
+      {
+        src: gallery.lifestyle6,
+        caption: "Wellness & recreation",
+        alt: "Godrej Kukatpally amenity and wellness spaces — campaign render.",
+      },
+      {
+        src: gallery.lifestyle7,
+        caption: "Skyline social spaces",
+        alt: "Godrej Kukatpally community and social amenity rendering.",
+      },
+      {
+        src: gallery.lifestyle8,
+        caption: "Connected city living",
+        alt: "Godrej Kukatpally metropolitan lifestyle vignette.",
       },
     ],
     platesFrames: [
       {
-        src: paths.planMaster,
+        src: paths.masterPlan,
         caption: "Master plan",
         alt: "Godrej Kukatpally master plan illustration.",
       },
       {
-        src: paths.planApartment,
-        caption: "Residence typology",
-        alt: "Godrej Kukatpally apartment plate excerpt.",
+        src: paths.floorPlan3bhk,
+        caption: "3 BHK typology",
+        alt: "Godrej Kukatpally 3 BHK floor plate excerpt.",
+      },
+      {
+        src: paths.floorPlan4bhk,
+        caption: "4 BHK typology",
+        alt: "Godrej Kukatpally 4 BHK floor plate excerpt.",
+      },
+      {
+        src: gallery.architecture1,
+        caption: "Architectural detail",
+        alt: "Godrej Kukatpally architectural detail render.",
       },
     ],
     wideCinematicFrame: {
-      src: paths.bannerTower,
+      src: gallery.skylineWide,
       caption: "Skyline identity",
-      alt: "Godrej Kukatpally twin towers — wide campaign render.",
+      alt: "Godrej Kukatpally twin towers — wide metropolitan render.",
     },
     wideCinematicCaption: "Renderings indicative — subject to final approvals and on-site verification.",
   },
