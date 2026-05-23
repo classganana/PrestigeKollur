@@ -148,7 +148,11 @@ jobs:
               printf 'PRESTIGE_HOST_PORT=3001\n'
               printf 'GODREJ_HOST_PORT=3002\n'
             } > .env
-            cd ~/prestige-kollur 2>/dev/null && docker compose down || true
+            if [ -d ~/prestige-kollur ]; then
+              (cd ~/prestige-kollur && docker compose down) || true
+            fi
+            cd ~/estates-platform
+            test -f docker-compose.host-nginx.yml
             docker compose -f docker-compose.host-nginx.yml pull
             docker compose -f docker-compose.host-nginx.yml up -d --remove-orphans
             docker image prune -af
