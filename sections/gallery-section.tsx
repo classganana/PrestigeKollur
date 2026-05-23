@@ -15,6 +15,33 @@ const tileChrome = cn(
   "group relative aspect-[9/13] overflow-hidden rounded-[26px]",
 );
 
+/** Bottom caption band — solid scrim + gradient so type stays legible on bright renders. */
+function GalleryTileCaption({ caption }: { caption: string }) {
+  return (
+    <>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[min(46%,12.5rem)] bg-gradient-to-t from-black/95 from-25% via-black/78 to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[4.25rem] bg-black/88"
+      />
+      <figcaption className="absolute inset-x-0 bottom-0 z-[2] px-pillar pb-pillar pt-16">
+        <span
+          className={cn(
+            "block font-sans text-[0.625rem] font-semibold uppercase leading-snug tracking-[0.22em]",
+            "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.9),0_6px_20px_rgba(0,0,0,0.55)]",
+            "sm:text-[0.6875rem] sm:tracking-[0.26em]",
+          )}
+        >
+          {caption}
+        </span>
+      </figcaption>
+    </>
+  );
+}
+
 export default function GallerySection({ content }: { content: GalleryContent }) {
   const reduceMotion = useReducedMotion();
   const lifestyleFrames = content.lifestyleFrames;
@@ -52,7 +79,7 @@ export default function GallerySection({ content }: { content: GalleryContent })
               <NextImage
                 alt={frame.alt}
                 fill
-                className="object-cover transition-[opacity,filter,transform] duration-[720ms] ease-luxury group-hover:brightness-[1.03] motion-reduce:transition-none md:group-hover:-translate-y-px md:group-hover:scale-[1.01]"
+                className="z-0 object-cover object-left transition-[opacity,filter,transform] duration-[720ms] ease-luxury group-hover:brightness-[1.03] motion-reduce:transition-none md:group-hover:-translate-y-px md:group-hover:scale-[1.01]"
                 decoding="async"
                 loading="lazy"
                 quality={82}
@@ -60,13 +87,7 @@ export default function GallerySection({ content }: { content: GalleryContent })
                 src={frame.src}
               />
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/78 via-black/38 to-transparent" />
-
-              <figcaption className="absolute bottom-loft inset-x-pillar pb-pillar">
-                <span className="font-sans text-micro uppercase tracking-[0.52em] text-[#faf7f1]/92">
-                  {frame.caption}
-                </span>
-              </figcaption>
+              <GalleryTileCaption caption={frame.caption} />
             </figure>
           ))}
         </div>
@@ -86,7 +107,7 @@ export default function GallerySection({ content }: { content: GalleryContent })
               <NextImage
                 alt={frame.alt}
                 fill
-                className="object-cover transition-[opacity,filter,transform] duration-[720ms] ease-luxury group-hover:brightness-[1.03] motion-reduce:transition-none md:group-hover:-translate-y-px md:group-hover:scale-[1.01]"
+                className="z-0 object-cover transition-[opacity,filter,transform] duration-[720ms] ease-luxury group-hover:brightness-[1.03] motion-reduce:transition-none md:group-hover:-translate-y-px md:group-hover:scale-[1.01]"
                 decoding="async"
                 loading="lazy"
                 quality={82}
@@ -94,13 +115,7 @@ export default function GallerySection({ content }: { content: GalleryContent })
                 src={frame.src}
               />
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/78 via-black/38 to-transparent" />
-
-              <figcaption className="absolute bottom-loft inset-x-pillar pb-pillar">
-                <span className="font-sans text-micro uppercase tracking-[0.48em] text-[#faf7f1]/88">
-                  {frame.caption}
-                </span>
-              </figcaption>
+              <GalleryTileCaption caption={frame.caption} />
             </figure>
           ))}
         </div>

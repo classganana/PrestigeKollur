@@ -64,7 +64,7 @@ for slug in $PROJECTS; do
     godrej-kukatpally)
       mkdir -p "$dest/public/partners" "$dest/public/media"
       cp -R public/media/godrej-kukatpally "$dest/public/media/godrej-kukatpally"
-      cp public/partners/godrej-*.webp "$dest/public/partners/" 2>/dev/null || true
+      cp public/partners/godrej-* "$dest/public/partners/" 2>/dev/null || true
       ;;
     *)
       cp -R public/. "$dest/public/"
