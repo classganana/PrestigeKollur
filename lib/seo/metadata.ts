@@ -40,8 +40,9 @@ export function buildRootMetadata(seo: ProjectSeoConfig): Metadata {
       : {}),
     robots: resolveRobotsDirective(seo),
     icons: {
-      icon: [{ url: "/icon" }],
-      apple: [{ url: "/icon" }],
+      icon: [{ url: "/icon", type: "image/png", sizes: "32x32" }],
+      apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
+      shortcut: [{ url: "/icon", type: "image/png" }],
     },
     alternates: canonical !== undefined ? { canonical } : undefined,
     openGraph: buildOpenGraph({

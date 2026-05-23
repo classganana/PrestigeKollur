@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
+  /** Browsers request /favicon.ico first — Next's default ICO overrides app/icon.tsx without this. */
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: "/favicon.ico", destination: "/icon" }],
+    };
+  },
 };
 
 export default nextConfig;
