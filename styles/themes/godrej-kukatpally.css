@@ -185,15 +185,16 @@
   /* Campaign hero — architecture-forward; read zone in lower third only */
   --hero-campaign-scrim-top: linear-gradient(
     to bottom,
-    rgba(5, 6, 8, 0.35) 0%,
-    rgba(5, 6, 8, 0.08) 28%,
-    transparent 52%
+    rgba(5, 6, 8, 0.52) 0%,
+    rgba(5, 6, 8, 0.22) 34%,
+    rgba(5, 6, 8, 0.06) 52%,
+    transparent 68%
   );
   --hero-campaign-scrim-center: radial-gradient(
-    ellipse 110% 55% at 50% 92%,
-    rgba(5, 6, 8, 0.88) 0%,
-    rgba(5, 6, 8, 0.44) 48%,
-    transparent 72%
+    ellipse 115% 62% at 50% 58%,
+    rgba(5, 6, 8, 0.78) 0%,
+    rgba(5, 6, 8, 0.48) 44%,
+    transparent 74%
   );
   --hero-campaign-scrim-bottom: linear-gradient(
     to top,

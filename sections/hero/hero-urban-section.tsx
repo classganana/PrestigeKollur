@@ -32,7 +32,8 @@ const campaignReveal = {
 };
 
 /**
- * Metropolitan campaign hero — architecture leads, copy anchors the lower third.
+ * Metropolitan campaign hero — architecture leads on desktop; mobile uses a
+ * split “poster + editorial deck” so copy never fights the façade.
  */
 export function HeroUrbanSection({ content }: { content: HeroContent }) {
   const site = useSite();
@@ -79,7 +80,7 @@ export function HeroUrbanSection({ content }: { content: HeroContent }) {
       quality={lite ? 75 : 80}
       sizes="(max-width: 640px) 640px, (max-width: 1024px) 960px, 1200px"
       decoding="async"
-      className="transform-gpu object-cover scale-[1.03] brightness-[0.94] contrast-[1.06] saturate-[0.88]"
+      className="transform-gpu object-cover scale-[1.03] contrast-[1.06] saturate-[0.92] sm:brightness-[0.94] sm:saturate-[0.88]"
       style={{ objectPosition: imageFocus }}
     />
   );
@@ -90,51 +91,97 @@ export function HeroUrbanSection({ content }: { content: HeroContent }) {
       id="hero"
       aria-label={`Hero — ${site.name}`}
       data-hero-variant="campaign"
-      className={cn("relative isolate min-h-[92svh] overflow-hidden", themeClasses.heroCanvas)}
+      className={cn(
+        "relative isolate overflow-hidden",
+        "flex flex-col sm:block sm:min-h-[92svh]",
+        themeClasses.heroCanvas,
+      )}
     >
-      <div className="pointer-events-none absolute inset-0 z-[1]">
+      {/* Architecture plate — cropped poster on mobile, full bleed on desktop */}
+      <div
+        className={cn(
+          "relative z-0 w-full shrink-0 overflow-hidden",
+          "h-[min(48svh,420px)] min-h-[17.5rem]",
+          "sm:absolute sm:inset-0 sm:z-0 sm:h-auto sm:min-h-[92svh]",
+        )}
+      >
         {disableScrollFx ? (
-          <div aria-hidden className="absolute inset-[-2%]">
+          <div aria-hidden className="absolute inset-0 sm:inset-[-2%]">
             {imageNode}
           </div>
         ) : (
           <motion.div
             aria-hidden
-            className="absolute inset-[-8%] will-change-transform"
+            className="absolute inset-0 will-change-transform sm:inset-[-8%]"
             style={{ y: driftY, scale: driftScale }}
           >
             {imageNode}
           </motion.div>
         )}
 
-        <div className="theme-hero-campaign-vignette absolute inset-0 opacity-90" />
-        <div className="theme-hero-campaign-scrim-top absolute inset-0 opacity-70" />
-        <div className="theme-hero-campaign-scrim-center absolute inset-0" />
-        <div className="theme-hero-campaign-scrim-bottom absolute inset-0" />
-        <div className="theme-hero-campaign-accent absolute inset-0 opacity-60" />
+        {/* Desktop — cinematic scrims (unchanged intent) */}
+        <div className="pointer-events-none absolute inset-0 hidden sm:block">
+          <div className="theme-hero-campaign-vignette absolute inset-0 opacity-90" />
+          <div className="theme-hero-campaign-scrim-top absolute inset-0 opacity-70" />
+          <div className="theme-hero-campaign-scrim-center absolute inset-0" />
+          <div className="theme-hero-campaign-scrim-bottom absolute inset-0" />
+          <div className="theme-hero-campaign-accent absolute inset-0 opacity-60" />
+        </div>
+
+        {/* Mobile — soft dissolve into the editorial deck (no black slab) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent via-shell-strong/35 to-shell-strong sm:hidden"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-shell-strong/45 to-transparent sm:hidden"
+        />
       </div>
 
-      <div className="relative z-10 flex min-h-[92svh] flex-col justify-end">
-        <div className="mx-auto w-full max-w-[920px] px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-[clamp(6.5rem,16vh,9rem)] text-center sm:px-10">
-          <motion.p
+      {/* Copy deck — solid metropolitan panel on mobile; floating lower third on desktop */}
+      <div
+        className={cn(
+          "relative z-10 w-full",
+          "max-sm:[background-image:var(--gradient-shell-deep)] max-sm:text-inverse",
+          "border-t border-accent-champagne/22 px-6 py-8",
+          "pb-[max(1.25rem,env(safe-area-inset-bottom))]",
+          "sm:absolute sm:inset-0 sm:flex sm:min-h-[92svh] sm:flex-col sm:justify-end",
+          "sm:border-0 sm:bg-none sm:[background-image:none] sm:px-10 sm:py-0",
+        )}
+      >
+        <div className="mx-auto w-full max-w-[920px] text-center sm:pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:pt-[clamp(6.5rem,16vh,9rem)]">
+          <motion.div
             custom={0}
             initial={reduceMotion ? false : "hidden"}
             animate={reduceMotion ? false : "visible"}
             variants={reduceMotion ? undefined : campaignReveal}
-            className="font-sans text-[0.58rem] font-semibold uppercase tracking-[0.4em] text-accent-champagne/95 sm:text-[0.6rem] sm:tracking-[0.44em]"
+            className={cn(
+              "mx-auto inline-flex w-fit max-w-full flex-col items-center gap-3",
+              "sm:rounded-2xl sm:border sm:border-accent-champagne/22",
+              "sm:bg-[linear-gradient(180deg,rgba(10,12,16,0.78)_0%,rgba(5,6,8,0.88)_100%)]",
+              "sm:px-6 sm:py-3.5 sm:backdrop-blur-md",
+              "sm:shadow-[0_12px_44px_-14px_rgba(0,0,0,0.58)]",
+            )}
           >
-            {site.heroEyebrow}
-          </motion.p>
+            <p
+              className={cn(
+                "font-sans text-[0.65rem] font-semibold uppercase tracking-[0.34em]",
+                "text-accent-champagne sm:text-[0.6rem] sm:tracking-[0.38em] sm:text-fog-soft",
+              )}
+            >
+              {site.heroEyebrow}
+            </p>
 
-          <motion.p
-            custom={0.05}
-            initial={reduceMotion ? false : "hidden"}
-            animate={reduceMotion ? false : "visible"}
-            variants={reduceMotion ? undefined : campaignReveal}
-            className="mt-3 font-sans text-[0.54rem] font-medium uppercase tracking-[0.34em] text-accent-champagne/88 [text-shadow:0_1px_14px_rgba(0,0,0,0.45)] sm:text-[0.56rem]"
-          >
-            {site.jvLine}
-          </motion.p>
+            <p
+              className={cn(
+                "font-sans text-[0.62rem] font-medium uppercase tracking-[0.3em]",
+                "text-inverse-muted sm:text-[0.56rem] sm:tracking-[0.32em] sm:text-fog-soft/90",
+              )}
+            >
+              {site.jvLine}
+            </p>
+          </motion.div>
 
           <motion.h1
             custom={0.1}
@@ -142,13 +189,13 @@ export function HeroUrbanSection({ content }: { content: HeroContent }) {
             animate={reduceMotion ? false : "visible"}
             variants={reduceMotion ? undefined : campaignReveal}
             className={cn(
-              "mx-auto mt-6 max-w-[16ch] text-balance font-display font-semibold tracking-[-0.03em]",
-              "text-[clamp(2.15rem,7.2vw,4.15rem)] leading-[1.02]",
-              "text-fog-soft [text-shadow:0_2px_32px_rgba(0,0,0,0.5)]",
+              "mx-auto mt-5 max-w-[16ch] text-balance font-display font-semibold tracking-[-0.03em]",
+              "text-[clamp(2rem,7.2vw,4.15rem)] leading-[1.04] sm:mt-6 sm:leading-[1.02]",
+              "text-inverse sm:text-fog-soft sm:[text-shadow:0_2px_32px_rgba(0,0,0,0.5)]",
             )}
           >
             <span className="block">{site.heroTitleLine1}</span>
-            <span className="mt-[0.14em] block text-[0.88em] font-medium tracking-[-0.022em] text-fog-soft/96">
+            <span className="mt-[0.14em] block text-[0.88em] font-medium tracking-[-0.022em] text-inverse sm:text-fog-soft/96">
               {site.heroTitleLine2}
             </span>
           </motion.h1>
@@ -158,7 +205,11 @@ export function HeroUrbanSection({ content }: { content: HeroContent }) {
             initial={reduceMotion ? false : "hidden"}
             animate={reduceMotion ? false : "visible"}
             variants={reduceMotion ? undefined : campaignReveal}
-            className="mx-auto mt-5 max-w-[34ch] font-sans text-[0.9375rem] font-medium leading-[1.62] text-fog-soft/95 [text-shadow:0_1px_20px_rgba(0,0,0,0.55),0_2px_40px_rgba(0,0,0,0.35)] sm:max-w-[38ch] sm:text-[0.975rem]"
+            className={cn(
+              "mx-auto mt-4 max-w-[34ch] font-sans text-[0.9375rem] font-medium leading-[1.62]",
+              "text-inverse-muted sm:mt-5 sm:max-w-[38ch] sm:text-[0.975rem] sm:text-fog-soft/95",
+              "sm:[text-shadow:0_1px_20px_rgba(0,0,0,0.55),0_2px_40px_rgba(0,0,0,0.35)]",
+            )}
           >
             {site.heroSupporting}
           </motion.p>
@@ -168,7 +219,7 @@ export function HeroUrbanSection({ content }: { content: HeroContent }) {
             initial={reduceMotion ? false : "hidden"}
             animate={reduceMotion ? false : "visible"}
             variants={reduceMotion ? undefined : campaignReveal}
-            className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4"
+            className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center sm:gap-4"
           >
             {whatsappHref ? (
               <OpenWhatsAppConciergeButton className={heroEnquiryClasses} placement="hero_wa">
@@ -196,8 +247,8 @@ export function HeroUrbanSection({ content }: { content: HeroContent }) {
               animate={{ opacity: 1 }}
               transition={{ delay: reduceMotion ? 0 : 0.38, duration: 0.65 }}
               className={cn(
-                "mt-7 rounded-[14px] border border-fog-soft/10 bg-forest-strong/35 px-4 py-4",
-                "backdrop-blur-[4px] sm:px-5 sm:py-4",
+                "mt-7 rounded-[14px] border border-accent-champagne/20 bg-shell/40 px-4 py-4",
+                "backdrop-blur-[4px] sm:border-fog-soft/10 sm:bg-shell-strong/55 sm:px-5 sm:py-4",
               )}
             >
               {content.campaignSpecLine ? (
@@ -208,7 +259,7 @@ export function HeroUrbanSection({ content }: { content: HeroContent }) {
               {content.footnote ? (
                 <p
                   className={cn(
-                    "font-sans text-[0.6875rem] leading-[1.55] text-fog-soft/72 sm:text-[0.7rem]",
+                    "font-sans text-[0.6875rem] leading-[1.55] text-inverse-muted sm:text-fog-soft/72 sm:text-[0.7rem]",
                     content.campaignSpecLine ? "mt-2.5" : undefined,
                   )}
                 >
