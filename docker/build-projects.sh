@@ -30,12 +30,18 @@ for slug in $PROJECTS; do
   rm -rf "$NEXT_DIST_DIR"
   npm run build
 
+  dist_dir="${NEXT_DIST_DIR:-.next}"
   dest="apps/${slug}"
   rm -rf "$dest"
   mkdir -p "$dest/.next"
 
-  cp -R .next/standalone/. "$dest/"
-  cp -R .next/static "$dest/.next/static"
+  if [ ! -d "${dist_dir}/standalone" ]; then
+    echo "  ✗ expected ${dist_dir}/standalone after build (check next.config output: standalone)" >&2
+    exit 1
+  fi
+
+  cp -R "${dist_dir}/standalone/." "$dest/"
+  cp -R "${dist_dir}/static" "$dest/.next/static"
   cp -R public "$dest/public"
 
   echo "  ✓ ${dest}/server.js"
