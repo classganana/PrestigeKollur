@@ -21,10 +21,12 @@ write_project_env() {
       printf '%s' "${!prefixed}"
       return
     fi
-    # Prestige backward compatibility with legacy unprefixed secrets
-    if [ "$prefix" = "PRESTIGE" ] && [ -n "${!key:-}" ]; then
-      printf '%s' "${!key}"
-      return
+    # Backward compatibility: unprefixed secrets (shared contact until per-brand numbers ship)
+    if [ "$prefix" = "PRESTIGE" ] || [ "$prefix" = "GODREJ" ]; then
+      if [ -n "${!key:-}" ]; then
+        printf '%s' "${!key}"
+        return
+      fi
     fi
     printf ''
   }
