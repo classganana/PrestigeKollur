@@ -31,7 +31,7 @@ export const goldenDoorsPortfolioContent: ProjectPortfolioContent = {
       imageAlt: "Prestige Kollur — township elevation.",
       externalUrl:
         process.env.NEXT_PUBLIC_PORTFOLIO_PRESTIGE_URL?.trim() ||
-        "https://prestige.example.com",
+        "https://golden-grove-tellapur.site",
       developerName: "Prestige Group",
     },
     {
@@ -50,7 +50,7 @@ export const goldenDoorsPortfolioContent: ProjectPortfolioContent = {
       imageAlt: "Godrej Kukatpally — twin tower elevation.",
       externalUrl:
         process.env.NEXT_PUBLIC_PORTFOLIO_GODREJ_URL?.trim() ||
-        "https://godrej.example.com",
+        "https://godrej-kukatpally-new-launch.site",
       developerName: "Godrej Properties",
     },
   ],

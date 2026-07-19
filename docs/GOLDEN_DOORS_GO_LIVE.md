@@ -17,18 +17,19 @@ Content and secrets the client (or you) must provide before production launch.
 - [ ] Confirmed trust stats (replace placeholders in `projects/golden-doors/content/about.ts`)
 - [ ] Meta Pixel ID → `GOLDEN_DOORS_NEXT_PUBLIC_META_PIXEL_ID`
 - [ ] GA4 measurement ID → `GOLDEN_DOORS_NEXT_PUBLIC_ANALYTICS_ID`
-- [ ] Brand domain (e.g. `goldendoors.in`) → `GOLDEN_DOORS_DOMAIN` + `GOLDEN_DOORS_NEXT_PUBLIC_SITE_URL`
+- [ ] Brand domain → `GOLDEN_DOORS_DOMAIN=goldendoorsrealestate.in` + `GOLDEN_DOORS_NEXT_PUBLIC_SITE_URL=https://goldendoorsrealestate.in`
 
 ## Portfolio links
 
 Set live microsite URLs on the Golden Doors build:
 
-- `GOLDEN_DOORS_NEXT_PUBLIC_PORTFOLIO_PRESTIGE_URL`
-- `GOLDEN_DOORS_NEXT_PUBLIC_PORTFOLIO_GODREJ_URL`
+- `GOLDEN_DOORS_NEXT_PUBLIC_PORTFOLIO_PRESTIGE_URL=https://golden-grove-tellapur.site`
+- `GOLDEN_DOORS_NEXT_PUBLIC_PORTFOLIO_GODREJ_URL=https://godrej-kukatpally-new-launch.site`
 
 On Prestige / Godrej builds, set the reverse link:
 
-- `PRESTIGE_NEXT_PUBLIC_PARTNER_HUB_URL` / `GODREJ_NEXT_PUBLIC_PARTNER_HUB_URL` → Golden Doors domain
+- `PRESTIGE_NEXT_PUBLIC_PARTNER_HUB_URL=https://goldendoorsrealestate.in`
+- `GODREJ_NEXT_PUBLIC_PARTNER_HUB_URL=https://goldendoorsrealestate.in`
 
 ## Content you maintain (dev)
 

@@ -1,15 +1,15 @@
 # Install on EC2 host nginx (NOT Docker nginx):
-#   sudo cp docker/nginx/host-snippets/godrej-kukatpally.conf.example /etc/nginx/conf.d/godrej-kukatpally.conf
+#   sudo cp docker/nginx/host-snippets/golden-doors.conf.example /etc/nginx/conf.d/golden-doors.conf
 #   sudo nginx -t && sudo systemctl reload nginx
 #
-# Requires Godrej container on host port 3002 (docker-compose.host-nginx.yml in ~/prestige-kollur).
+# Requires Golden Doors container on host port 3003 (docker-compose.host-nginx.yml in ~/prestige-kollur).
 
 server {
     listen 80;
-    server_name godrej-kukatpally-new-launch.site www.godrej-kukatpally-new-launch.site;
+    server_name goldendoorsrealestate.in www.goldendoorsrealestate.in;
 
     location / {
-        proxy_pass http://127.0.0.1:3002;
+        proxy_pass http://127.0.0.1:3003;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -22,4 +22,4 @@ server {
 }
 
 # After DNS works on HTTP, add HTTPS with certbot:
-#   sudo certbot --nginx -d godrej-kukatpally-new-launch.site -d www.godrej-kukatpally-new-launch.site
+#   sudo certbot --nginx -d goldendoorsrealestate.in -d www.goldendoorsrealestate.in

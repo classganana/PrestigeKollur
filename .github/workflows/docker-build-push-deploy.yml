@@ -143,7 +143,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: docker-compose.host-nginx.yml,docker/nginx
-          target: /home/${{ secrets.EC2_USER }}/estates-platform
+          target: /home/${{ secrets.EC2_USER }}/prestige-kollur
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.2.1
@@ -155,8 +155,8 @@ jobs:
           command_timeout: 20m
           script: |
             set -euo pipefail
-            mkdir -p ~/estates-platform
-            cd ~/estates-platform
+            mkdir -p ~/prestige-kollur
+            cd ~/prestige-kollur
             umask 077
             {
               printf 'DOCKERHUB_USER=%s\n' "$DOCKERHUB_USER"
@@ -165,17 +165,17 @@ jobs:
               printf 'PRESTIGE_ENQUIRY_SCRIPT_URL=%s\n' "$PRESTIGE_ENQUIRY_SCRIPT_URL"
               printf 'GODREJ_ENQUIRY_SCRIPT_URL=%s\n' "$GODREJ_ENQUIRY_SCRIPT_URL"
               printf 'GOLDEN_DOORS_ENQUIRY_SCRIPT_URL=%s\n' "$GOLDEN_DOORS_ENQUIRY_SCRIPT_URL"
-              printf 'PRESTIGE_DOMAIN=%s\n' "${PRESTIGE_DOMAIN:-prestige.example.com}"
-              printf 'GODREJ_DOMAIN=%s\n' "${GODREJ_DOMAIN:-godrej.example.com}"
-              printf 'GOLDEN_DOORS_DOMAIN=%s\n' "${GOLDEN_DOORS_DOMAIN:-goldendoors.example.com}"
+              printf 'PRESTIGE_DOMAIN=%s\n' "${PRESTIGE_DOMAIN:-golden-grove-tellapur.site}"
+              printf 'GODREJ_DOMAIN=%s\n' "${GODREJ_DOMAIN:-godrej-kukatpally-new-launch.site}"
+              printf 'GOLDEN_DOORS_DOMAIN=%s\n' "${GOLDEN_DOORS_DOMAIN:-goldendoorsrealestate.in}"
               printf 'PRESTIGE_HOST_PORT=3001\n'
               printf 'GODREJ_HOST_PORT=3002\n'
               printf 'GOLDEN_DOORS_HOST_PORT=3003\n'
             } > .env
-            if [ -d ~/prestige-kollur ]; then
-              (cd ~/prestige-kollur && docker compose down) || true
+            if [ -d ~/estates-platform ]; then
+              (cd ~/estates-platform && docker compose -f docker-compose.host-nginx.yml down) || true
             fi
-            cd ~/estates-platform
+            cd ~/prestige-kollur
             test -f docker-compose.host-nginx.yml
             docker compose -f docker-compose.host-nginx.yml pull
             docker compose -f docker-compose.host-nginx.yml up -d --remove-orphans

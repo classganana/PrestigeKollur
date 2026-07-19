@@ -1,13 +1,15 @@
-# EC2 profile — host nginx on :80/:443 already routes domains.
-# Use with: docker compose -f docker-compose.host-nginx.yml up -d
+# EC2 profile — deploy under ~/prestige-kollur on the server.
+# Host nginx on :80/:443 routes each domain to the matching container port.
+#
+#   docker compose -f docker-compose.host-nginx.yml up -d
 #
 # Port map (matches typical shared EC2 layout):
 #   3000 → galactica (not managed here)
-#   3001 → prestige
-#   3002 → godrej
+#   3001 → prestige-kollur
+#   3002 → godrej-kukatpally
 #   3003 → golden-doors
 
-name: estates-platform
+name: prestige-kollur
 
 services:
   prestige:

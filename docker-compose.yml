@@ -8,7 +8,7 @@
 #   godrej   → localhost:3001
 #   golden   → localhost:3002
 
-name: estates-platform
+name: prestige-kollur
 
 services:
   prestige:
@@ -105,9 +105,9 @@ services:
       # Mount TLS certs when ready:
       # - ./docker/nginx/certs:/etc/nginx/certs:ro
     environment:
-      PRESTIGE_DOMAIN: ${PRESTIGE_DOMAIN:-prestige.example.com}
-      GODREJ_DOMAIN: ${GODREJ_DOMAIN:-godrej.example.com}
-      GOLDEN_DOORS_DOMAIN: ${GOLDEN_DOORS_DOMAIN:-goldendoors.example.com}
+      PRESTIGE_DOMAIN: ${PRESTIGE_DOMAIN:-golden-grove-tellapur.site}
+      GODREJ_DOMAIN: ${GODREJ_DOMAIN:-godrej-kukatpally-new-launch.site}
+      GOLDEN_DOORS_DOMAIN: ${GOLDEN_DOORS_DOMAIN:-goldendoorsrealestate.in}
     command:
       - /bin/sh
       - -c
