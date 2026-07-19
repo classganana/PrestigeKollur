@@ -52,10 +52,14 @@ function listFocusables(root: HTMLElement): HTMLElement[] {
 
 type ConciergeModalContextValue = {
   open: () => void;
+  /** Opens concierge with a portfolio project pre-selected (brand-hub Express Interest). */
+  openWithPreferredProject: (projectId: string) => void;
   /** Opens concierge; after the next successful enquiry POST, launch WhatsApp with the same payload text. */
   openForWhatsAppHandoff: (placement?: ConversionPlacement) => void;
   close: () => void;
   isOpen: boolean;
+  /** Preferred portfolio project id when opened from a card CTA. */
+  preferredProjectId: string | null;
   /** Read handoff intent without clearing it (used before async submit so we can open a placeholder tab synchronously). */
   peekWhatsAppHandoff: () => boolean;
   consumeWhatsAppHandoff: () => boolean;
@@ -85,6 +89,7 @@ type ConciergeOverlayProps = {
  */
 function ConciergeOverlay({ titleId, onDismiss }: ConciergeOverlayProps) {
   const site = useSite();
+  const { preferredProjectId } = useConciergeModal();
   const lenis = useLenis();
 
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -255,7 +260,10 @@ function ConciergeOverlay({ titleId, onDismiss }: ConciergeOverlayProps) {
             className="concierge-modal-scroll flex min-h-0 min-w-0 max-w-full flex-1 flex-col px-loft pb-loft"
           >
             <div className="min-w-0 max-w-full flex-1">
-              <ConciergeConversionPanel presentation="modal" />
+              <ConciergeConversionPanel
+                presentation="modal"
+                preferredProjectId={preferredProjectId}
+              />
             </div>
           </div>
         </div>
@@ -273,11 +281,19 @@ function ConciergeOverlay({ titleId, onDismiss }: ConciergeOverlayProps) {
 export function ConciergeModalProvider({ children }: { children: ReactNode }) {
   const { leadSourceTag } = useProject();
   const [isOpen, setIsOpen] = useState(false);
+  const [preferredProjectId, setPreferredProjectId] = useState<string | null>(null);
 
   const titleId = useId();
 
   const open = useCallback(() => {
     conciergeWaHandoffSet(false);
+    setPreferredProjectId(null);
+    setIsOpen(true);
+  }, []);
+
+  const openWithPreferredProject = useCallback((projectId: string) => {
+    conciergeWaHandoffSet(false);
+    setPreferredProjectId(projectId);
     setIsOpen(true);
   }, []);
 
@@ -285,6 +301,7 @@ export function ConciergeModalProvider({ children }: { children: ReactNode }) {
     (placement: ConversionPlacement = "concierge_handoff") => {
       trackWhatsAppClick({ leadSource: leadSourceTag, placement });
       conciergeWaHandoffSet(true);
+      setPreferredProjectId(null);
       setIsOpen(true);
     },
     [leadSourceTag],
@@ -292,6 +309,7 @@ export function ConciergeModalProvider({ children }: { children: ReactNode }) {
 
   const close = useCallback(() => {
     conciergeWaHandoffSet(false);
+    setPreferredProjectId(null);
     setIsOpen(false);
   }, []);
 
@@ -302,13 +320,24 @@ export function ConciergeModalProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       open,
+      openWithPreferredProject,
       openForWhatsAppHandoff,
       close,
       isOpen,
+      preferredProjectId,
       peekWhatsAppHandoff,
       consumeWhatsAppHandoff,
     }),
-    [close, consumeWhatsAppHandoff, open, openForWhatsAppHandoff, peekWhatsAppHandoff, isOpen],
+    [
+      close,
+      consumeWhatsAppHandoff,
+      open,
+      openForWhatsAppHandoff,
+      openWithPreferredProject,
+      peekWhatsAppHandoff,
+      preferredProjectId,
+      isOpen,
+    ],
   );
 
   return (

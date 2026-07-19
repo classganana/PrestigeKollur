@@ -3,7 +3,7 @@
 # NEXT_PUBLIC_* values are read from docker/projects/<slug>.build.env (generated in CI or copied locally).
 set -eu
 
-PROJECTS="prestige-kollur godrej-kukatpally"
+PROJECTS="prestige-kollur godrej-kukatpally golden-doors"
 
 mkdir -p apps
 
@@ -65,6 +65,11 @@ for slug in $PROJECTS; do
       mkdir -p "$dest/public/partners" "$dest/public/media"
       cp -R public/media/godrej-kukatpally "$dest/public/media/godrej-kukatpally"
       cp public/partners/godrej-* "$dest/public/partners/" 2>/dev/null || true
+      ;;
+    golden-doors)
+      mkdir -p "$dest/public/partners" "$dest/public/media"
+      cp -R public/media/golden-doors "$dest/public/media/golden-doors"
+      cp public/partners/golden-doors-* "$dest/public/partners/" 2>/dev/null || true
       ;;
     *)
       cp -R public/. "$dest/public/"

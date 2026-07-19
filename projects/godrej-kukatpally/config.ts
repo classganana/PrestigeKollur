@@ -10,6 +10,7 @@ import { godrejKukatpallyTheme } from "@/projects/godrej-kukatpally/theme";
 
 export const godrejKukatpallyConfig: ProjectConfig = {
   slug: "godrej-kukatpally",
+  siteType: "project-microsite",
   leadSourceTag: "godrej-kukatpally-web",
   site: godrejKukatpallySite,
   branding: godrejKukatpallyBranding,

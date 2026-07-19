@@ -1,0 +1,267 @@
+/**
+ * Golden Doors — rich gold brand hub.
+ * Warm ivory · espresso shell · metallic gold accents.
+ * Activate via `data-theme="golden-doors"`.
+ */
+[data-theme="golden-doors"] {
+  /* Surfaces & ink */
+  --color-surface: #faf7f0;
+  --color-surface-rgb: 250 247 240;
+  --color-foreground: #1a1612;
+  --color-foreground-rgb: 26 22 18;
+  --color-muted: #5c5348;
+  --color-muted-rgb: 92 83 72;
+  --color-ivory: #f8f4eb;
+  --color-ivory-rgb: 248 244 235;
+  --color-soft-stone: #e8dfd0;
+  --color-soft-stone-rgb: 232 223 208;
+  --color-soft-stone-glow: #f0e8d8;
+  --color-soft-stone-glow-rgb: 240 232 216;
+  --color-fog: #f3ede2;
+  --color-fog-rgb: 243 237 226;
+  --color-fog-soft: #fcf9f3;
+  --color-fog-soft-rgb: 252 249 243;
+  --color-fog-strong: rgba(252, 249, 243, 0.94);
+
+  /* Dark shell — espresso (header, footer, concierge) */
+  --color-shell: #14100c;
+  --color-shell-rgb: 20 16 12;
+  --color-shell-strong: #0c0906;
+  --color-shell-strong-rgb: 12 9 6;
+  --color-shell-deep-end: #060504;
+
+  /* Brand editorial */
+  --color-brand-primary: #2a2218;
+  --color-brand-primary-rgb: 42 34 24;
+  --color-brand-muted: #f0e8d8;
+  --color-brand-muted-rgb: 240 232 216;
+  --color-brand-lockup-end: #e2d4b8;
+
+  /* Accents — rich metallic gold */
+  --color-accent-gold: #c9a227;
+  --color-accent-gold-rgb: 201 162 39;
+  --color-accent-champagne: #e8d9b0;
+  --color-accent-champagne-rgb: 232 217 176;
+  --color-accent-bronze: #8b6914;
+  --color-accent-bronze-rgb: 139 105 20;
+  --color-accent-olive: #6b5e48;
+  --color-accent-olive-rgb: 107 94 72;
+
+  /* Inverse copy on dark glass */
+  --color-inverse: #faf7ef;
+  --color-inverse-rgb: 250 247 239;
+  --color-inverse-muted: #ebe4d6;
+  --color-inverse-muted-rgb: 235 228 214;
+  --color-inverse-subtle: #c9bfb0;
+  --color-inverse-subtle-rgb: 201 191 176;
+
+  /* Chrome masthead — espresso shell, gold ring */
+  --chrome-bg: hsla(30, 22%, 6%, 0.94);
+  --chrome-bg-hover: hsla(30, 22%, 9%, 0.96);
+  --chrome-text-primary: #faf7ef;
+  --chrome-text-primary-hover: #ffffff;
+  --chrome-text-secondary: #e2c66d;
+  --chrome-ring-offset: #060504;
+  --chrome-shadow: 0 0 0 1px rgba(201, 162, 39, 0.3), 0 28px 64px -28px rgba(0, 0, 0, 0.78);
+  --chrome-shadow-hover: 0 0 0 1px rgba(226, 198, 109, 0.45), 0 36px 70px -30px rgba(0, 0, 0, 0.82);
+
+  /* Hero — deep espresso canvas with gold warmth */
+  --color-hero-canvas: #0c0906;
+  --gradient-overlay-hero-bottom: linear-gradient(
+    to top,
+    rgba(6, 5, 4, 0.92) 0%,
+    rgba(12, 9, 6, 0.48) 48%,
+    transparent 100%
+  );
+  --gradient-overlay-hero-top: linear-gradient(
+    to bottom,
+    rgba(20, 16, 12, 0.52) 0%,
+    transparent 100%
+  );
+  --gradient-hero-title: linear-gradient(
+    to bottom,
+    #faf7ef 0%,
+    #e8d9b0 52%,
+    #c9a227 100%
+  );
+  --gradient-hero-glass-panel: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(42, 34, 24, 0.62) 42%,
+    rgba(12, 9, 6, 0.88) 100%
+  );
+  --gradient-hero-glass-panel-lite: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(42, 34, 24, 0.78) 48%,
+    rgba(12, 9, 6, 0.95) 100%
+  );
+
+  /* CTAs — rich gold */
+  --gradient-cta-champagne: linear-gradient(to bottom, #e8d9b0 0%, #d4b84a 48%, #c9a227 100%);
+  --gradient-cta-champagne-hover: linear-gradient(to bottom, #f0e4c0 0%, #e2c66d 48%, #d4b84a 100%);
+  --cta-champagne-border: rgba(201, 162, 39, 0.42);
+  --cta-champagne-border-hover: rgba(201, 162, 39, 0.58);
+  --cta-champagne-ink: #0c0906;
+
+  --gradient-cta-hero-enquiry: linear-gradient(to bottom, #f0e4c0 0%, #e2c66d 48%, #c9a227 100%);
+  --gradient-cta-hero-enquiry-hover: linear-gradient(to bottom, #f6ecd0 0%, #e8d9b0 48%, #d4b84a 100%);
+  --cta-hero-enquiry-shadow: 0 10px 42px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 254, 251, 0.44), inset 0 -1px 0 rgba(42, 34, 24, 0.14);
+  --cta-hero-enquiry-shadow-hover: 0 22px 64px -6px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 253, 0.5), inset 0 -1px 0 rgba(42, 34, 24, 0.1);
+
+  /* Deep shells (footer, modal) */
+  --gradient-shell-deep: linear-gradient(
+    135deg,
+    var(--color-shell) 0%,
+    var(--color-shell-strong) 55%,
+    var(--color-shell-deep-end) 100%
+  );
+
+  /* Glass / card surfaces */
+  --gradient-surface-glass-fog: linear-gradient(
+    135deg,
+    var(--color-fog-strong) 0%,
+    rgba(243, 237, 226, 0.68) 42%,
+    var(--color-soft-stone-glow) 100%
+  );
+  --gradient-surface-glass-ivory: linear-gradient(
+    135deg,
+    rgba(248, 244, 235, 0.96) 0%,
+    rgba(232, 223, 208, 0.88) 48%,
+    rgba(240, 232, 216, 0.94) 100%
+  );
+  --gradient-brand-lockup: linear-gradient(
+    to bottom,
+    var(--color-brand-muted) 0%,
+    color-mix(in srgb, var(--color-brand-muted) 92%, transparent) 55%,
+    var(--color-brand-lockup-end) 100%
+  );
+  --shadow-brand-lockup: 0 12px 40px -14px rgba(42, 34, 24, 0.38);
+
+  /* Page ambient — warm gold atmosphere */
+  --gradient-body-base: hsl(40, 42%, 97%);
+  --gradient-body-ambient-1: radial-gradient(
+    1200px ellipse at 84% -6%,
+    hsla(42, 55%, 82%, 0.42),
+    transparent
+  );
+  --gradient-body-ambient-2: radial-gradient(
+    900px circle at -6% 36%,
+    hsla(36, 28%, 86%, 0.38),
+    transparent
+  );
+  --gradient-body-ambient-3: radial-gradient(
+    720px circle at 50% 114%,
+    hsla(30, 22%, 10%, 0.12),
+    transparent
+  );
+
+  /* Section backgrounds */
+  --gradient-mist-radial: radial-gradient(
+    ellipse at 80% -8%,
+    rgba(232, 217, 176, 0.36),
+    transparent 62%
+  );
+  --gradient-twilight-soft: linear-gradient(
+    180deg,
+    rgba(252, 249, 243, 1) 0%,
+    rgba(243, 237, 226, 1) 100%
+  );
+
+  /* Shadows */
+  --shadow-soft: 0px 38px 90px rgba(26, 22, 18, 0.1);
+  --shadow-elevated: 0px 54px 120px rgba(12, 9, 6, 0.16);
+  --shadow-subtle-glow: 0px 52px 98px rgba(201, 162, 39, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --shadow-modal: 0 52px 120px -36px rgba(0, 0, 0, 0.68);
+
+  /* Form autofill (concierge) */
+  --color-autofill-ink: #0c0906;
+  --color-autofill-fill: #faf7ef;
+
+  /* Campaign hero overlays */
+  --hero-campaign-scrim-top: linear-gradient(
+    to bottom,
+    rgba(12, 9, 6, 0.52) 0%,
+    rgba(12, 9, 6, 0.22) 34%,
+    rgba(12, 9, 6, 0.06) 52%,
+    transparent 68%
+  );
+  --hero-campaign-scrim-center: radial-gradient(
+    ellipse 115% 62% at 50% 58%,
+    rgba(12, 9, 6, 0.78) 0%,
+    rgba(12, 9, 6, 0.48) 44%,
+    transparent 74%
+  );
+  --hero-campaign-scrim-bottom: linear-gradient(
+    to top,
+    rgba(12, 9, 6, 0.96) 0%,
+    rgba(12, 9, 6, 0.72) 32%,
+    transparent 68%
+  );
+  --hero-campaign-vignette: radial-gradient(
+    ellipse 105% 90% at 50% 28%,
+    transparent 42%,
+    rgba(12, 9, 6, 0.28) 100%
+  );
+  --hero-campaign-accent: radial-gradient(
+    ellipse 80% 40% at 50% 100%,
+    rgba(201, 162, 39, 0.14),
+    transparent 70%
+  );
+
+  /* Campaign hero secondary CTA */
+  --hero-campaign-secondary-border: rgba(232, 217, 176, 0.52);
+  --hero-campaign-secondary-border-hover: rgba(226, 198, 109, 0.68);
+  --hero-campaign-secondary-bg: rgba(20, 16, 12, 0.58);
+  --hero-campaign-secondary-bg-hover: rgba(42, 34, 24, 0.72);
+  --hero-campaign-secondary-bg-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(20, 16, 12, 0.62) 100%
+  );
+  --hero-campaign-secondary-text: #f0ebe3;
+  --hero-campaign-secondary-text-hover: #faf7f2;
+  --hero-campaign-secondary-shadow: 0 4px 28px -6px rgba(0, 0, 0, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --hero-campaign-secondary-shadow-hover: 0 10px 36px -6px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+
+  /* Connectivity (unused on hub; keep tokens for shared chrome) */
+  --connectivity-atlas-filter: grayscale(0.4) saturate(0.45) contrast(1.06) brightness(0.88)
+    sepia(0.12);
+  --connectivity-atlas-wash: linear-gradient(
+    145deg,
+    rgba(12, 9, 6, 0.28) 0%,
+    rgba(42, 34, 24, 0.08) 46%,
+    rgba(12, 9, 6, 0.22) 100%
+  );
+  --connectivity-atlas-vignette: radial-gradient(
+    ellipse 88% 82% at 50% 46%,
+    transparent 48%,
+    rgba(6, 5, 4, 0.48) 100%
+  );
+  --connectivity-atlas-accent: radial-gradient(
+    ellipse 36% 32% at 52% 46%,
+    rgba(201, 162, 39, 0.18),
+    transparent 72%
+  );
+  --connectivity-atlas-frame-ring: rgba(201, 162, 39, 0.42);
+  --connectivity-atlas-frame-bg: linear-gradient(145deg, #2a2218 0%, #14100c 100%);
+  --connectivity-atlas-scrim-bottom: linear-gradient(
+    to top,
+    rgba(12, 9, 6, 0.62) 0%,
+    rgba(12, 9, 6, 0.14) 42%,
+    transparent 100%
+  );
+
+  /* Typography hierarchy */
+  --color-ink-body: #5c5348;
+  --color-ink-body-rgb: 92 83 72;
+  --color-ink-label: #8b6914;
+  --color-ink-label-rgb: 139 105 20;
+  --color-ink-caption: #6b5e48;
+  --color-ink-caption-rgb: 107 94 72;
+}

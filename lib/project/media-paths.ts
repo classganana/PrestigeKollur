@@ -4,6 +4,7 @@ import type { ProjectSlug } from "@/lib/project/types";
 export const PROJECT_MEDIA_ROOT: Record<ProjectSlug, string> = {
   "prestige-kollur": "/media/official",
   "godrej-kukatpally": "/media/godrej-kukatpally",
+  "golden-doors": "/media/golden-doors",
 };
 
 const PRESTIGE_LEAK_PATTERN = /\/media\/official\b|prestige-golden-grove|banner-pool|plan-2bhk|plan-3bhk-1516|plan-4bhk-2900/i;

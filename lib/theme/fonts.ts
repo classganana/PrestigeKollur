@@ -35,6 +35,7 @@ export function themeFontClasses(themeId: ThemeId): string {
   switch (themeId) {
     case "godrej-kukatpally":
       return `${godrejDisplay.variable} ${godrejSans.variable}`;
+    case "golden-doors":
     case "prestige-kollur":
     default:
       return `${prestigeDisplay.variable} ${prestigeSans.variable}`;

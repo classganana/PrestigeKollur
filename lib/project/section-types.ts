@@ -18,7 +18,10 @@ export type SectionId =
   | "gallery"
   | "location"
   | "trust"
-  | "cta-footer";
+  | "cta-footer"
+  | "project-portfolio"
+  | "about"
+  | "emi-calculator";
 
 /** Maps manifest `id` → `ProjectContentPack` key. */
 export type SectionContentKey = {
@@ -39,6 +42,9 @@ export type SectionContentKey = {
   location: "location";
   trust: "trust";
   "cta-footer": "ctaFooter";
+  "project-portfolio": "projectPortfolio";
+  about: "about";
+  "emi-calculator": "emiCalculator";
 };
 
 export type SectionContentForId<I extends SectionId> = SectionContentKey[I] extends keyof ProjectContentPack

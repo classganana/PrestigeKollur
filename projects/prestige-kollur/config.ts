@@ -10,6 +10,7 @@ import { prestigeKollurTheme } from "@/projects/prestige-kollur/theme";
 
 export const prestigeKollurConfig: ProjectConfig = {
   slug: "prestige-kollur",
+  siteType: "project-microsite",
   leadSourceTag: "prestige-kollur-web",
   site: prestigeKollurSite,
   branding: prestigeKollurBranding,

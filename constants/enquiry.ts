@@ -27,6 +27,8 @@ export type ConciergeLeadBodyFields = {
   phone: string;
   interest: string;
   message: string;
+  /** Brand-hub: selected portfolio project label. */
+  project?: string;
 };
 
 /** When the Sheet endpoint is absent, enquiries open a composed mailto (no backend). */
@@ -38,6 +40,7 @@ export function conciergeFallbackMailto(): string | null {
 
 export function buildConciergeLeadBody(data: ConciergeLeadBodyFields): string {
   const lines = [
+    data.project ? `Project: ${data.project}` : "",
     `Interest: ${data.interest}`,
     `Name: ${data.name}`,
     `Phone: ${data.phone}`,

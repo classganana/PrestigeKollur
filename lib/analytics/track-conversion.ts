@@ -26,6 +26,8 @@ export type ConversionEventParams = {
   placement?: ConversionPlacement;
   document?: string;
   interest?: string;
+  project?: string;
+  projectId?: string;
 };
 
 function ga4Payload(params: ConversionEventParams): Record<string, string | number | boolean> {
@@ -34,6 +36,8 @@ function ga4Payload(params: ConversionEventParams): Record<string, string | numb
     ...(params.placement !== undefined ? { placement: params.placement } : {}),
     ...(params.document !== undefined ? { document: params.document } : {}),
     ...(params.interest !== undefined ? { interest: params.interest } : {}),
+    ...(params.project !== undefined ? { project: params.project } : {}),
+    ...(params.projectId !== undefined ? { project_id: params.projectId } : {}),
   };
 }
 
@@ -42,6 +46,8 @@ function metaPayload(params: ConversionEventParams): Record<string, string> {
     lead_source: params.leadSource,
     ...(params.placement !== undefined ? { placement: params.placement } : {}),
     ...(params.document !== undefined ? { document: params.document } : {}),
+    ...(params.project !== undefined ? { project: params.project } : {}),
+    ...(params.projectId !== undefined ? { project_id: params.projectId } : {}),
   };
 }
 
@@ -76,4 +82,10 @@ export function trackBrochureDownload(params: ConversionEventParams): void {
     ...metaPayload(params),
     content_category: "brochure",
   });
+}
+
+/** Brand-hub: visitor clicked through to a project microsite from a portfolio card. */
+export function trackProjectClick(params: ConversionEventParams): void {
+  trackCustomEvent("project_click", ga4Payload(params));
+  trackMetaContact(metaPayload(params));
 }

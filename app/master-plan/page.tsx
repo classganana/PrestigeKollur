@@ -35,10 +35,13 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 import { buildMasterPlanStructuredData } from "@/lib/seo/structured-data";
 import { GodrejMasterPlanArticle } from "@/app/master-plan/godrej-master-plan-article";
 import { godrejKukatpallyMasterPlanPage } from "@/projects/godrej-kukatpally/content/master-plan-page";
+import { redirect } from "next/navigation";
 
 const project = resolveProject();
 const site = resolveSite();
-const isGodrej = getActiveProjectSlug() === "godrej-kukatpally";
+const activeSlug = getActiveProjectSlug();
+const isGodrej = activeSlug === "godrej-kukatpally";
+const isBrandHub = project.siteType === "brand-hub";
 
 const masterPlanStructuredData = buildMasterPlanStructuredData(
   project.seo,
@@ -46,14 +49,21 @@ const masterPlanStructuredData = buildMasterPlanStructuredData(
   isGodrej ? godrejKukatpallyMasterPlanPage.metadata.description : MASTER_PLAN_METADATA.description,
 );
 
-export const metadata: Metadata = buildPageMetadata({
-  seo: project.seo,
-  title: isGodrej ? godrejKukatpallyMasterPlanPage.metadata.title : MASTER_PLAN_METADATA.title,
-  description: isGodrej
-    ? godrejKukatpallyMasterPlanPage.metadata.description
-    : MASTER_PLAN_METADATA.description,
-  path: "/master-plan",
-});
+export const metadata: Metadata = isBrandHub
+  ? buildPageMetadata({
+      seo: project.seo,
+      title: "Projects",
+      description: project.seo.description,
+      path: "/",
+    })
+  : buildPageMetadata({
+      seo: project.seo,
+      title: isGodrej ? godrejKukatpallyMasterPlanPage.metadata.title : MASTER_PLAN_METADATA.title,
+      description: isGodrej
+        ? godrejKukatpallyMasterPlanPage.metadata.description
+        : MASTER_PLAN_METADATA.description,
+      path: "/master-plan",
+    });
 
 const comparisonTitle =
   "Prestige Golden Grove Masterplan vs. Hyderabad Top Projects (Technical Comparison 2026)";
@@ -61,6 +71,10 @@ const comparisonTitle =
 const proseMuted = "font-sans text-body-relaxed text-muted";
 
 export default function MasterPlanPage() {
+  if (isBrandHub) {
+    redirect("/");
+  }
+
   if (isGodrej) {
     return (
       <>

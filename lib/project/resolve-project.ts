@@ -1,5 +1,6 @@
 import type { ProjectConfig, ProjectSlug } from "@/lib/project/types";
 import { godrejKukatpallyConfig } from "@/projects/godrej-kukatpally/config";
+import { goldenDoorsConfig } from "@/projects/golden-doors/config";
 import { prestigeKollurConfig } from "@/projects/prestige-kollur/config";
 
 export const DEFAULT_PROJECT_SLUG: ProjectSlug = "prestige-kollur";
@@ -7,6 +8,7 @@ export const DEFAULT_PROJECT_SLUG: ProjectSlug = "prestige-kollur";
 const PROJECT_REGISTRY: Record<ProjectSlug, ProjectConfig> = {
   "prestige-kollur": prestigeKollurConfig,
   "godrej-kukatpally": godrejKukatpallyConfig,
+  "golden-doors": goldenDoorsConfig,
 };
 
 const KNOWN_SLUGS = Object.keys(PROJECT_REGISTRY) as ProjectSlug[];

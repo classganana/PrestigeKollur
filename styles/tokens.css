@@ -3,11 +3,13 @@
  */
 @import "./themes/prestige-kollur.css";
 @import "./themes/godrej-kukatpally.css";
+@import "./themes/golden-doors.css";
 
 /* Legacy aliases — map old “forest / prestige” names to semantic shell / brand tokens */
 :root,
 [data-theme="prestige-kollur"],
-[data-theme="godrej-kukatpally"] {
+[data-theme="godrej-kukatpally"],
+[data-theme="golden-doors"] {
   --color-forest: var(--color-shell);
   --color-forest-strong: var(--color-shell-strong);
   --color-prestige-navy: var(--color-brand-primary);

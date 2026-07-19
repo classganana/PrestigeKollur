@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Writes docker/projects/*.build.env from environment variables (used in CI).
-# Prefix convention: PRESTIGE_* / GODREJ_* → prestige-kollur / godrej-kukatpally bundles.
+# Prefix convention: PRESTIGE_* / GODREJ_* / GOLDEN_DOORS_* → per-project bundles.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -22,7 +22,7 @@ write_project_env() {
       return
     fi
     # Backward compatibility: unprefixed secrets (shared contact until per-brand numbers ship)
-    if [ "$prefix" = "PRESTIGE" ] || [ "$prefix" = "GODREJ" ]; then
+    if [ "$prefix" = "PRESTIGE" ] || [ "$prefix" = "GODREJ" ] || [ "$prefix" = "GOLDEN_DOORS" ]; then
       if [ -n "${!key:-}" ]; then
         printf '%s' "${!key}"
         return
@@ -49,6 +49,9 @@ NEXT_PUBLIC_PARTNER_LOGO_SRC=$(get_var NEXT_PUBLIC_PARTNER_LOGO_SRC)
 NEXT_PUBLIC_PARTNER_CORP_MARK_SRC=$(get_var NEXT_PUBLIC_PARTNER_CORP_MARK_SRC)
 NEXT_PUBLIC_PARTNER_LIFESTYLE_GALLERY_WEBPS=$(get_var NEXT_PUBLIC_PARTNER_LIFESTYLE_GALLERY_WEBPS)
 NEXT_PUBLIC_PARTNER_REFERENCE_URL=$(get_var NEXT_PUBLIC_PARTNER_REFERENCE_URL)
+NEXT_PUBLIC_PARTNER_HUB_URL=$(get_var NEXT_PUBLIC_PARTNER_HUB_URL)
+NEXT_PUBLIC_PORTFOLIO_PRESTIGE_URL=$(get_var NEXT_PUBLIC_PORTFOLIO_PRESTIGE_URL)
+NEXT_PUBLIC_PORTFOLIO_GODREJ_URL=$(get_var NEXT_PUBLIC_PORTFOLIO_GODREJ_URL)
 EOF
 
   echo "Wrote ${out}"
@@ -56,3 +59,4 @@ EOF
 
 write_project_env "prestige-kollur" "PRESTIGE"
 write_project_env "godrej-kukatpally" "GODREJ"
+write_project_env "golden-doors" "GOLDEN_DOORS"

@@ -6,9 +6,11 @@
     "dev": "next dev --turbopack",
     "dev:prestige": "node scripts/dev-project.mjs prestige",
     "dev:godrej": "node scripts/dev-project.mjs godrej",
+    "dev:golden": "node scripts/dev-project.mjs golden",
     "build": "next build",
     "build:prestige": "NEXT_PUBLIC_PROJECT_SLUG=prestige-kollur next build",
     "build:godrej": "NEXT_PUBLIC_PROJECT_SLUG=godrej-kukatpally next build",
+    "build:golden": "NEXT_PUBLIC_PROJECT_SLUG=golden-doors next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ."

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Dual-project local dev launcher — isolated slug, port, and Next.js cache per brand.
- * Usage: node scripts/dev-project.mjs prestige | godrej
+ * Multi-project local dev launcher — isolated slug, port, and Next.js cache per brand.
+ * Usage: node scripts/dev-project.mjs prestige | godrej | golden
  */
 import { spawn } from "node:child_process";
 
@@ -20,13 +20,20 @@ const PROJECTS = {
     theme: "godrej-kukatpally",
     label: "Godrej Kukatpally",
   },
+  golden: {
+    slug: "golden-doors",
+    port: 3002,
+    distDir: ".next-golden",
+    theme: "golden-doors",
+    label: "Golden Doors",
+  },
 };
 
 const key = process.argv[2];
 
 if (key == null || !(key in PROJECTS)) {
   console.error(
-    `[dev] Unknown project "${key ?? ""}". Use: node scripts/dev-project.mjs prestige | godrej`,
+    `[dev] Unknown project "${key ?? ""}". Use: node scripts/dev-project.mjs prestige | godrej | golden`,
   );
   process.exit(1);
 }

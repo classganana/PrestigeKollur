@@ -3,13 +3,22 @@ import type { ComponentType } from "react";
 
 import { Container } from "@/components/ui/container";
 import type { ProjectContentPack } from "@/lib/content/types";
-import type { HighlightsContent, StorytellingContent, TrustContent } from "@/lib/content/types";
+import type {
+  AboutBrandContent,
+  EmiCalculatorContent,
+  HighlightsContent,
+  ProjectPortfolioContent,
+  StorytellingContent,
+  TrustContent,
+} from "@/lib/content/types";
 import { getSectionDefinition } from "@/lib/project/section-registry";
 import type { SectionId, SectionManifestEntry } from "@/lib/project/section-types";
 
+import { AboutBrandSection } from "@/sections/about-brand-section";
 import { AmenitiesSection } from "@/sections/amenities-section";
 import { ConnectivitySection } from "@/sections/connectivity-section";
 import { CtaFooterSection } from "@/sections/cta-footer-section";
+import { EmiCalculatorSection } from "@/sections/emi-calculator-section";
 import { FloorPlanTeaserSection } from "@/sections/floor-plan-teaser-section";
 import { HeroSection } from "@/sections/hero-section";
 import { HighlightsSection } from "@/sections/highlights-section";
@@ -18,6 +27,7 @@ import { PaymentEoiSection } from "@/sections/payment-eoi-section";
 import { PricingPlansSection } from "@/sections/pricing-plans-section";
 import { ProjectDocumentsSection } from "@/sections/project-documents-section";
 import { ProjectOverviewSection } from "@/sections/project-overview-section";
+import { ProjectPortfolioSection } from "@/sections/project-portfolio-section";
 import { SpecificationsSection } from "@/sections/specifications-section";
 import { TownshipSection } from "@/sections/township-section";
 import { TrustSection } from "@/sections/trust-section";
@@ -100,6 +110,9 @@ const STATIC_SECTION_RENDERERS: Record<
   location: LocationMapSection as ComponentType<SectionComponentProps>,
   trust: TrustSection as ComponentType<SectionComponentProps>,
   "cta-footer": CtaFooterSection as ComponentType<SectionComponentProps>,
+  "project-portfolio": ProjectPortfolioSection as ComponentType<SectionComponentProps>,
+  about: AboutBrandSection as ComponentType<SectionComponentProps>,
+  "emi-calculator": EmiCalculatorSection as ComponentType<SectionComponentProps>,
 };
 
 const DYNAMIC_SECTION_RENDERERS: Partial<
@@ -159,7 +172,7 @@ function SectionRenderer({ entry, content }: SectionRendererProps) {
   if (entry.id === "overview") {
     return (
       <ProjectOverviewSection
-        content={sectionContent as ProjectContentPack["overview"]}
+        content={sectionContent as NonNullable<ProjectContentPack["overview"]>}
         variant={variant === "urban" ? "urban" : "editorial"}
       />
     );
@@ -169,15 +182,35 @@ function SectionRenderer({ entry, content }: SectionRendererProps) {
     return (
       <HeroSection
         content={sectionContent as ProjectContentPack["hero"]}
-        variant={variant === "urban" ? "urban" : "editorial"}
+        variant={
+          variant === "urban"
+            ? "urban"
+            : variant === "brand-gold"
+              ? "brand-gold"
+              : "editorial"
+        }
       />
     );
+  }
+
+  if (entry.id === "project-portfolio") {
+    return (
+      <ProjectPortfolioSection content={sectionContent as ProjectPortfolioContent} />
+    );
+  }
+
+  if (entry.id === "about") {
+    return <AboutBrandSection content={sectionContent as AboutBrandContent} />;
+  }
+
+  if (entry.id === "emi-calculator") {
+    return <EmiCalculatorSection content={sectionContent as EmiCalculatorContent} />;
   }
 
   if (entry.id === "connectivity") {
     return (
       <ConnectivitySection
-        content={sectionContent as ProjectContentPack["connectivity"]}
+        content={sectionContent as NonNullable<ProjectContentPack["connectivity"]>}
         variant={variant === "corridor" ? "corridor" : "editorial"}
       />
     );
@@ -186,7 +219,7 @@ function SectionRenderer({ entry, content }: SectionRendererProps) {
   if (entry.id === "amenities") {
     return (
       <AmenitiesSection
-        content={sectionContent as ProjectContentPack["amenities"]}
+        content={sectionContent as NonNullable<ProjectContentPack["amenities"]>}
         variant={variant === "urban" ? "urban" : "editorial"}
       />
     );

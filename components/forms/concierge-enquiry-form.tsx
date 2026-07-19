@@ -1,7 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { PrimaryButton } from "@/components/ui/primary-button";
 import { useConciergeModal } from "@/components/providers/concierge-modal-provider";
@@ -13,6 +13,7 @@ import {
 } from "@/constants/enquiry";
 import { trackLeadSubmission } from "@/lib/analytics/track-conversion";
 import { cn } from "@/lib/cn";
+import { useProject } from "@/lib/project/project-context";
 
 const FIELD = cn(
   "w-full rounded-2xl border border-foreground/18 bg-inverse px-[1rem] py-[0.74rem]",
@@ -33,25 +34,47 @@ const interestOptions = [
   { value: "general", label: "General enquiry" },
 ] as const;
 
+const UNSURE_PROJECT = "not_sure";
+
 type ConciergeFormInstanceProps = {
   /** Passed to `<form id>` — must be unique if footer + modal both mount briefly. */
   formDomId?: string;
   /** Prefix for labelled control ids (`{prefix}-name`, etc.). */
   fieldIdPrefix?: string;
+  /** Brand-hub: pre-select a portfolio project. */
+  preferredProjectId?: string | null;
 };
 
 export function ConciergeEnquiryForm({
   formDomId = "concierge-enquiry-form",
   fieldIdPrefix = "concierge",
+  preferredProjectId = null,
 }: ConciergeFormInstanceProps) {
+  const { siteType, content } = useProject();
+  const isBrandHub = siteType === "brand-hub";
+
+  const portfolioOptions = useMemo(() => {
+    const projects = content.projectPortfolio?.projects ?? [];
+    return [
+      ...projects.map((p) => ({ value: p.id, label: p.name })),
+      { value: UNSURE_PROJECT, label: "Not sure / advise me" },
+    ];
+  }, [content.projectPortfolio?.projects]);
+
   const nameId = `${fieldIdPrefix}-name`;
   const phoneId = `${fieldIdPrefix}-phone`;
+  const projectFieldId = `${fieldIdPrefix}-project`;
   const interestId = `${fieldIdPrefix}-interest`;
   const messageId = `${fieldIdPrefix}-message`;
   const faxTrapName = `${fieldIdPrefix}-fax-trap`;
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [project, setProject] = useState<string>(
+    preferredProjectId && portfolioOptions.some((o) => o.value === preferredProjectId)
+      ? preferredProjectId
+      : (portfolioOptions[0]?.value ?? UNSURE_PROJECT),
+  );
   const [interest, setInterest] = useState<string>(interestOptions[0].value);
   const [message, setMessage] = useState("");
   const [fax, setFax] = useState("");
@@ -62,6 +85,15 @@ export function ConciergeEnquiryForm({
   const { consumeWhatsAppHandoff, peekWhatsAppHandoff } = useConciergeModal();
 
   const fallbackEmail = conciergeFallbackMailto();
+
+  useEffect(() => {
+    if (
+      preferredProjectId &&
+      portfolioOptions.some((o) => o.value === preferredProjectId)
+    ) {
+      setProject(preferredProjectId);
+    }
+  }, [preferredProjectId, portfolioOptions]);
 
   useEffect(() => {
     let cancelled = false;
@@ -117,17 +149,25 @@ export function ConciergeEnquiryForm({
     const interestLabel =
       interestOptions.find((o) => o.value === interest)?.label ?? interest;
 
+    const projectLabel =
+      portfolioOptions.find((o) => o.value === project)?.label ?? project;
+
+    const composedMessage =
+      isBrandHub && projectLabel
+        ? [`Project: ${projectLabel}`, message.trim()].filter(Boolean).join("\n\n")
+        : message.trim();
+
     const payload = {
       name: trimmedName,
       phone: trimmedPhone,
       interest: interestLabel,
-      message: message.trim(),
+      message: composedMessage,
       source: CONCIERGE_LEAD_SOURCE,
+      ...(isBrandHub ? { project: projectLabel } : {}),
     };
 
     setStatus("submitting");
 
-    /** Popup blockers allow tabs opened synchronously on submit; navigate after fetch completes. */
     const reserveWaTab =
       peekWhatsAppHandoff() === true && buildWhatsAppUrl(".") !== null;
 
@@ -145,6 +185,7 @@ export function ConciergeEnquiryForm({
         message: payload.message,
         name: trimmedName,
         phone: trimmedPhone,
+        project: isBrandHub ? projectLabel : undefined,
       });
 
       window.location.href = `mailto:${fallbackEmail}?subject=${encodeURIComponent(
@@ -172,6 +213,7 @@ export function ConciergeEnquiryForm({
           leadSource: CONCIERGE_LEAD_SOURCE,
           placement: "concierge_form",
           interest: interestLabel,
+          ...(isBrandHub ? { project: projectLabel } : {}),
         });
 
         const routeToWhatsApp = consumeWhatsAppHandoff();
@@ -181,6 +223,7 @@ export function ConciergeEnquiryForm({
           message: payload.message,
           name: trimmedName,
           phone: trimmedPhone,
+          project: isBrandHub ? projectLabel : undefined,
         });
 
         const waUrl = routeToWhatsApp ? buildWhatsAppUrl(leadText) : null;
@@ -236,6 +279,10 @@ export function ConciergeEnquiryForm({
 
         setMessage("");
 
+        if (isBrandHub) {
+          setProject(portfolioOptions[0]?.value ?? UNSURE_PROJECT);
+        }
+
         return;
       }
 
@@ -271,11 +318,11 @@ export function ConciergeEnquiryForm({
 
       setStatus("error");
 
-      const message =
+      const errMessage =
         cause instanceof Error ? cause.message : "Unexpected submission failure.";
 
       setFeedback(
-        `${message} You can retry, WhatsApp, or call—we reconcile everything manually.`,
+        `${errMessage} You can retry, WhatsApp, or call—we reconcile everything manually.`,
       );
     }
   }
@@ -347,6 +394,34 @@ export function ConciergeEnquiryForm({
             onChange={(event) => setPhone(event.target.value)}
           />
         </div>
+
+        {isBrandHub ? (
+          <div className="space-y-relax">
+            <label htmlFor={projectFieldId} className={LABEL}>
+              Project
+            </label>
+
+            <select
+              disabled={status === "submitting"}
+              id={projectFieldId}
+              title="Project of interest"
+              name={projectFieldId}
+              className={cn(
+                FIELD,
+                "appearance-none text-[0.6875rem] font-semibold uppercase tracking-[0.28em] text-forest-strong",
+                "[&>option]:bg-inverse [&>option]:font-medium [&>option]:text-forest-strong [&>option]:tracking-[0.14em]",
+              )}
+              value={project}
+              onChange={(event) => setProject(event.target.value)}
+            >
+              {portfolioOptions.map(({ label, value }) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
 
         <div className="space-y-relax">
           <label htmlFor={interestId} className={LABEL}>

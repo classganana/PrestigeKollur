@@ -3,19 +3,17 @@ import { SecondaryButton } from "@/components/ui/secondary-button";
 import { ConciergeConversionPanel } from "@/components/conversion/concierge-conversion-panel";
 import { PartnerChannelDisclosure } from "@/components/layout/partner-channel-disclosure";
 import type { CtaFooterContent } from "@/lib/content/types";
-import { resolveSite } from "@/lib/project/resolve-project";
+import { resolveProject, resolveSite } from "@/lib/project/resolve-project";
+import { cn } from "@/lib/cn";
 
 const site = resolveSite();
+const project = resolveProject();
 const year = new Date().getFullYear();
+const isBrandHub = project.siteType === "brand-hub";
 
 export function CtaFooterSection({ content }: { content: CtaFooterContent }) {
-
   return (
-    <footer
-      aria-labelledby="cta-heading"
-      id="cta"
-      className="mt-section-y scroll-mt-28"
-    >
+    <footer aria-labelledby="cta-heading" id="cta" className="mt-section-y scroll-mt-28">
       <section className="relative isolate overflow-hidden theme-shell-deep pb-section-y pt-orbit">
         <div
           aria-hidden
@@ -33,7 +31,7 @@ export function CtaFooterSection({ content }: { content: CtaFooterContent }) {
 
           <h2
             id="cta-heading"
-            className="font-display text-fluid-display leading-snug-soft text-balance"
+            className="font-display text-fluid-display leading-snug-soft text-balance text-inverse"
           >
             {content.title}
           </h2>
@@ -57,8 +55,20 @@ export function CtaFooterSection({ content }: { content: CtaFooterContent }) {
 
       <PartnerChannelDisclosure />
 
-      <div className="border-t border-accent-olive/18 bg-soft-stone/70 py-gallery-gap backdrop-blur-sm">
-        <div className="mx-auto flex max-w-[min(1180px,_calc(100vw-3rem))] flex-col gap-ribbon px-6 font-sans text-micro uppercase tracking-[0.38em] text-muted sm:flex-row sm:items-center sm:justify-between">
+      <div
+        className={cn(
+          "border-t py-gallery-gap",
+          isBrandHub
+            ? "border-[#C9A227]/20 bg-[#0c0906]"
+            : "border-accent-olive/18 bg-soft-stone/70 backdrop-blur-sm",
+        )}
+      >
+        <div
+          className={cn(
+            "mx-auto flex max-w-[min(1180px,_calc(100vw-3rem))] flex-col gap-ribbon px-6 font-sans text-micro uppercase tracking-[0.38em] sm:flex-row sm:items-center sm:justify-between",
+            isBrandHub ? "text-[#E8D9B0]/[0.82]" : "text-muted",
+          )}
+        >
           <p className="text-center sm:text-left">{site.name}</p>
 
           <p className="text-center sm:text-right">

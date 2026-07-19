@@ -40,6 +40,16 @@ export function partnerReferenceHref(): string | null {
   return raw !== undefined && raw.length > 0 ? raw : null;
 }
 
+/**
+ * Brand hub URL for microsite footers — “More projects by Golden Doors”.
+ * Set `NEXT_PUBLIC_PARTNER_HUB_URL` on Prestige / Godrej builds.
+ */
+export function partnerHubHref(): string | null {
+  const raw = process.env.NEXT_PUBLIC_PARTNER_HUB_URL?.trim();
+
+  return raw !== undefined && raw.length > 0 ? raw : null;
+}
+
 /** @deprecated Use `resolveBranding().disclosure` — retained for import compatibility. */
 export function partnerDisclosureCopy(): string {
   return resolveBranding().disclosure;

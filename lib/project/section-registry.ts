@@ -23,6 +23,9 @@ export const SECTION_DEFINITIONS: Record<SectionId, SectionDefinition> = {
   location: { id: "location", contentKey: "location", load: "static" },
   trust: { id: "trust", contentKey: "trust", load: "static" },
   "cta-footer": { id: "cta-footer", contentKey: "ctaFooter", load: "static" },
+  "project-portfolio": { id: "project-portfolio", contentKey: "projectPortfolio", load: "static" },
+  about: { id: "about", contentKey: "about", load: "static" },
+  "emi-calculator": { id: "emi-calculator", contentKey: "emiCalculator", load: "static" },
 };
 
 const KNOWN_SECTION_IDS = Object.keys(SECTION_DEFINITIONS) as SectionId[];

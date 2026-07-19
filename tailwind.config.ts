@@ -32,6 +32,10 @@ const config = {
           DEFAULT: rgbVar("shell"),
           strong: rgbVar("shell-strong"),
         },
+        shell: {
+          DEFAULT: rgbVar("shell"),
+          strong: rgbVar("shell-strong"),
+        },
         ivory: rgbVar("ivory"),
         "soft-stone": rgbVar("soft-stone"),
         "soft-stone-glow": rgbVar("soft-stone-glow"),

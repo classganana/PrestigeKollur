@@ -164,6 +164,9 @@ export type HeroContent = {
   /** When set, replaces `site.heroComposerNoteTemplate` in the hero glass panel. */
   composerNote?: string;
   exploreCta?: { label: string; href: string };
+  /** Brand-hub — text paths from the hero CTA panel. */
+  servicesLink?: { label: string; href: string };
+  clientsLink?: { label: string; href: string };
   skipAheadLink?: { label: string; href: string; note: string };
   footnote?: string;
   /** CSS `object-position` for campaign plate — e.g. tower skyline focal point. */
@@ -406,23 +409,90 @@ export type TrustContent = {
   disclaimer: string;
 };
 
-/** Optional sections for future home ordering — omit from page until wired. */
+/** Brand-hub portfolio card — links to an external project microsite. */
+export type PortfolioProjectCard = {
+  /** Stable id for analytics / form picker (often a ProjectSlug). */
+  id: string;
+  name: string;
+  location: string;
+  configuration: string;
+  priceBand: string;
+  highlights: readonly string[];
+  imageSrc: string;
+  imageAlt: string;
+  externalUrl: string;
+  developerName: string;
+  badge?: string;
+};
+
+export type ProjectPortfolioContent = {
+  heading: SectionHeadingContent;
+  projects: readonly PortfolioProjectCard[];
+  viewProjectLabel: string;
+  expressInterestLabel: string;
+};
+
+export type AboutBrandStat = {
+  figure: string;
+  label: string;
+};
+
+export type AboutBrandContent = {
+  heading: SectionHeadingContent;
+  body: readonly string[];
+  stats: readonly AboutBrandStat[];
+  /** Optional in-page link to the hub services route. */
+  servicesHref?: string;
+  servicesLinkLabel?: string;
+};
+
+/** Slider bounds + defaults for the interactive home-loan EMI tool. */
+export type EmiCalculatorDefaults = {
+  propertyPrice: number;
+  downPaymentPercent: number;
+  interestRatePercent: number;
+  tenureYears: number;
+};
+
+export type EmiCalculatorRanges = {
+  propertyPrice: { min: number; max: number; step: number };
+  downPaymentPercent: { min: number; max: number; step: number };
+  interestRatePercent: { min: number; max: number; step: number };
+  tenureYears: { min: number; max: number; step: number };
+};
+
+export type EmiCalculatorContent = {
+  heading: SectionHeadingContent;
+  defaults: EmiCalculatorDefaults;
+  ranges: EmiCalculatorRanges;
+  ctaLabel: string;
+  disclaimer: string;
+};
+
+/**
+ * Content pack for a deployable site.
+ * Microsites fill project funnel sections; brand hubs fill portfolio / about.
+ * Section manifests only render keys that are present.
+ */
 export type ProjectContentPack = {
   hero: HeroContent;
-  overview: OverviewContent;
-  amenities: AmenitiesContent;
-  pricing: PricingContent;
-  paymentEoi: PaymentEoiContent;
-  documents: DocumentsContent;
-  connectivity: ConnectivityContent;
-  floorPlans: FloorPlansContent;
-  gallery: GalleryContent;
-  cinematicTownship: CinematicTownshipContent;
-  township: TownshipContent;
-  specifications: SpecificationsContent;
-  location: LocationContent;
   ctaFooter: CtaFooterContent;
+  overview?: OverviewContent;
+  amenities?: AmenitiesContent;
+  pricing?: PricingContent;
+  paymentEoi?: PaymentEoiContent;
+  documents?: DocumentsContent;
+  connectivity?: ConnectivityContent;
+  floorPlans?: FloorPlansContent;
+  gallery?: GalleryContent;
+  cinematicTownship?: CinematicTownshipContent;
+  township?: TownshipContent;
+  specifications?: SpecificationsContent;
+  location?: LocationContent;
   storytelling?: StorytellingContent;
   highlights?: HighlightsContent;
   trust?: TrustContent;
+  projectPortfolio?: ProjectPortfolioContent;
+  about?: AboutBrandContent;
+  emiCalculator?: EmiCalculatorContent;
 };

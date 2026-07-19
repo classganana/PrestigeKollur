@@ -26,6 +26,13 @@ const FAVICONS: Record<ProjectSlug, FaviconDefinition> = {
     foreground: "#f4f5f8",
     radius: 7,
   },
+  "golden-doors": {
+    monogram: "G",
+    background: "#000000",
+    border: "#C9A227",
+    foreground: "#E8D9B0",
+    radius: 7,
+  },
 };
 
 /** Build-time favicon tokens for the active project bundle. */

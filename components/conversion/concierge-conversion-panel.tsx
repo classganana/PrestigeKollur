@@ -44,9 +44,14 @@ type Presentation = "footer" | "modal";
 
 type Props = {
   presentation?: Presentation;
+  /** Brand-hub: pre-select a portfolio project in the enquiry form. */
+  preferredProjectId?: string | null;
 };
 
-export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
+export function ConciergeConversionPanel({
+  presentation = "footer",
+  preferredProjectId = null,
+}: Props) {
   const site = useSite();
   const { trackWhatsAppClick, trackCallClick } = useConversionTracking();
   const telHref = enquiryTelHref();
@@ -229,6 +234,7 @@ export function ConciergeConversionPanel({ presentation = "footer" }: Props) {
         <ConciergeEnquiryForm
           formDomId={enquiryFormDomId}
           fieldIdPrefix={enquiryFieldPrefix}
+          preferredProjectId={preferredProjectId}
         />
       </div>
     </div>

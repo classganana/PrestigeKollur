@@ -1,9 +1,10 @@
 import type { HeroContent } from "@/lib/content/types";
 
+import { HeroBrandGoldSection } from "@/sections/hero/hero-brand-gold-section";
 import { HeroEditorialSection } from "@/sections/hero/hero-editorial-section";
 import { HeroUrbanSection } from "@/sections/hero/hero-urban-section";
 
-export type HeroSectionVariant = "editorial" | "urban";
+export type HeroSectionVariant = "editorial" | "urban" | "brand-gold";
 
 type Props = {
   content: HeroContent;
@@ -14,6 +15,10 @@ type Props = {
 export function HeroSection({ content, variant = "editorial" }: Props) {
   if (variant === "urban") {
     return <HeroUrbanSection content={content} />;
+  }
+
+  if (variant === "brand-gold") {
+    return <HeroBrandGoldSection content={content} />;
   }
 
   return <HeroEditorialSection content={content} />;
