@@ -115,9 +115,15 @@ const config = {
           "0%": { opacity: "0.45" },
           "100%": { opacity: "0.85" },
         },
+        "gd-client-scroll": {
+          from: { transform: "translate3d(0, 0, 0)" },
+          to: { transform: "translate3d(-50%, 0, 0)" },
+        },
       },
       animation: {
         veil: "veil 12s linear infinite alternate",
+        "gd-client-scroll-fast": "gd-client-scroll 5s linear infinite",
+        "gd-client-scroll": "gd-client-scroll 13s linear infinite",
       },
     },
   },
