@@ -5,6 +5,7 @@ import { goldenDoorsCtaFooterContent } from "@/projects/golden-doors/content/cta
 import { goldenDoorsEmiCalculatorContent } from "@/projects/golden-doors/content/emi-calculator";
 import { goldenDoorsHeroContent } from "@/projects/golden-doors/content/hero";
 import { goldenDoorsPortfolioContent } from "@/projects/golden-doors/content/portfolio";
+import { goldenDoorsTestimonialsContent } from "@/projects/golden-doors/content/testimonials";
 import { goldenDoorsTrustContent } from "@/projects/golden-doors/content/trust";
 
 /** Brand-hub content pack — only sections used by the Golden Doors manifest. */
@@ -13,6 +14,7 @@ export const goldenDoorsContent: ProjectContentPack = {
   projectPortfolio: goldenDoorsPortfolioContent,
   emiCalculator: goldenDoorsEmiCalculatorContent,
   about: goldenDoorsAboutContent,
+  testimonials: goldenDoorsTestimonialsContent,
   trust: goldenDoorsTrustContent,
   ctaFooter: goldenDoorsCtaFooterContent,
 };
@@ -24,4 +26,5 @@ export { goldenDoorsEmiCalculatorContent } from "@/projects/golden-doors/content
 export { goldenDoorsHeroContent } from "@/projects/golden-doors/content/hero";
 export { goldenDoorsPortfolioContent } from "@/projects/golden-doors/content/portfolio";
 export { goldenDoorsServicesPageContent } from "@/projects/golden-doors/content/services-page";
+export { goldenDoorsTestimonialsContent } from "@/projects/golden-doors/content/testimonials";
 export { goldenDoorsTrustContent } from "@/projects/golden-doors/content/trust";

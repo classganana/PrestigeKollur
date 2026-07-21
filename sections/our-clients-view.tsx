@@ -6,17 +6,14 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import { staggerChild, staggerContainer } from "@/animations";
 import { OpenConciergeButton } from "@/components/conversion/open-concierge-button";
+import { ClientLogoMarquee } from "@/components/golden-doors/client-logo-marquee";
 import { Container } from "@/components/ui/container";
 import type { ClientsPageContent } from "@/projects/golden-doors/content/clients-page";
-import { cn } from "@/lib/cn";
 
-/**
- * Typographic client gallery — large developer names as wordmarks.
- * Avoids a fake logo grid until official marks are available.
- */
+/** Client gallery — scrolling developer logos. */
 export function OurClientsView({ content }: { content: ClientsPageContent }) {
   const reduceMotion = useReducedMotion();
-  const { heading, clients, footnote, ctaLabel, ctaLead } = content;
+  const { heading, logoMarquee, footnote, ctaLabel, ctaLead } = content;
 
   return (
     <div className="relative min-h-[70vh] overflow-hidden bg-[#0c0906]">
@@ -65,58 +62,16 @@ export function OurClientsView({ content }: { content: ClientsPageContent }) {
           </motion.p>
         </motion.header>
 
-        <motion.ul
-          role="list"
-          initial={reduceMotion ? false : "hidden"}
-          whileInView={reduceMotion ? undefined : "visible"}
-          viewport={{ once: true, amount: 0.08 }}
-          variants={reduceMotion ? undefined : staggerContainer}
-          className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {clients.map((client, index) => (
-            <motion.li
-              key={client.id}
-              variants={reduceMotion ? undefined : staggerChild}
-              className={cn(
-                "group relative flex min-h-[9.5rem] flex-col justify-between overflow-hidden",
-                "border border-[#C9A227]/28 bg-[#14100C]/90 px-6 py-7 sm:px-7 sm:py-8",
-                "transition-[border-color,background-color] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                "hover:border-[#C9A227]/55 hover:bg-[#1A1510]",
-              )}
-            >
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -right-6 -top-8 h-28 w-28 rounded-full bg-[#C9A227]/[0.06] blur-2xl transition-opacity group-hover:opacity-100"
-              />
-
-              <div className="relative flex items-start justify-between gap-3">
-                <span className="font-sans text-[0.58rem] font-semibold tabular-nums tracking-[0.28em] text-[#C9A227]/70">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {client.active ? (
-                  <span className="font-sans text-[0.55rem] font-semibold uppercase tracking-[0.26em] text-[#E8C65A]">
-                    Active
-                  </span>
-                ) : null}
-              </div>
-
-              <div className="relative mt-6">
-                <p className="font-display text-[clamp(1.85rem,3.8vw,2.35rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-[#FAF7EF]">
-                  {client.name}
-                </p>
-                {client.note ? (
-                  <p className="mt-2.5 font-sans text-[0.82rem] leading-snug text-[#EBE4D6]/70">
-                    {client.note}
-                  </p>
-                ) : (
-                  <p className="mt-2.5 font-sans text-[0.82rem] leading-snug text-[#EBE4D6]/45">
-                    Developer partner
-                  </p>
-                )}
-              </div>
-            </motion.li>
-          ))}
-        </motion.ul>
+        {logoMarquee.length > 0 ? (
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="-mx-[var(--container-pad,1rem)] mt-12 sm:mx-0"
+          >
+            <ClientLogoMarquee logos={logoMarquee} />
+          </motion.div>
+        ) : null}
 
         <p className="mt-10 max-w-[40rem] font-sans text-[0.78rem] leading-relaxed text-[#EBE4D6]/55">
           {footnote}

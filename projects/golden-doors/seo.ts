@@ -37,6 +37,7 @@ export const goldenDoorsSeo: ProjectSeoConfig = {
   sitemapPaths: [
     { path: "/services", changeFrequency: "monthly", priority: 0.8 },
     { path: "/clients", changeFrequency: "monthly", priority: 0.75 },
+    { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4 },
   ],
   structuredData: {
     organizationName: goldenDoorsSite.name,

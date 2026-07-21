@@ -21,7 +21,8 @@ export type SectionId =
   | "cta-footer"
   | "project-portfolio"
   | "about"
-  | "emi-calculator";
+  | "emi-calculator"
+  | "testimonials";
 
 /** Maps manifest `id` → `ProjectContentPack` key. */
 export type SectionContentKey = {
@@ -45,6 +46,7 @@ export type SectionContentKey = {
   "project-portfolio": "projectPortfolio";
   about: "about";
   "emi-calculator": "emiCalculator";
+  testimonials: "testimonials";
 };
 
 export type SectionContentForId<I extends SectionId> = SectionContentKey[I] extends keyof ProjectContentPack

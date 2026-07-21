@@ -6,10 +6,12 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import { staggerChild, staggerContainer } from "@/animations";
 import { PrimaryButton } from "@/components/ui/primary-button";
+import { PortfolioBrochureDownloadLink } from "@/components/golden-doors/portfolio-brochure-download-link";
 import { Container } from "@/components/ui/container";
 import { useConciergeModal } from "@/components/providers/concierge-modal-provider";
 import type { PortfolioProjectCard, ProjectPortfolioContent } from "@/lib/content/types";
 import { trackProjectClick } from "@/lib/analytics/track-conversion";
+import { usePortfolioBrochureUnlocks } from "@/lib/golden-doors/use-portfolio-brochure-unlocks";
 import { useProject } from "@/lib/project/project-context";
 import { cn } from "@/lib/cn";
 
@@ -32,11 +34,13 @@ function PortfolioRow({
   viewLabel,
   interestLabel,
   index,
+  brochureUnlocked,
 }: {
   project: PortfolioProjectCard;
   viewLabel: string;
   interestLabel: string;
   index: number;
+  brochureUnlocked: boolean;
 }) {
   const { leadSourceTag } = useProject();
   const { openWithPreferredProject } = useConciergeModal();
@@ -75,6 +79,11 @@ function PortfolioRow({
       >
         <p className="font-sans text-[0.58rem] font-semibold uppercase tracking-[0.36em] text-[#C9A227]">
           {project.developerName}
+          {project.badge ? (
+            <span className="ml-3 border border-[#C9A227]/40 px-2 py-0.5 text-[0.52rem] tracking-[0.32em] text-[#E8D9B0]">
+              {project.badge}
+            </span>
+          ) : null}
         </p>
 
         <div>
@@ -104,28 +113,30 @@ function PortfolioRow({
         </ul>
 
         <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <a
-            href={withUtm(project.externalUrl)}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              trackProjectClick({
-                leadSource: leadSourceTag,
-                projectId: project.id,
-                placement: "portfolio_card",
-              })
-            }
-            className={cn(
-              "inline-flex min-h-touch items-center justify-center rounded-full",
-              "border border-[#C9A227]/70 px-7 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.28em]",
-              "text-[#E8D9B0] transition-colors hover:border-[#C9A227] hover:bg-[#C9A227]/15 hover:text-[#FAF7EF]",
-            )}
-          >
-            {viewLabel}
-            <span aria-hidden className="ml-2">
-              →
-            </span>
-          </a>
+          {project.externalUrl ? (
+            <a
+              href={withUtm(project.externalUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackProjectClick({
+                  leadSource: leadSourceTag,
+                  projectId: project.id,
+                  placement: "portfolio_card",
+                })
+              }
+              className={cn(
+                "inline-flex min-h-touch items-center justify-center rounded-full",
+                "border border-[#C9A227]/70 px-7 font-sans text-[0.62rem] font-semibold uppercase tracking-[0.28em]",
+                "text-[#E8D9B0] transition-colors hover:border-[#C9A227] hover:bg-[#C9A227]/15 hover:text-[#FAF7EF]",
+              )}
+            >
+              {viewLabel}
+              <span aria-hidden className="ml-2">
+                →
+              </span>
+            </a>
+          ) : null}
 
           <PrimaryButton
             type="button"
@@ -135,6 +146,14 @@ function PortfolioRow({
           >
             {interestLabel}
           </PrimaryButton>
+
+          {project.brochurePdf && brochureUnlocked ? (
+            <PortfolioBrochureDownloadLink
+              href={project.brochurePdf}
+              projectName={project.name}
+              placement="portfolio_card"
+            />
+          ) : null}
         </div>
       </div>
     </motion.article>
@@ -144,6 +163,7 @@ function PortfolioRow({
 export function ProjectPortfolioSection({ content }: { content: ProjectPortfolioContent }) {
   const reduceMotion = useReducedMotion();
   const { heading, projects, viewProjectLabel, expressInterestLabel } = content;
+  const { isUnlocked } = usePortfolioBrochureUnlocks();
 
   return (
     <section
@@ -192,13 +212,16 @@ export function ProjectPortfolioSection({ content }: { content: ProjectPortfolio
         variants={reduceMotion ? undefined : staggerContainer}
         className="border-b border-[#C9A227]/30"
       >
-        {projects.map((project, index) => (
+        {projects
+          .filter((project) => project.enabled !== false)
+          .map((project, index) => (
           <PortfolioRow
             key={project.id}
             project={project}
             index={index}
             viewLabel={viewProjectLabel}
             interestLabel={expressInterestLabel}
+            brochureUnlocked={isUnlocked(project.id)}
           />
         ))}
       </motion.div>

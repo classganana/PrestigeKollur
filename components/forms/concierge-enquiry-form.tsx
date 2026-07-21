@@ -4,6 +4,7 @@ import type { FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 
 import { PrimaryButton } from "@/components/ui/primary-button";
+import { PortfolioBrochureDownloadLink } from "@/components/golden-doors/portfolio-brochure-download-link";
 import { useConciergeModal } from "@/components/providers/concierge-modal-provider";
 import { buildWhatsAppUrl } from "@/constants/contact";
 import {
@@ -12,8 +13,13 @@ import {
   conciergeFallbackMailto,
 } from "@/constants/enquiry";
 import { trackLeadSubmission } from "@/lib/analytics/track-conversion";
+import {
+  triggerPortfolioBrochureDownload,
+  unlockPortfolioBrochure,
+} from "@/lib/golden-doors/portfolio-brochure-access";
 import { cn } from "@/lib/cn";
 import { useProject } from "@/lib/project/project-context";
+import { useConversionTracking } from "@/lib/analytics/use-conversion-tracking";
 
 const FIELD = cn(
   "w-full rounded-2xl border border-foreground/18 bg-inverse px-[1rem] py-[0.74rem]",
@@ -52,9 +58,12 @@ export function ConciergeEnquiryForm({
 }: ConciergeFormInstanceProps) {
   const { siteType, content } = useProject();
   const isBrandHub = siteType === "brand-hub";
+  const { trackBrochureDownload } = useConversionTracking();
 
   const portfolioOptions = useMemo(() => {
-    const projects = content.projectPortfolio?.projects ?? [];
+    const projects = (content.projectPortfolio?.projects ?? []).filter(
+      (entry) => entry.enabled !== false,
+    );
     return [
       ...projects.map((p) => ({ value: p.id, label: p.name })),
       { value: UNSURE_PROJECT, label: "Not sure / advise me" },
@@ -80,6 +89,9 @@ export function ConciergeEnquiryForm({
   const [fax, setFax] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [feedback, setFeedback] = useState<string>("");
+  const [unlockedBrochure, setUnlockedBrochure] = useState<{ href: string; name: string } | null>(
+    null,
+  );
   const [serverIntakeConfigured, setServerIntakeConfigured] = useState<boolean | null>(null);
 
   const { consumeWhatsAppHandoff, peekWhatsAppHandoff } = useConciergeModal();
@@ -119,12 +131,38 @@ export function ConciergeEnquiryForm({
     };
   }, []);
 
+  function grantBrochureAccess(submittedProjectId: string) {
+    if (!isBrandHub || submittedProjectId === UNSURE_PROJECT) {
+      return null;
+    }
+
+    const card = content.projectPortfolio?.projects.find(
+      (entry) => entry.id === submittedProjectId && entry.enabled !== false,
+    );
+
+    if (card?.brochurePdf === undefined) {
+      return null;
+    }
+
+    unlockPortfolioBrochure(submittedProjectId);
+
+    return { href: card.brochurePdf, name: card.name };
+  }
+
+  function deliverBrochure(brochure: { href: string; name: string } | null) {
+    if (brochure === null) return;
+
+    triggerPortfolioBrochureDownload(brochure.href);
+    trackBrochureDownload(`${brochure.name} brochure`, "concierge_form");
+  }
+
   async function onSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault();
 
     if (fax.trim().length > 0) return;
 
     setFeedback("");
+    setUnlockedBrochure(null);
 
     const trimmedName = name.trim();
 
@@ -151,6 +189,8 @@ export function ConciergeEnquiryForm({
 
     const projectLabel =
       portfolioOptions.find((o) => o.value === project)?.label ?? project;
+
+    const submittedProjectId = project;
 
     const composedMessage =
       isBrandHub && projectLabel
@@ -191,10 +231,22 @@ export function ConciergeEnquiryForm({
       window.location.href = `mailto:${fallbackEmail}?subject=${encodeURIComponent(
         `Concierge enquiry · ${trimmedName}`,
       )}&body=${encodeURIComponent(body)}`;
+    };
+
+    const openFallbackMailtoWithBrochure = (brochure: { href: string; name: string } | null) => {
+      if (fallbackEmail === null || fallbackEmail.length === 0) return;
 
       setStatus("success");
+      setUnlockedBrochure(brochure);
+      deliverBrochure(brochure);
 
-      setFeedback("Opening your mail composer with a discreet draft—kindly tap send.");
+      setFeedback(
+        brochure !== null
+          ? "Enquiry saved—your brochure is downloading. Opening mail composer next…"
+          : "Opening your mail composer with a discreet draft—kindly tap send.",
+      );
+
+      window.setTimeout(() => openFallbackMailto(), brochure !== null ? 450 : 0);
     };
 
     try {
@@ -229,6 +281,10 @@ export function ConciergeEnquiryForm({
         const waUrl = routeToWhatsApp ? buildWhatsAppUrl(leadText) : null;
 
         setStatus("success");
+
+        const brochureAccess = grantBrochureAccess(submittedProjectId);
+        setUnlockedBrochure(brochureAccess);
+        deliverBrochure(brochureAccess);
 
         if (waUrl !== null) {
           let navigatedNewTab = false;
@@ -271,6 +327,14 @@ export function ConciergeEnquiryForm({
           );
         }
 
+        if (brochureAccess !== null) {
+          setFeedback((prev) => {
+            const downloadNote =
+              "Your brochure is downloading—use the button below if it didn't start.";
+            return prev.length > 0 ? `${prev} ${downloadNote}` : downloadNote;
+          });
+        }
+
         setName("");
 
         setPhone("");
@@ -290,7 +354,7 @@ export function ConciergeEnquiryForm({
 
       if (response.status === 503) {
         if (fallbackEmail != null && fallbackEmail.length > 0) {
-          openFallbackMailto();
+          openFallbackMailtoWithBrochure(grantBrochureAccess(submittedProjectId));
 
           return;
         }
@@ -489,6 +553,25 @@ export function ConciergeEnquiryForm({
           {status === "submitting" ? "Sending…" : "Submit discreet enquiry"}
         </PrimaryButton>
       </div>
+
+      {status === "success" && unlockedBrochure !== null ? (
+        <div className="max-w-xl rounded-2xl border border-accent-champagne/40 bg-accent-champagne/10 px-loft py-relax">
+          <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-accent-champagne">
+            Brochure ready
+          </p>
+          <p className="mt-2 font-sans text-[0.9rem] leading-[1.65] text-inverse-muted">
+            <span className="font-medium text-accent-gold">{unlockedBrochure.name}</span> brochure
+            should download automatically. If your browser blocked it, tap below.
+          </p>
+          <PortfolioBrochureDownloadLink
+            href={unlockedBrochure.href}
+            projectName={unlockedBrochure.name}
+            variant="concierge"
+            placement="concierge_form"
+            className="mt-4"
+          />
+        </div>
+      ) : null}
 
       {feedback.length > 0 ? (
         <p

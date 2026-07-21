@@ -26,6 +26,7 @@ export const SECTION_DEFINITIONS: Record<SectionId, SectionDefinition> = {
   "project-portfolio": { id: "project-portfolio", contentKey: "projectPortfolio", load: "static" },
   about: { id: "about", contentKey: "about", load: "static" },
   "emi-calculator": { id: "emi-calculator", contentKey: "emiCalculator", load: "static" },
+  testimonials: { id: "testimonials", contentKey: "testimonials", load: "static" },
 };
 
 const KNOWN_SECTION_IDS = Object.keys(SECTION_DEFINITIONS) as SectionId[];

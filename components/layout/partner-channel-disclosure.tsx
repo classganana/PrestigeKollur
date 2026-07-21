@@ -205,6 +205,12 @@ function BrandHubDisclosure({ className }: { className?: string }) {
             >
               Our clients
             </Link>
+            <Link
+              href="/privacy-policy"
+              className="border-b border-[#C9A227]/45 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#E8D9B0] transition-colors hover:border-[#E8C65A] hover:text-[#E8C65A]"
+            >
+              Privacy policy
+            </Link>
           </p>
         </div>
       </div>

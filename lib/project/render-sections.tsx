@@ -9,6 +9,7 @@ import type {
   HighlightsContent,
   ProjectPortfolioContent,
   StorytellingContent,
+  TestimonialsContent,
   TrustContent,
 } from "@/lib/content/types";
 import { getSectionDefinition } from "@/lib/project/section-registry";
@@ -30,6 +31,7 @@ import { ProjectOverviewSection } from "@/sections/project-overview-section";
 import { ProjectPortfolioSection } from "@/sections/project-portfolio-section";
 import { SpecificationsSection } from "@/sections/specifications-section";
 import { TownshipSection } from "@/sections/township-section";
+import { TestimonialsSection } from "@/sections/testimonials-section";
 import { TrustSection } from "@/sections/trust-section";
 
 const CinematicTownshipSection = dynamic(
@@ -113,6 +115,7 @@ const STATIC_SECTION_RENDERERS: Record<
   "project-portfolio": ProjectPortfolioSection as ComponentType<SectionComponentProps>,
   about: AboutBrandSection as ComponentType<SectionComponentProps>,
   "emi-calculator": EmiCalculatorSection as ComponentType<SectionComponentProps>,
+  testimonials: TestimonialsSection as ComponentType<SectionComponentProps>,
 };
 
 const DYNAMIC_SECTION_RENDERERS: Partial<
@@ -241,6 +244,10 @@ function SectionRenderer({ entry, content }: SectionRendererProps) {
         variant="urban"
       />
     );
+  }
+
+  if (entry.id === "testimonials") {
+    return <TestimonialsSection content={sectionContent as TestimonialsContent} />;
   }
 
   return <StaticSection content={sectionContent} />;

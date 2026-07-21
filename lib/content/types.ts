@@ -420,9 +420,14 @@ export type PortfolioProjectCard = {
   highlights: readonly string[];
   imageSrc: string;
   imageAlt: string;
-  externalUrl: string;
+  /** Omit when no dedicated microsite — only “Express interest” is shown. */
+  externalUrl?: string;
+  /** Public PDF path — unlocked after a successful enquiry for this project. */
+  brochurePdf?: string;
   developerName: string;
   badge?: string;
+  /** Set to false to hide from listings without removing content. */
+  enabled?: boolean;
 };
 
 export type ProjectPortfolioContent = {
@@ -444,6 +449,25 @@ export type AboutBrandContent = {
   /** Optional in-page link to the hub services route. */
   servicesHref?: string;
   servicesLinkLabel?: string;
+};
+
+export type TestimonialItem = {
+  id: string;
+  quote: string;
+  author: string;
+  role: string;
+  /** Display label e.g. "4 months ago". */
+  timeAgo: string;
+};
+
+export type TestimonialsContent = {
+  heading: SectionHeadingContent;
+  rating: {
+    score: number;
+    maxScore: number;
+    summary: string;
+  };
+  items: readonly TestimonialItem[];
 };
 
 /** Slider bounds + defaults for the interactive home-loan EMI tool. */
@@ -495,4 +519,5 @@ export type ProjectContentPack = {
   projectPortfolio?: ProjectPortfolioContent;
   about?: AboutBrandContent;
   emiCalculator?: EmiCalculatorContent;
+  testimonials?: TestimonialsContent;
 };

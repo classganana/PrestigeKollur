@@ -8,6 +8,7 @@ export const goldenDoorsSectionManifest: SectionManifest = [
   { id: "project-portfolio" },
   { id: "emi-calculator" },
   { id: "about", variant: "brand-stats" },
+  { id: "testimonials" },
   { id: "trust" },
   { id: "cta-footer" },
 ];
