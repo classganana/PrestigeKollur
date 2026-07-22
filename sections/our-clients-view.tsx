@@ -6,11 +6,11 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import { staggerChild, staggerContainer } from "@/animations";
 import { OpenConciergeButton } from "@/components/conversion/open-concierge-button";
-import { ClientLogoMarquee } from "@/components/golden-doors/client-logo-marquee";
+import { ClientLogoGrid } from "@/components/golden-doors/client-logo-grid";
 import { Container } from "@/components/ui/container";
 import type { ClientsPageContent } from "@/projects/golden-doors/content/clients-page";
 
-/** Client gallery — scrolling developer logos. */
+/** Client gallery — developer logos in a centered grid. */
 export function OurClientsView({ content }: { content: ClientsPageContent }) {
   const reduceMotion = useReducedMotion();
   const { heading, logoMarquee, footnote, ctaLabel, ctaLead } = content;
@@ -67,9 +67,9 @@ export function OurClientsView({ content }: { content: ClientsPageContent }) {
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="-mx-[var(--container-pad,1rem)] mt-12 sm:mx-0"
+            className="mt-12"
           >
-            <ClientLogoMarquee logos={logoMarquee} />
+            <ClientLogoGrid logos={logoMarquee} />
           </motion.div>
         ) : null}
 
