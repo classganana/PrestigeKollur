@@ -10,46 +10,60 @@ type ClientLogoMarqueeProps = {
   className?: string;
 };
 
+function LogoStrip({ logos }: { logos: readonly ClientLogo[] }) {
+  return (
+    <>
+      {logos.map((logo) => (
+        <div
+          key={logo.id}
+          className="relative mx-4 h-14 w-28 shrink-0 sm:mx-6 sm:h-16 sm:w-36 md:h-20 md:w-40"
+        >
+          <Image
+            src={logo.src}
+            alt={logo.name}
+            fill
+            sizes="(max-width: 640px) 128px, 160px"
+            className="pointer-events-none object-contain select-none"
+            draggable={false}
+            unoptimized
+          />
+        </div>
+      ))}
+    </>
+  );
+}
+
 /**
- * Infinite horizontal logo strip — mirrors the client reference marquee.
+ * Infinite horizontal logo strip — auto-scroll only; no hover pause or touch scroll.
  */
 export function ClientLogoMarquee({ logos, className }: ClientLogoMarqueeProps) {
   if (logos.length === 0) return null;
 
-  const loop = [...logos, ...logos];
-
   return (
     <div
+      aria-hidden
       className={cn(
-        "group relative overflow-hidden border-y border-[#C9A227]/20 bg-[#FAF7EF]/[0.04]",
+        "relative overflow-hidden border-y border-[#C9A227]/20 bg-[#FAF7EF]/[0.04]",
+        "touch-none select-none",
         className,
       )}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#0c0906] to-transparent sm:w-24"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#0c0906] to-transparent sm:w-24"
-      />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#0c0906] to-transparent sm:w-20" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#0c0906] to-transparent sm:w-20" />
 
-      <div className="flex animate-gd-client-scroll-fast items-center whitespace-nowrap py-5 will-change-transform transform-gpu sm:animate-gd-client-scroll group-hover:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-6 motion-reduce:whitespace-normal motion-reduce:py-8">
-        {loop.map((logo, index) => (
-          <div
-            key={`${logo.id}-${index}`}
-            className="relative mx-6 h-16 w-36 shrink-0 sm:mx-8 sm:h-20 sm:w-40"
-          >
-            <Image
-              src={logo.src}
-              alt={logo.name}
-              fill
-              sizes="160px"
-              className="object-contain"
-              unoptimized
-            />
-          </div>
-        ))}
+      <div
+        className={cn(
+          "pointer-events-none flex w-max flex-nowrap py-4 sm:py-5",
+          "animate-gd-client-scroll-fast will-change-transform transform-gpu sm:animate-gd-client-scroll",
+          "motion-reduce:animate-none motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:overflow-hidden",
+        )}
+      >
+        <div className="flex shrink-0 flex-nowrap">
+          <LogoStrip logos={logos} />
+        </div>
+        <div className="flex shrink-0 flex-nowrap">
+          <LogoStrip logos={logos} />
+        </div>
       </div>
     </div>
   );

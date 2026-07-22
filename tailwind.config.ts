@@ -122,8 +122,8 @@ const config = {
       },
       animation: {
         veil: "veil 12s linear infinite alternate",
-        "gd-client-scroll-fast": "gd-client-scroll 5s linear infinite",
-        "gd-client-scroll": "gd-client-scroll 13s linear infinite",
+        "gd-client-scroll-fast": "gd-client-scroll 6.6s linear infinite",
+        "gd-client-scroll": "gd-client-scroll 17.16s linear infinite",
       },
     },
   },
